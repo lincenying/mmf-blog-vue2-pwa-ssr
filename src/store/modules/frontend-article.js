@@ -16,9 +16,8 @@ const state = {
 }
 
 const actions = {
-    async ['getArticleList']({commit, state, rootState: {global, route: { fullPath }}}, config) {
-        const path = fullPath
-        if (state.lists.data.length > 0 && path === state.lists.path && config.page === 1) {
+    async ['getArticleList']({commit, state}, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
             global.progress = 100
             return
         }
@@ -27,20 +26,18 @@ const actions = {
             commit('receiveArticleList', {
                 ...config,
                 ...data,
-                path
             })
         }
     },
-    async ['getArticleItem']({ commit, state, rootState: {route: { path, params: { id }}} }) {
-        if (path === state.item.path) {
-            global.progress = 100
+    async ['getArticleItem']({ commit, state }, config) {
+        if (config.path === state.item.path) {
             return
         }
-        const { data: { data, code} } = await api.get('frontend/article/item', { id, markdown: 1, cache: true })
+        const { data: { data, code} } = await api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             commit('receiveArticleItem', {
                 data,
-                path
+                ...config
             })
         }
     },

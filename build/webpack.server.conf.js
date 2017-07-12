@@ -28,7 +28,9 @@ module.exports = merge(base, {
     },
     resolve: {
         alias: {
-            'iscroll/build/iscroll-lite$': resolve('./src/iscroll-ssr.js')
+            'iscroll/build/iscroll-lite$': resolve('./src/iscroll-ssr.js'),
+            '~api': path.resolve(__dirname, '../src/api/index-server'),
+            'api-config': path.resolve(__dirname, '../src/api/config-server')
         }
     },
     // https://webpack.js.org/configuration/externals/#externals

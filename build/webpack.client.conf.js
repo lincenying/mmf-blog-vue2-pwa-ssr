@@ -22,7 +22,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
-            extract: true
+            extract: process.env.NODE_ENV === 'production'
         })
     },
     devtool: config.build.productionSourceMap ? '#source-map' : false,

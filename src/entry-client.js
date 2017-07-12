@@ -9,6 +9,11 @@ import FastClick from 'fastclick'
 import {createApp} from './app'
 import ProgressBar from '@/components/ProgressBar.vue'
 
+import "./assets/css/hljs/googlecode.css"
+import "./assets/css/style.css"
+import "./assets/less/frontend.less"
+import "toastr/build/toastr.css"
+
 // 全局的进度条，在组件中可通过 $loading 访问
 const loading = Vue.prototype.$loading = new Vue(ProgressBar).$mount()
 const {app, router, store} = createApp()
@@ -21,13 +26,10 @@ document.body.appendChild(loading.$el)
 FastClick.attach(document.body)
 
 Vue.mixin({
-
     // 当复用的路由组件参数发生变化时，例如/detail/1 => /detail/2
     beforeRouteUpdate(to, from, next) {
-
         // asyncData方法中包含异步数据请求
         const asyncData = this.$options.asyncData
-
         if (asyncData) {
             loading.start()
             asyncData.call(this, {
@@ -47,13 +49,16 @@ Vue.mixin({
     beforeRouteEnter(to, from, next) {
         next(vm => {
             // 通过 `vm` 访问组件实例
-            vm.$el.scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
+            vm.$nextTick().then(() => {
+                console.log('a1')
+                document.body.scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
+            })
         })
     },
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('appShell/saveScrollTop', {
             path: from.fullPath,
-            scrollTop: this.$el.scrollTop
+            scrollTop: document.body.scrollTop
         })
         next()
     }

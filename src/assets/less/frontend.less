@@ -1,4 +1,35 @@
 /* app.vue */
+.slide-left-enter-active, .slide-left-leave-active,
+.slide-right-enter-active, .slide-right-leave-active {
+    transition: all 0.3s ease;
+}
+.slide-left-enter, .slide-right-enter {
+    opacity: 1;
+    transform: translate3d(0, 100px, 0);
+}
+.slide-right-leave-active, .slide-left-leave-active {
+    opacity: 0;
+    transform: translate3d(100px, 0, 0);
+}
+@media (max-width: 540px) {
+    .slide-left-enter-active, .slide-left-leave-active,
+    .slide-right-enter-active, .slide-right-leave-active {
+        transition: all 0.3s cubic-bezier(.55, 0, .1, 1);
+    }
+    .slide-left-enter {
+        transform: translate(100%, 0);
+    }
+    .slide-right-enter {
+        transform: translate(-100%, 0);
+    }
+    .slide-right-leave-active {
+        transform: translate(100%, 0);
+    }
+    .slide-left-leave-active {
+        transform: translate(-100%, 0);
+    }
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: all 0.3s ease;
 }
@@ -16,7 +47,7 @@
 .beian i {
     width: 14px;
     height: 14px;
-    background: url(//ww4.sinaimg.cn/large/005uQRNCgw1f9xoio7mdej300k00k3y9.jpg);
+    background: url('//ww4.sinaimg.cn/large/005uQRNCgw1f9xoio7mdej300k00k3y9.jpg');
     background-size: cover;
     display: inline-block;
     vertical-align: top;

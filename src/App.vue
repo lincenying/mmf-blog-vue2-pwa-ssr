@@ -49,10 +49,10 @@ export default {
     },
     methods: {
         handleBeforeEnter() {
-            this.setPageSwitching(true)
+            this.$store.dispatch('appShell/setPageSwitching', true)
         },
         handleAfterEnter() {
-            this.setPageSwitching(false)
+            this.$store.dispatch('appShell/setPageSwitching', false)
         },
         handleClickHeaderBack() {
             this.$router.go(-1)
