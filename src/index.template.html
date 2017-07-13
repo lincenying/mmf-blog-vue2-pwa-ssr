@@ -13,9 +13,12 @@
         <link rel="apple-touch-icon" href="/dist/static/img/icons/apple-touch-icon-152x152.png">
         <meta name="msapplication-TileImage" content="/dist/static/img/icons/msapplication-icon-144x144.png">
         <meta name="msapplication-TileColor" content="#000000">
+        <link href="/static/editor.md/css/editormd.css" rel="stylesheet"/>
     </head>
     <body>
         <!--vue-ssr-outlet-->
+        <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="/static/editor.md/editormd.min.js"></script>
         <% if (isProd) { %>
         <script>
             window.onload = function () {
