@@ -163,7 +163,8 @@ function render(req, res) {
     }
 
     const context = {
-        title: 'Lavas', // default title
+        // default title
+        title: 'Lavas',
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {
