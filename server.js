@@ -125,7 +125,7 @@ const microCache = lurCache({
 // if your app involves user-specific content, you need to implement custom
 // logic to determine whether a request is cacheable based on its url and
 // headers.
-const isCacheable = req => useMicroCache
+const isCacheable = () => useMicroCache
 
 function render(req, res) {
     const s = Date.now()
