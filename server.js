@@ -34,7 +34,7 @@ const serverInfo = ''
 
 const app = express()
 
-const template = fs.readFileSync(resolve('./src/index.template.html'), 'utf-8')
+const template = fs.readFileSync(resolve('./src/template/index.template.html'), 'utf-8')
 
 function createRenderer(bundle, options) {
 

@@ -75,6 +75,7 @@ export default {
         if (this.category.length <= 0) {
             fetchInitialData(this.$store)
         }
+        console.log(window)
         // eslint-disable-next-line
         window.postEditor = editormd("post-content", {
             width: "100%",
