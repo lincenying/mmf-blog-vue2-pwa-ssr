@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('shelljs/global')
 
 rm('-rf', './dist/')
