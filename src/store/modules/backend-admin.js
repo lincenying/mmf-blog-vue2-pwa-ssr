@@ -15,12 +15,15 @@ const state = {
 }
 
 const actions = {
-    async ['getAdminList'] ({commit, rootState: {route: { path }}}, config) {
+    async ['getAdminList'] ({commit}, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
+            return
+        }
         const { data: { data, code} } = await api.get('backend/admin/list', {...config, cache: true})
         if (data && code === 200) {
             commit('receiveAdminList', {
                 ...data,
-                path,
+                path: config.path,
                 page: config.page
             })
         }

@@ -42,7 +42,8 @@ export default function (context) {
             // updated.
             Promise.all(matchedComponents.map(({asyncData}) => asyncData && asyncData({
                 store,
-                route: router.currentRoute
+                route: router.currentRoute,
+                cookies: context.cookies
             }))).then(() => {
                 console.log(`data pre-fetch: ${Date.now() - s}ms`)
 

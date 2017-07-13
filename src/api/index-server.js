@@ -3,7 +3,7 @@ import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
 
-const SSR = global.__VUE_SSR_CONTEXT__
+const SSR = global.SSR
 const cookies = SSR.cookies || {}
 const username = cookies.username || ''
 const parseCookie = cookies => {

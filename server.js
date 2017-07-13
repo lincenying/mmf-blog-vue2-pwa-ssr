@@ -161,12 +161,13 @@ function render(req, res) {
             return res.end(hit)
         }
     }
-
     const context = {
         // default title
-        title: 'Lavas',
-        url: req.url
+        title: 'M.M.F 小屋',
+        url: req.url,
+        cookies: req.cookies,
     }
+    global.SSR = context
     renderer.renderToString(context, (err, html) => {
         if (err) {
             return handleError(err)

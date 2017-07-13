@@ -27,11 +27,16 @@
 <script lang="babel">
 import api from '~api'
 import { mapGetters } from 'vuex'
-const fetchInitialData = async (store, config = { page: 1}) => {
-    await store.dispatch('backend/admin/getAdminList', config)
-}
+
 export default {
     name: 'backend-admin-list',
+    async asyncData({store, route, cookies}, config = { page: 1}) {
+        console.log(cookies)
+        await store.dispatch('backend/admin/getAdminList', {
+            ...config,
+            path: route.path
+        })
+    },
     computed: {
         ...mapGetters({
             admin: 'backend/admin/getAdminList'
@@ -39,7 +44,7 @@ export default {
     },
     methods: {
         loadMore(page = this.admin.page + 1) {
-            fetchInitialData(this.$store, {page})
+            this.$options.asyncData({store: this.$store}, {page})
         },
         async recover(id) {
             const { data: { code, message} } = await api.get('backend/admin/recover', { id })
@@ -63,9 +68,7 @@ export default {
         }
     },
     mounted() {
-        if (this.admin.data.length <= 0) {
-            fetchInitialData(this.$store)
-        }
+
     }
 }
 </script>

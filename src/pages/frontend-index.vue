@@ -17,7 +17,6 @@
     </div>
 </template>
 <script lang="babel">
-import ls from 'store2'
 import { mapGetters } from 'vuex'
 import topicsItem from '../components/topics-item.vue'
 import topicsItemNone from '../components/topics-item-none.vue'
@@ -73,3 +72,7 @@ export default {
     }
 }
 </script>
+
+<style>
+    body {padding: 0;}
+</style>
