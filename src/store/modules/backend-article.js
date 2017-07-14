@@ -11,13 +11,15 @@ const state = {
 }
 
 const actions = {
-    async ['getArticleList'] ({commit, rootState: {route: { path, params: { page } }}}, config) {
+    async ['getArticleList'] ({commit, state}, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
+            return
+        }
         const { data: { data, code} } = await api.get('backend/article/list', config)
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...data,
-                path,
-                page: config.page
+                ...config,
             })
         }
     },

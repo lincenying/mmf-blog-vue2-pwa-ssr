@@ -31,6 +31,7 @@ import metaMixin from '~mixins'
 import account from '../components/aside-account.vue'
 import aInput from '../components/_input.vue'
 export default {
+    name: 'frontend-user-account',
     mixins: [metaMixin],
     data() {
         return {

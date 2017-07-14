@@ -50,7 +50,6 @@ export default {
         store.dispatch('frontend/article/getTrending')
         store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 5})
         await store.dispatch(`frontend/article/getArticleItem`, { id, path})
-        console.log('a2')
     },
     mixins: [metaMixin],
     beforeRouteUpdate(to, from, next) {

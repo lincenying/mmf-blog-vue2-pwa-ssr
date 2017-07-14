@@ -6,6 +6,7 @@
 
 <script lang="babel">
 export default {
+    name: 'back-top',
     data() {
         return {
             scrollTop: 0

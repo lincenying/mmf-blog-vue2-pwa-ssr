@@ -19,20 +19,23 @@
 
 <script lang="babel">
 import { mapGetters } from 'vuex'
-const fetchInitialData = async (store, config = { limit: 99}) => {
-    await store.dispatch('global/category/getCategoryList', config)
-}
+
 export default {
     name: 'backend-category-list',
+    async asyncData({store, route}, config = { limit: 99 }) {
+        config.all = 1
+        await store.dispatch('global/category/getCategoryList', {
+            ...config,
+            path: route.path
+        })
+    },
     computed: {
         ...mapGetters({
             category: 'global/category/getCategoryList'
         })
     },
     mounted() {
-        if (this.category.length <= 0) {
-            fetchInitialData(this.$store)
-        }
+
     }
 }
 </script>

@@ -15,7 +15,7 @@ const state = {
 }
 
 const actions = {
-    async ['getAdminList'] ({commit}, config) {
+    async ['getAdminList'] ({commit, state}, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
             return
         }
@@ -28,12 +28,12 @@ const actions = {
             })
         }
     },
-    async ['getAdminItem'] ({commit, rootState: {route: { path, params: { id } }}}) {
-        const { data: { data, code} } = await api.get('backend/admin/item', { id })
+    async ['getAdminItem'] ({commit}, config) {
+        const { data: { data, code} } = await api.get('backend/admin/item', config)
         if (data && code === 200) {
             commit('receiveAdminItem', {
                 data,
-                path
+                ...config
             })
         }
     }

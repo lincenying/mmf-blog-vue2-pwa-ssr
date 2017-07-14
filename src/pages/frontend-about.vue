@@ -57,8 +57,8 @@ import metaMixin from '~mixins'
 import trending from '../components/aside-trending.vue'
 
 export default {
-    name: 'frontend-index',
-    async asyncData({store, route}) {
+    name: 'frontend-about',
+    async asyncData({store}) {
         await store.dispatch('frontend/article/getTrending')
     },
     mixins: [metaMixin],

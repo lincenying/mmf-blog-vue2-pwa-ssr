@@ -35,7 +35,9 @@ Vue.mixin({
             loading.start()
             asyncData.call(this, {
                 store: this.$store,
-                route: to
+                route: to,
+                isServer: false,
+                isClient: true
             }).then(() => {
                 loading.finish()
                 next()
@@ -51,7 +53,6 @@ Vue.mixin({
         next(vm => {
             // 通过 `vm` 访问组件实例
             vm.$nextTick().then(() => {
-                console.log('a1')
                 document.body.scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
             })
         })
@@ -91,7 +92,9 @@ router.beforeResolve((to, from, next) => {
         if (c.asyncData && (!c.asyncDataFetched || to.meta.notKeepAlive)) {
             return c.asyncData({
                 store,
-                route: to
+                route: to,
+                isServer: false,
+                isClient: true
             }).then(() => {
                 c.asyncDataFetched = true
             })

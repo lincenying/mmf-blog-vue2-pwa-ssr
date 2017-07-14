@@ -18,7 +18,6 @@ const state = {
 const actions = {
     async ['getArticleList']({commit, state}, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
-            global.progress = 100
             return
         }
         const { data: { data, code} } = await api.get('frontend/article/list', {...config, cache: true})

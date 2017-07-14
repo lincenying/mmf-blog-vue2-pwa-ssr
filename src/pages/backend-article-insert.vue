@@ -30,11 +30,15 @@
 import api from '~api'
 import { mapGetters } from 'vuex'
 import aInput from '../components/_input.vue'
-const fetchInitialData = async (store, config = { limit: 99}) => {
-    await store.dispatch('global/category/getCategoryList', config)
-}
 export default {
     name: 'backend-article-insert',
+    async asyncData({store, route}, config = { limit: 99 }) {
+        config.all = 1
+        await store.dispatch('global/category/getCategoryList', {
+            ...config,
+            path: route.path
+        })
+    },
     data() {
         return {
             form: {
@@ -72,10 +76,6 @@ export default {
         }
     },
     mounted() {
-        if (this.category.length <= 0) {
-            fetchInitialData(this.$store)
-        }
-        console.log(window)
         // eslint-disable-next-line
         window.postEditor = editormd("post-content", {
             width: "100%",
