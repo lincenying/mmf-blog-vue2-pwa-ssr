@@ -24,6 +24,9 @@ const webpackConfig = merge(baseWebpackConfig, {
             extract: process.env.NODE_ENV === 'production'
         })
     },
+    externals: {
+        'jquery': 'jQuery'
+    },
     devtool: config.build.productionSourceMap ? '#source-map' : false,
     output: {
         path: config.build.assetsRoot,
