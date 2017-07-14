@@ -3,7 +3,7 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-import 'babel-polyfill'
+import './polyfill'
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import {createApp} from './app'
