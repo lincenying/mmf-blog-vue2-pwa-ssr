@@ -10,9 +10,6 @@ demo: [http://www.mmxiaowu.com](http://www.mmxiaowu.com)
 
 主要技术栈: express, mongoose, vue2, vue2-router, vuex, webpack, babel, eslint
 
-
-```
-
 ---
 
 #### 其他版本
