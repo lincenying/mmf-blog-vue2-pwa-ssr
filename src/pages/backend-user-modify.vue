@@ -78,6 +78,12 @@ export default {
             this.form.username = val.data.username
             this.form.email = val.data.email
         }
+    },
+    metaInfo () {
+        return {
+            title: '用户编辑 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

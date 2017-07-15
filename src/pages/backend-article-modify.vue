@@ -109,6 +109,12 @@ export default {
             const obj = this.category.find(item => item._id === val)
             this.form.category_name = obj.cate_name
         }
+    },
+    metaInfo () {
+        return {
+            title: '编辑文章 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

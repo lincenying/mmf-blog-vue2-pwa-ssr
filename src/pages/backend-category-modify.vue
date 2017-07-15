@@ -73,6 +73,12 @@ export default {
             this.form.cate_name = val.data.cate_name
             this.form.cate_order = val.data.cate_order
         }
+    },
+    metaInfo () {
+        return {
+            title: '编辑分类 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

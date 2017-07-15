@@ -68,6 +68,12 @@ export default {
     },
     mounted() {
 
+    },
+    metaInfo () {
+        return {
+            title: '管理员列表 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

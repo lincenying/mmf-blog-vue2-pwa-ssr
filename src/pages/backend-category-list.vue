@@ -36,6 +36,12 @@ export default {
     },
     mounted() {
 
+    },
+    metaInfo () {
+        return {
+            title: '分类列表 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>
