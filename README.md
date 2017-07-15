@@ -68,6 +68,34 @@ http://localhost:8080/api/backend
 
 管理员添加成功后, 会自动生成 admin.lock 文件锁定, 如果需要继续添加, 请把该文件删除
 
+## loadtest 测试
+
+```
+[Sat Jul 15 2017 10:53:20] INFO Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
+[Sat Jul 15 2017 10:53:25] INFO Requests: 356 (18%), requests per second: 71, mean latency: 14 ms
+[Sat Jul 15 2017 10:53:30] INFO Requests: 804 (40%), requests per second: 90, mean latency: 11.1 ms
+[Sat Jul 15 2017 10:53:35] INFO Requests: 1290 (65%), requests per second: 97, mean latency: 10.2 ms
+[Sat Jul 15 2017 10:53:40] INFO Requests: 1764 (88%), requests per second: 95, mean latency: 10.6 ms
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Target URL:          http://localhost:8080/
+[Sat Jul 15 2017 10:53:43] INFO Max requests:        2000
+[Sat Jul 15 2017 10:53:43] INFO Concurrency level:   1
+[Sat Jul 15 2017 10:53:43] INFO Agent:               none
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Completed requests:  2000
+[Sat Jul 15 2017 10:53:43] INFO Total errors:        0
+[Sat Jul 15 2017 10:53:43] INFO Total time:          22.645280754999998s
+[Sat Jul 15 2017 10:53:43] INFO Requests per second: 88
+[Sat Jul 15 2017 10:53:43] INFO Mean latency:        11.3 ms
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Percentage of the requests served within a certain time
+[Sat Jul 15 2017 10:53:43] INFO   50%      8 ms
+[Sat Jul 15 2017 10:53:43] INFO   90%      17 ms
+[Sat Jul 15 2017 10:53:43] INFO   95%      27 ms
+[Sat Jul 15 2017 10:53:43] INFO   99%      38 ms
+[Sat Jul 15 2017 10:53:43] INFO  100%      438 ms (longest request)
+```
+
 # LICENSE
 
 MIT
