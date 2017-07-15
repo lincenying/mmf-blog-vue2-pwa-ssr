@@ -130,7 +130,7 @@ const microCache = lurCache({
 // headers.
 const isCacheable = () => useMicroCache
 
-function checkAdminToken(req, res) {
+const checkAdminToken = (req, res) => {
     var token = req.cookies.b_user,
         userid = req.cookies.b_userid,
         username = req.cookies.b_username
@@ -152,7 +152,7 @@ function checkAdminToken(req, res) {
     return false
 }
 
-function checkUserToken(req, res) {
+const checkUserToken = (req, res) => {
     var token = req.cookies.user,
         userid = req.cookies.userid,
         username = req.cookies.username
@@ -174,7 +174,7 @@ function checkUserToken(req, res) {
     return '/'
 }
 
-function checkAdmin(req, res) {
+const checkAdmin = (req, res) => {
     if (req.url === '/backend' || req.url === '/backend/') {
         return checkAdminToken(req, res) ? '/backend/article/list' : ''
     } else if (req.url.indexOf('/backend/') > -1) {
