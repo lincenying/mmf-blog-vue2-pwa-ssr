@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         loadMore(page = this.topics.page + 1) {
-            this.$optins.asyncData({store: this.$store, route: this.$route}, {page})
+            this.$options.asyncData({store: this.$store, route: this.$route}, {page})
         },
         async recover(id) {
             const { data: { code, message} } = await api.get('backend/article/recover', { id })
