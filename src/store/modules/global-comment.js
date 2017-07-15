@@ -11,7 +11,6 @@ const state = {
 
 const actions = {
     async ['getCommentList']({commit, state}, config) {
-        console.log(config, state.lists.path)
         if (config.path === state.lists.path && config.page === 1) {
             return
         }
