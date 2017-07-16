@@ -34,7 +34,6 @@ export default {
     async asyncData({store, route}, config = { page: 1 }) {
         config.all = 1
         config.id = route.params.id
-        console.log(config)
         await store.dispatch('global/comment/getCommentList', {
             ...config,
             path: route.path

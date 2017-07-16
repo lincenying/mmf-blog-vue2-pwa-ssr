@@ -30,7 +30,8 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-admin-list',
-    async asyncData({store, route}, config = { page: 1}) {
+    async asyncData({store, route, cookies}, config = { page: 1}) {
+        config.cookies = cookies
         await store.dispatch('backend/admin/getAdminList', {
             ...config,
             path: route.path

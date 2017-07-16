@@ -229,7 +229,6 @@ function render(req, res) {
         url: req.url,
         cookies: req.cookies,
     }
-    global.SSR = context
     renderer.renderToString(context, (err, html) => {
         if (err) {
             return handleError(err)

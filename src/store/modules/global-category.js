@@ -15,7 +15,6 @@ const actions = {
     },
     async ['getCategoryItem'] ({commit}, config) {
         const { data: { data, code} } = await api.get('backend/category/item', config)
-        console.log(code)
         if (data && code === 200) {
             commit('receiveCategoryItem', {
                 data,

@@ -28,8 +28,9 @@ import aInput from '~components/_input.vue'
 
 export default {
     name: 'backend-user-modify',
-    async asyncData({store, route}) {
+    async asyncData({store, route, cookies}) {
         await store.dispatch('backend/user/getUserItem', {
+            cookies,
             id: route.params.id,
             path: route.path
         })

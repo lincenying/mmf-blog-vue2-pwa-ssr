@@ -3,9 +3,8 @@ import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
 
-const SSR = global.SSR
-const cookies = SSR.cookies || {}
-const username = cookies.username || ''
+// const SSR = global.__VUE_SSR_CONTEXT__
+// const SSRCookies = SSR.cookies || {}
 const parseCookie = cookies => {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
@@ -15,7 +14,8 @@ const parseCookie = cookies => {
 }
 
 export default {
-    post(url, data) {
+    post(url, data, cookies = {}) {
+        const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(data) + username)
         if (config.cached && config.cached.has(key)) {
@@ -36,7 +36,8 @@ export default {
             return res
         })
     },
-    get(url, params) {
+    get(url, params, cookies = {}) {
+        const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(params) + username)
         if (config.cached && config.cached.has(key)) {
