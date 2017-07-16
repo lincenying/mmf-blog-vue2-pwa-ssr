@@ -13,9 +13,6 @@
 import actions from './item-actions.vue'
 export default {
     name: 'topics-item',
-    serverCacheKey: props => {
-        return `frontend::topics::item::${props.item._id}`
-    },
     props: ['item'],
     data () {
         return {

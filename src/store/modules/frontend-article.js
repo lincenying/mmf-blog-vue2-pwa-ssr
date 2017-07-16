@@ -1,6 +1,6 @@
 import api from '~api'
 
-const state = {
+const state = () => ({
     lists: {
         data: [],
         hasNext: 0,
@@ -13,7 +13,7 @@ const state = {
         isLoad: false
     },
     trending: []
-}
+})
 
 const actions = {
     async ['getArticleList']({commit, state}, config) {

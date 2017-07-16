@@ -3,12 +3,12 @@ import {inBrowser} from '~utils'
 
 toastr.options.positionClass = 'toast-top-center'
 
-const state = {
+const state = () => ({
     loading: false,
     cookies: {},
     showLoginModal: false,
     showRegisterModal: false
-}
+})
 
 const actions = {
     ['showMsg'](store, config) {

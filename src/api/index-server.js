@@ -18,7 +18,7 @@ export default {
         const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(data) + username)
-        if (config.cached && config.cached.has(key)) {
+        if (config.cached && data.cache && config.cached.has(key)) {
             return Promise.resolve(config.cached.get(key))
         }
         return axios({
@@ -40,7 +40,7 @@ export default {
         const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(params) + username)
-        if (config.cached && config.cached.has(key)) {
+        if (config.cached && params.cache && config.cached.has(key)) {
             return Promise.resolve(config.cached.get(key))
         }
         return axios({

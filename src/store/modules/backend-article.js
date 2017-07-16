@@ -1,6 +1,6 @@
 import api from '~api'
 
-const state = {
+const state = () => ({
     lists: {
         data: [],
         path: '',
@@ -8,7 +8,7 @@ const state = {
         hasPrev: 0,
         page: 1
     }
-}
+})
 
 const actions = {
     async ['getArticleList'] ({commit, state}, config) {

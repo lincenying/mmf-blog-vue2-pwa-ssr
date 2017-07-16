@@ -1,6 +1,6 @@
 import api from '~api'
 
-const state = {
+const state = () => ({
     lists: {
         hasNext: false,
         hasPrev: false,
@@ -12,7 +12,7 @@ const state = {
         data: {},
         path: ''
     }
-}
+})
 
 const actions = {
     async ['getAdminList'] ({commit, state}, config) {
