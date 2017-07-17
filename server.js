@@ -2,6 +2,9 @@
  * @file render server
  * @author lincenying(lincenying@qq.com)
  */
+var jwt = require('jsonwebtoken')
+var config = require('./server/config')
+var secret = config.secretServer
 
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
@@ -127,20 +130,77 @@ const microCache = lurCache({
 // headers.
 const isCacheable = () => useMicroCache
 
-function render(req, res) {
-    const s = Date.now()
+const checkAdminToken = (req, res) => {
+    var token = req.cookies.b_user,
+        userid = req.cookies.b_userid,
+        username = req.cookies.b_username
+    if (token) {
+        return new Promise(resolve => {
+            jwt.verify(token, secret, function(err, decoded) {
+                if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
+                    req.decoded = decoded
+                    resolve(true)
+                } else {
+                    res.cookie('b_user', '', { maxAge: 0 })
+                    res.cookie('b_userid', '', { maxAge: 0 })
+                    res.cookie('b_username', '', { maxAge: 0 })
+                    resolve(false)
+                }
+            })
+        })
+    }
+    return false
+}
 
+const checkUserToken = (req, res) => {
+    var token = req.cookies.user,
+        userid = req.cookies.userid,
+        username = req.cookies.username
+    if (token) {
+        return new Promise(resolve => {
+            jwt.verify(token, secret, function(err, decoded) {
+                if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
+                    req.decoded = decoded
+                    resolve('')
+                } else {
+                    res.cookie('user', '', { maxAge: 0 })
+                    res.cookie('userid', '', { maxAge: 0 })
+                    res.cookie('username', '', { maxAge: 0 })
+                    resolve('/')
+                }
+            })
+        })
+    }
+    return '/'
+}
+
+const checkAdmin = (req, res) => {
+    if (req.url === '/backend' || req.url === '/backend/') {
+        return checkAdminToken(req, res) ? '/backend/article/list' : ''
+    } else if (req.url.indexOf('/backend/') > -1) {
+        return checkAdminToken(req, res) ? '' : '/backend'
+    } else if (req.url.indexOf('/user/') > -1) {
+        return checkUserToken(req, res)
+    }
+    return ''
+}
+
+function render(req, res) {
+    const backUrl = checkAdmin(req, res)
+    if (backUrl) {
+        return res.redirect(backUrl)
+    }
+
+    const s = Date.now()
     res.setHeader('Content-Type', 'text/html')
     res.setHeader('Server', serverInfo)
 
     const handleError = err => {
         if (err.url) {
             res.redirect(err.url)
-        }
-        else if (err.code === 404) {
+        } else if (err.code === 404) {
             res.status(404).end('404 | Page Not Found')
-        }
-        else {
+        } else {
 
             // Render Error Page or Redirect
             res.status(500).end('500 | Internal Server Error')
@@ -167,7 +227,6 @@ function render(req, res) {
         url: req.url,
         cookies: req.cookies,
     }
-    global.SSR = context
     renderer.renderToString(context, (err, html) => {
         if (err) {
             return handleError(err)

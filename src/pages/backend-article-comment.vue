@@ -34,7 +34,6 @@ export default {
     async asyncData({store, route}, config = { page: 1 }) {
         config.all = 1
         config.id = route.params.id
-        console.log(config)
         await store.dispatch('global/comment/getCommentList', {
             ...config,
             path: route.path
@@ -47,7 +46,7 @@ export default {
     },
     methods: {
         loadMore(page = this.comments.page + 1) {
-            this.$optins.asyncData({store: this.$store, route: this.$route}, {page})
+            this.$options.asyncData({store: this.$store, route: this.$route}, {page})
         },
         async recover(id) {
             const { data: { code, message} } = await api.get('frontend/comment/recover', { id })
@@ -72,6 +71,12 @@ export default {
     },
     mounted() {
 
+    },
+    metaInfo () {
+        return {
+            title: '评论列表 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

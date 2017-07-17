@@ -5,7 +5,7 @@
 
 import {createApp} from './app'
 
-const isDev = process.env.NODE_ENV !== 'production'
+// const isDev = process.env.NODE_ENV !== 'production'
 
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the
@@ -14,7 +14,7 @@ const isDev = process.env.NODE_ENV !== 'production'
 // return a Promise that resolves to the app instance.
 export default function (context) {
     return new Promise((resolve, reject) => {
-        const s = isDev && Date.now()
+        const s = Date.now()
         const {app, router, store} = createApp()
 
         const url = context.url

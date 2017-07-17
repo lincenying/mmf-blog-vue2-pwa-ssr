@@ -54,6 +54,12 @@ export default {
                 window.location.href= '/backend/article/list'
             }
         }
+    },
+    metaInfo () {
+        return {
+            title: '管理员登录 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

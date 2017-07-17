@@ -9,6 +9,9 @@ import {createStore} from './store'
 import App from './App.vue'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
+import titleMixin from './mixins'
+
+Vue.mixin(titleMixin)
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])

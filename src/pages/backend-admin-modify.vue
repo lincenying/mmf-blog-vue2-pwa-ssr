@@ -28,8 +28,9 @@ import backendMenu from '~components/backend-menu.vue'
 import aInput from '~components/_input.vue'
 export default {
     name: 'backend-admin-modify',
-    async asyncData({store, route}) {
+    async asyncData({store, route, cookies}) {
         await store.dispatch('backend/admin/getAdminItem', {
+            cookies,
             id: route.params.id,
             path: route.path
         })
@@ -78,6 +79,12 @@ export default {
         item(val) {
             this.form.username = val.data.username
             this.form.email = val.data.email
+        }
+    },
+    metaInfo () {
+        return {
+            title: '编辑管理员 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
         }
     }
 }

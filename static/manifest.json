@@ -1,6 +1,6 @@
 {
-  "name": "mmf-blog-vue2-pwa-ssr",
-  "short_name": "mmf-blog-vue2-pwa-ssr",
+  "name": "M.M.F小屋",
+  "short_name": "M.M.F小屋",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",

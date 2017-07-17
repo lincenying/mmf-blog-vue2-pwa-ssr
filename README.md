@@ -1,31 +1,101 @@
-# mmf-blog-vue2-pwa-ssr
+# mmf-blog vuejs 2.0 服务端渲染 v2版
 
-> 这是一个 pwa 项目
+demo: [http://www.mmxiaowu.com](http://www.mmxiaowu.com)
 
-## npm 相关命令
+## 说明
 
-``` bash
-# 安装工程依赖
-npm install
+本站服务端采用 express + mongoDB 搭建, 客户端采用 Vue2 的服务端渲染搭建
 
-# 更新工程依赖
-npm update
+主要功能包括: 管理员, 用户, 分类, 文章, 评论, 文章点赞
 
-# 在 localhost:8080 上启动带有热更新机制的开发服务器
-npm run dev
+主要技术栈: express, mongoose, vue2, vue2-router, vuex, webpack, babel, eslint
 
-# 构建线上生产环境产物
-npm run build
+---
 
-# 当执行 npm run build 之后，在 localhost:8080 启动 Node.js server
-npm run start
+#### 其他版本
 
-# 检查您的代码是否规范
-npm run lint
+react spa版本: [https://github.com/lincenying/mmf-blog-react-v2](https://github.com/lincenying/mmf-blog-react-v2)
 
-# 构建线上生产环境产物并且查看构建分析报告
-npm run build --report
+vue2 spa版本: [https://github.com/lincenying/mmf-blog-vue2](https://github.com/lincenying/mmf-blog-vue2)
+
+vue2 ssr版本: [https://github.com/lincenying/mmf-blog-vue2-ssr](https://github.com/lincenying/mmf-blog-vue2-ssr)
+
+vue2 pwa ssr版本: [https://github.com/lincenying/mmf-blog-vue2-pwa-ssr](https://github.com/lincenying/mmf-blog-vue2-pwa-ssr)
+
+---
+
+```
+配置文件: src/api/config-client.js (浏览器端)
+api: api地址 (如果 api 服务器和网站服务器是同一个域名, 或者用了反向代理, 可以直接用省去域名的绝对路径, 如: /api/)
+配置文件: src/api/config-server.js (服务器端)
+api: api地址 (如果 api 服务器 和网站服务器在同一台主机, 可以用本地地址, 如: http://localhost:8080)
+port: 启动端口
 ```
 
-Lavas 工程模版基于 [vue-template](https://github.com/vuejs-templates/webpack) 模版创建。
-如果想要了解具体如何玩转整个 Lavas 创建的 PWA 工程, 请查看 [vue-template 指南](http://vuejs-templates.github.io/webpack/) 和 [vue-loader 指南](http://vuejs.github.io/vue-loader)。
+## 准备工作:
+安装 NodeJS:
+https://nodejs.org/zh-cn/
+
+安装 Mongodb:
+https://www.mongodb.com/download-center#community
+
+```shell
+# 安装依赖
+$ npm install
+
+# 或者
+$ yarn
+# 注意: 不要用 cnpm 安装依赖
+
+# 开发模式
+$ npm run dev
+
+# 生产模式
+$ npm run build
+
+# 启动(需先运行 npm run build )
+$ npm run start
+```
+
+首页
+http://localhost:8080
+
+登录
+http://localhost:8080/backend
+
+添加管理员
+http://localhost:8080/api/backend
+
+管理员添加成功后, 会自动生成 admin.lock 文件锁定, 如果需要继续添加, 请把该文件删除
+
+## loadtest 测试
+
+```
+[Sat Jul 15 2017 10:53:20] INFO Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
+[Sat Jul 15 2017 10:53:25] INFO Requests: 356 (18%), requests per second: 71, mean latency: 14 ms
+[Sat Jul 15 2017 10:53:30] INFO Requests: 804 (40%), requests per second: 90, mean latency: 11.1 ms
+[Sat Jul 15 2017 10:53:35] INFO Requests: 1290 (65%), requests per second: 97, mean latency: 10.2 ms
+[Sat Jul 15 2017 10:53:40] INFO Requests: 1764 (88%), requests per second: 95, mean latency: 10.6 ms
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Target URL:          http://localhost:8080/
+[Sat Jul 15 2017 10:53:43] INFO Max requests:        2000
+[Sat Jul 15 2017 10:53:43] INFO Concurrency level:   1
+[Sat Jul 15 2017 10:53:43] INFO Agent:               none
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Completed requests:  2000
+[Sat Jul 15 2017 10:53:43] INFO Total errors:        0
+[Sat Jul 15 2017 10:53:43] INFO Total time:          22.645280754999998s
+[Sat Jul 15 2017 10:53:43] INFO Requests per second: 88
+[Sat Jul 15 2017 10:53:43] INFO Mean latency:        11.3 ms
+[Sat Jul 15 2017 10:53:43] INFO
+[Sat Jul 15 2017 10:53:43] INFO Percentage of the requests served within a certain time
+[Sat Jul 15 2017 10:53:43] INFO   50%      8 ms
+[Sat Jul 15 2017 10:53:43] INFO   90%      17 ms
+[Sat Jul 15 2017 10:53:43] INFO   95%      27 ms
+[Sat Jul 15 2017 10:53:43] INFO   99%      38 ms
+[Sat Jul 15 2017 10:53:43] INFO  100%      438 ms (longest request)
+```
+
+# LICENSE
+
+MIT

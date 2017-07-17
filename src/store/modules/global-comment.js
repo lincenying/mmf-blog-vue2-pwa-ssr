@@ -1,17 +1,16 @@
 import api from '~api'
 
-const state = {
+const state = () => ({
     lists: {
         data: [],
         hasNext: 0,
         page: 1,
         path: ''
     }
-}
+})
 
 const actions = {
     async ['getCommentList']({commit, state}, config) {
-        console.log(config, state.lists.path)
         if (config.path === state.lists.path && config.page === 1) {
             return
         }

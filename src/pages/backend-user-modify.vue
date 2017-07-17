@@ -28,8 +28,9 @@ import aInput from '~components/_input.vue'
 
 export default {
     name: 'backend-user-modify',
-    async asyncData({store, route}) {
+    async asyncData({store, route, cookies}) {
         await store.dispatch('backend/user/getUserItem', {
+            cookies,
             id: route.params.id,
             path: route.path
         })
@@ -77,6 +78,12 @@ export default {
         item(val) {
             this.form.username = val.data.username
             this.form.email = val.data.email
+        }
+    },
+    metaInfo () {
+        return {
+            title: '用户编辑 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
         }
     }
 }

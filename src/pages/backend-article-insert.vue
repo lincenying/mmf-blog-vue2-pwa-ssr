@@ -94,6 +94,12 @@ export default {
             watch : false,
             saveHTMLToTextarea : true
         })
+    },
+    metaInfo () {
+        return {
+            title: '发布文章 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

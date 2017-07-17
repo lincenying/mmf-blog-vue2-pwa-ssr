@@ -51,6 +51,12 @@ export default {
                 this.$router.push('/backend/category/list')
             }
         }
+    },
+    metaInfo () {
+        return {
+            title: '添加分类 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
     }
 }
 </script>

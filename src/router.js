@@ -115,7 +115,7 @@ const guardRoute = (to, from, next) => {
 const guardRouteBackend = (to, from, next) => {
     const token = cookies.get('b_user') || !inBrowser
     if (!token) {
-        next('/')
+        next('/backend')
     } else {
         next()
     }
@@ -131,27 +131,27 @@ export function createRouter() {
             { name:'trending', path: '/trending/:by', component: index },
             { name:'category', path: '/category/:id', component: index },
             { name:'search', path: '/search/:key', component: index },
-            { name:'article', path: '/article/:id', component: article, meta: { scrollToTop: true, notKeepAlive: true } },
-            { name:'about', path: '/about', component: about, meta: { scrollToTop: true } },
-            { name:'account', path: '/user/account', component: account, meta: { scrollToTop: true }, beforeEnter: guardRoute },
-            { name:'password', path: '/user/password', component: password, meta: { scrollToTop: true }, beforeEnter: guardRoute },
+            { name:'article', path: '/article/:id', component: article, meta: { notKeepAlive: true } },
+            { name:'about', path: '/about', component: about },
+            { name:'account', path: '/user/account', component: account, beforeEnter: guardRoute },
+            { name:'password', path: '/user/password', component: password, beforeEnter: guardRoute },
 
             { name:'login', path: '/backend', component: login },
 
-            { name:'admin_list', path: '/backend/admin/list', component: adminList, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'admin_modify', path: '/backend/admin/modify/:id', component: adminModify, meta: { scrollToTop: true, notKeepAlive: true }, beforeEnter: guardRouteBackend },
+            { name:'admin_list', path: '/backend/admin/list', component: adminList, beforeEnter: guardRouteBackend },
+            { name:'admin_modify', path: '/backend/admin/modify/:id', component: adminModify, meta: { notKeepAlive: true }, beforeEnter: guardRouteBackend },
 
-            { name:'article_list', path: '/backend/article/list', component: articleList, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'article_insert', path: '/backend/article/insert', component: articleInsert, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'article_modify', path: '/backend/article/modify/:id', component: articleModify, meta: { scrollToTop: true, notKeepAlive: true }, beforeEnter: guardRouteBackend },
-            { name:'article_comment', path: '/backend/article/comment/:id', component: articleComment, meta: { scrollToTop: true, notKeepAlive: true }, beforeEnter: guardRouteBackend },
+            { name:'article_list', path: '/backend/article/list', component: articleList, beforeEnter: guardRouteBackend },
+            { name:'article_insert', path: '/backend/article/insert', component: articleInsert, beforeEnter: guardRouteBackend },
+            { name:'article_modify', path: '/backend/article/modify/:id', component: articleModify, meta: { notKeepAlive: true }, beforeEnter: guardRouteBackend },
+            { name:'article_comment', path: '/backend/article/comment/:id', component: articleComment, meta: { notKeepAlive: true }, beforeEnter: guardRouteBackend },
 
-            { name:'category_list', path: '/backend/category/list', component: categoryList, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'category_insert', path: '/backend/category/insert', component: categoryInsert, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'category_modify', path: '/backend/category/modify/:id', component: categoryModify, meta: { scrollToTop: true, notKeepAlive: true }, beforeEnter: guardRouteBackend },
+            { name:'category_list', path: '/backend/category/list', component: categoryList, beforeEnter: guardRouteBackend },
+            { name:'category_insert', path: '/backend/category/insert', component: categoryInsert, beforeEnter: guardRouteBackend },
+            { name:'category_modify', path: '/backend/category/modify/:id', component: categoryModify, meta: { notKeepAlive: true }, beforeEnter: guardRouteBackend },
 
-            { name:'user_list', path: '/backend/user/list', component: userList, meta: { scrollToTop: true }, beforeEnter: guardRouteBackend },
-            { name:'user_modify', path: '/backend/user/modify/:id', component: userModify, meta: { scrollToTop: true, notKeepAlive: true }, beforeEnter: guardRouteBackend },
+            { name:'user_list', path: '/backend/user/list', component: userList, beforeEnter: guardRouteBackend },
+            { name:'user_modify', path: '/backend/user/modify/:id', component: userModify, meta: { notKeepAlive: true }, beforeEnter: guardRouteBackend },
         ]
     })
 

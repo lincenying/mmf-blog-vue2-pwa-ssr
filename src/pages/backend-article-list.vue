@@ -31,7 +31,8 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-article-list',
-    async asyncData({store, route}, config = { page: 1 }) {
+    async asyncData({store, route, cookies}, config = { page: 1 }) {
+        config.cookies = cookies
         await store.dispatch('backend/article/getArticleList', {
             ...config,
             path: route.path
@@ -44,7 +45,7 @@ export default {
     },
     methods: {
         loadMore(page = this.topics.page + 1) {
-            this.$optins.asyncData({store: this.$store, route: this.$route}, {page})
+            this.$options.asyncData({store: this.$store, route: this.$route}, {page})
         },
         async recover(id) {
             const { data: { code, message} } = await api.get('backend/article/recover', { id })
@@ -70,5 +71,11 @@ export default {
     mounted() {
 
     },
+    metaInfo () {
+        return {
+            title: '文章列表 - M.M.F 小屋',
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+        }
+    }
 }
 </script>

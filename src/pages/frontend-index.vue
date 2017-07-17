@@ -26,7 +26,8 @@ import metaMixin from '~mixins'
 
 export default {
     name: 'frontend-index',
-    async asyncData({store, route}, config = { page: 1}) {
+    async asyncData({store, route, cookies}, config = { page: 1}) {
+        config.cookies = cookies
         const {params: {id, key, by}, path} = route
         const base = { ...config, limit: 10, id, path, key, by }
         store.dispatch('global/category/getCategoryList')
