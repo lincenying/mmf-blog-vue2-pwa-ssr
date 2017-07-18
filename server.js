@@ -4,7 +4,6 @@
  */
 var jwt = require('jsonwebtoken')
 var config = require('./server/config')
-var secret = config.secretServer
 
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
@@ -136,7 +135,7 @@ const checkAdminToken = (req, res) => {
         username = req.cookies.b_username
     if (token) {
         return new Promise(resolve => {
-            jwt.verify(token, secret, function(err, decoded) {
+            jwt.verify(token, config.secretServer, function(err, decoded) {
                 if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
                     req.decoded = decoded
                     resolve(true)
@@ -158,7 +157,7 @@ const checkUserToken = (req, res) => {
         username = req.cookies.username
     if (token) {
         return new Promise(resolve => {
-            jwt.verify(token, secret, function(err, decoded) {
+            jwt.verify(token, config.secretClient, function(err, decoded) {
                 if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
                     req.decoded = decoded
                     resolve('')
