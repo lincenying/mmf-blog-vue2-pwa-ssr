@@ -24,6 +24,7 @@ const lruCache = require('lru-cache')
 const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
+const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const vueServerRenderer = require('vue-server-renderer')
 const createBundleRenderer = vueServerRenderer.createBundleRenderer
@@ -118,16 +119,7 @@ app.use('/api', routes)
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
-const microCache = lruCache({
-    max: 100,
-    maxAge: 1000
-})
-
-// since this app has no user-specific content, every page is micro-cacheable.
-// if your app involves user-specific content, you need to implement custom
-// logic to determine whether a request is cacheable based on its url and
-// headers.
-const isCacheable = () => useMicroCache
+app.use(microcache.cacheSeconds(1, () => useMicroCache))
 
 const checkAdminToken = (req, res) => {
     var token = req.cookies.b_user,
@@ -198,28 +190,16 @@ function render(req, res) {
         if (err.url) {
             res.redirect(err.url)
         } else if (err.code === 404) {
-            res.status(404).end('404 | Page Not Found')
+            res.status(404).send('404 | Page Not Found')
         } else {
 
             // Render Error Page or Redirect
-            res.status(500).end('500 | Internal Server Error')
+            res.status(500).send('500 | Internal Server Error')
             console.error(`error during render : ${req.url}`)
             console.error(err.stack)
         }
     }
 
-    const cacheable = isCacheable(req)
-
-    if (cacheable) {
-        const hit = microCache.get(req.url)
-
-        if (hit) {
-            if (!isProd) {
-                console.log('cache hit!')
-            }
-            return res.end(hit)
-        }
-    }
     const context = {
         // default title
         title: 'M.M.F 小屋',
@@ -231,9 +211,6 @@ function render(req, res) {
             return handleError(err)
         }
         res.end(html)
-        if (cacheable) {
-            microCache.set(req.url, html)
-        }
         if (!isProd) {
             console.log(`whole request: ${Date.now() - s}ms`)
         }
