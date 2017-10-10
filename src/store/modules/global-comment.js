@@ -11,9 +11,7 @@ const state = () => ({
 
 const actions = {
     async ['getCommentList']({commit, state}, config) {
-        if (config.path === state.lists.path && config.page === 1) {
-            return
-        }
+        if (config.path === state.lists.path && config.page === 1) return
         const { data: { data, code} } = await api.get('frontend/comment/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('recevieCommentList', {
