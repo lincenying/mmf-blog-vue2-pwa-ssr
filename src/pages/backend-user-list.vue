@@ -30,8 +30,7 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-user-list',
-    async asyncData({store, route, cookies}, config = { page: 1 }) {
-        config.cookies = cookies
+    async asyncData({store, route}, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
             path: route.path

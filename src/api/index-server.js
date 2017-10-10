@@ -5,6 +5,7 @@ import config from './config-server'
 
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
+
 const parseCookie = cookies => {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
@@ -14,7 +15,8 @@ const parseCookie = cookies => {
 }
 
 export default {
-    post(url, data, cookies = {}) {
+    post(url, data, cookies) {
+        cookies = cookies || process.userCookies || {}
         const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(data) + username)
@@ -36,7 +38,8 @@ export default {
             return res
         })
     },
-    get(url, params, cookies = {}) {
+    get(url, params, cookies) {
+        cookies = cookies || process.userCookies || {}
         const username = cookies.username || ''
         const cookie = parseCookie(cookies)
         const key = md5(url + JSON.stringify(params) + username)

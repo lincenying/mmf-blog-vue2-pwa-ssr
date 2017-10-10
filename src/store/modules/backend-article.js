@@ -12,15 +12,8 @@ const state = () => ({
 
 const actions = {
     async ['getArticleList'] ({commit, state}, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
-            return
-        }
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('backend/article/list', config, cookies)
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+        const { data: { data, code} } = await api.get('backend/article/list', config)
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...data,
@@ -29,34 +22,19 @@ const actions = {
         }
     },
     async ['getArticleItem'] (store, config) {
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('backend/article/item', config, cookies)
+        const { data: { data, code} } = await api.get('backend/article/item', config)
         if (data && code === 200) {
             return data
         }
     },
     async ['deleteArticle'] ({commit}, config) {
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { code} } = await api.get('backend/article/delete', config, cookies)
+        const { data: { code} } = await api.get('backend/article/delete', config)
         if (code === 200) {
             commit('deleteArticle', config.id)
         }
     },
     async ['recoverArticle'] ({commit}, config) {
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { code} } = await api.get('backend/article/recover', config, cookies)
+        const { data: { code} } = await api.get('backend/article/recover', config)
         if (code === 200) {
             commit('recoverArticle', config.id)
         }

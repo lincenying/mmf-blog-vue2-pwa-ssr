@@ -31,8 +31,7 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'backend-article-list',
-    async asyncData({store, route, cookies}, config = { page: 1 }) {
-        config.cookies = cookies
+    async asyncData({store, route}, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {
             ...config,
             path: route.path

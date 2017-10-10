@@ -17,15 +17,8 @@ const state = () => ({
 
 const actions = {
     async ['getArticleList']({commit, state}, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
-            return
-        }
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('frontend/article/list', {...config, cache: true}, cookies)
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+        const { data: { data, code} } = await api.get('frontend/article/list', {...config, cache: true})
         if (data && code === 200) {
             commit('receiveArticleList', {
                 ...config,
@@ -34,15 +27,8 @@ const actions = {
         }
     },
     async ['getArticleItem']({ commit, state }, config) {
-        if (config.path === state.item.path) {
-            return
-        }
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('frontend/article/item', { ...config, markdown: 1, cache: true }, cookies)
+        if (config.path === state.item.path) return
+        const { data: { data, code} } = await api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             commit('receiveArticleItem', {
                 data,

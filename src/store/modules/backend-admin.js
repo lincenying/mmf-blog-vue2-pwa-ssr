@@ -16,15 +16,8 @@ const state = () => ({
 
 const actions = {
     async ['getAdminList'] ({commit, state}, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) {
-            return
-        }
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('backend/admin/list', {...config, cache: true}, cookies)
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+        const { data: { data, code} } = await api.get('backend/admin/list', {...config, cache: true})
         if (data && code === 200) {
             commit('receiveAdminList', {
                 ...data,
@@ -34,12 +27,7 @@ const actions = {
         }
     },
     async ['getAdminItem'] ({commit}, config) {
-        let cookies
-        if (config.cookies) {
-            cookies = config.cookies
-            delete config.cookies
-        }
-        const { data: { data, code} } = await api.get('backend/admin/item', config, cookies)
+        const { data: { data, code} } = await api.get('backend/admin/item', config)
         if (data && code === 200) {
             commit('receiveAdminItem', {
                 data,

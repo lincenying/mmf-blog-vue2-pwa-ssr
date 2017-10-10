@@ -44,12 +44,14 @@ import comment from '../components/frontend-comment.vue'
 
 export default {
     name: 'frontend-article',
-    async asyncData({store, route, cookies}) {
+    async asyncData({store, route}) {
         const { path, params: { id }} = route
-        store.dispatch('global/category/getCategoryList')
-        store.dispatch('frontend/article/getTrending')
-        store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 10})
-        await store.dispatch(`frontend/article/getArticleItem`, { id, path, cookies})
+        await Promise.all([
+            store.dispatch('global/category/getCategoryList'),
+            store.dispatch('frontend/article/getTrending'),
+            store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 10}),
+            store.dispatch(`frontend/article/getArticleItem`, { id, path })
+        ])
     },
     mixins: [metaMixin],
     beforeRouteUpdate(to, from, next) {

@@ -33,9 +33,8 @@ import { mapGetters } from 'vuex'
 import aInput from '../components/_input.vue'
 export default {
     name: 'backend-article-modify',
-    async asyncData({store, route, cookies}, config = { limit: 99 }) {
+    async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
-        config.cookies = cookies
         await store.dispatch('global/category/getCategoryList', {
             ...config,
             path: route.path
