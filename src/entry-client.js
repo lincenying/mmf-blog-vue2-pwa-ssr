@@ -53,14 +53,16 @@ Vue.mixin({
         next(vm => {
             // 通过 `vm` 访问组件实例
             vm.$nextTick().then(() => {
-                document.body.scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
+                const scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
+                window.scrollTo(0, scrollTop)
+                // document.body.scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
             })
         })
     },
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('appShell/saveScrollTop', {
             path: from.fullPath,
-            scrollTop: document.body.scrollTop
+            scrollTop: Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
         })
         next()
     }
