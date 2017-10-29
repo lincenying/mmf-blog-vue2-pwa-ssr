@@ -46,12 +46,14 @@ export default {
         })
     },
     methods: {
-        loadMore(page = this.topics.page + 1) {
-            this.$options.asyncData({store: this.$store, route: this.$route}, { page })
+        async loadMore(page = this.topics.page + 1) {
+            this.$loading.start()
+            await this.$options.asyncData({store: this.$store, route: this.$route}, { page })
+            this.$loading.finish()
         }
     },
     activated() {
-        this.$options.asyncData({store: this.$store, route: this.$route}, {page: 1})
+        this.loadMore(1)
     },
     metaInfo() {
         var title = 'M.M.F 小屋'
