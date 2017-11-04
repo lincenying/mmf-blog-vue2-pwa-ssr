@@ -5839,9 +5839,9 @@ vue-hot-reload-api@^2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.2.0.tgz#9a21b35ced3634434a43ee80efb7350ea8fb206d"
 
-vue-loader@^13.0.4:
-  version "13.3.0"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.3.0.tgz#3bf837d490ba5dea6fc07e0835ffa6c688c8af33"
+vue-loader@^13.4.0:
+  version "13.4.0"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.4.0.tgz#44aa7eef4fb1be89fbc37193ad33b8253417c4b9"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -5869,9 +5869,9 @@ vue-router@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
 
-vue-server-renderer@^2.5.2:
-  version "2.5.2"
-  resolved "http://registry.npm.taobao.org/vue-server-renderer/download/vue-server-renderer-2.5.2.tgz#c96a4368caa3fd298a528f1bf40632d8f696ff25"
+vue-server-renderer@^2.5.3:
+  version "2.5.3"
+  resolved "http://registry.npm.taobao.org/vue-server-renderer/download/vue-server-renderer-2.5.3.tgz#cac10b4a9d147b04cf70cd8bc3ac95f5e630794b"
   dependencies:
     chalk "^1.1.3"
     hash-sum "^1.0.2"
@@ -5889,9 +5889,9 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.4.4:
-  version "2.5.2"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.2.tgz#6f198ebc677b8f804315cd33b91e849315ae7177"
+vue-template-compiler@^2.5.3:
+  version "2.5.3"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.3.tgz#ab631b0694e211a6aaf0d800102b37836aae36a4"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5900,9 +5900,9 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.2:
-  version "2.5.2"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.2.tgz#fd367a87bae7535e47f9dc5c9ec3b496e5feb5a4"
+vue@^2.5.3:
+  version "2.5.3"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.3.tgz#e1a3b1f49b6e93e574ce040b95cbc873912fecc1"
 
 vuex-router-sync@^5.0.0:
   version "5.0.0"
