@@ -18,9 +18,12 @@
 
 <script lang="babel">
 import api from '~api'
+import checkAdmin from '~mixins/check-admin'
 import aInput from '../components/_input.vue'
+
 export default {
     name: 'backend-category-insert',
+    mixins: [checkAdmin],
     data() {
         return {
             form: {

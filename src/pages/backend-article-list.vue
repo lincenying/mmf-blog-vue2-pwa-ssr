@@ -26,11 +26,13 @@
 </template>
 
 <script lang="babel">
-import api from '~api'
 import { mapGetters } from 'vuex'
+import api from '~api'
+import checkAdmin from '~mixins/check-admin'
 
 export default {
     name: 'backend-article-list',
+    mixins: [checkAdmin],
     async asyncData({store, route}, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {
             ...config,

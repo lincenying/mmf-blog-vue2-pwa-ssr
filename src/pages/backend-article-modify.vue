@@ -28,11 +28,14 @@
 
 <script lang="babel">
 /* global modifyEditor */
-import api from '~api'
 import { mapGetters } from 'vuex'
+import api from '~api'
+import checkAdmin from '~mixins/check-admin'
 import aInput from '../components/_input.vue'
+
 export default {
     name: 'backend-article-modify',
+    mixins: [checkAdmin],
     async asyncData({store, route}, config = { limit: 99 }) {
         config.all = 1
         await store.dispatch('global/category/getCategoryList', {

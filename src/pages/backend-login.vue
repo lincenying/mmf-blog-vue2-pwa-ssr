@@ -28,7 +28,7 @@ export default {
     name: 'backend-login',
     beforeRouteEnter (to, from, next) {
         if (cookies.get('b_user')) {
-            next('/backend/article/list')
+            window.location.href = '/backend/article/list'
         }
         next()
     },

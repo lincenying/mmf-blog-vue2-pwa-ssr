@@ -24,10 +24,12 @@
 <script lang="babel">
 import { mapGetters } from 'vuex'
 import api from '~api'
+import checkAdmin from '~mixins/check-admin'
 import aInput from '~components/_input.vue'
 
 export default {
     name: 'backend-user-modify',
+    mixins: [checkAdmin],
     async asyncData({store, route}) {
         await store.dispatch('backend/user/getUserItem', {
             id: route.params.id,

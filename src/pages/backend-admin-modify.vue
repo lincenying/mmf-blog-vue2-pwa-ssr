@@ -24,10 +24,14 @@
 <script lang="babel">
 import { mapGetters } from 'vuex'
 import api from '~api'
+import checkAdmin from '~mixins/check-admin'
+
 import backendMenu from '~components/backend-menu.vue'
 import aInput from '~components/_input.vue'
+
 export default {
     name: 'backend-admin-modify',
+    mixins: [checkAdmin],
     async asyncData({store, route}) {
         await store.dispatch('backend/admin/getAdminItem', {
             id: route.params.id,

@@ -27,9 +27,11 @@
 <script lang="babel">
 import api from '~api'
 import { mapGetters } from 'vuex'
+import checkAdmin from '~mixins/check-admin'
 
 export default {
     name: 'backend-admin-list',
+    mixins: [checkAdmin],
     async asyncData({store, route}, config = { page: 1}) {
         await store.dispatch('backend/admin/getAdminList', {
             ...config,

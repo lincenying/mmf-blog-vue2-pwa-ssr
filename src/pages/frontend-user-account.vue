@@ -28,11 +28,13 @@
 <script lang="babel">
 import api from '~api'
 import metaMixin from '~mixins'
+import checkUser from '~mixins/check-user'
 import account from '../components/aside-account.vue'
 import aInput from '../components/_input.vue'
+
 export default {
     name: 'frontend-user-account',
-    mixins: [metaMixin],
+    mixins: [metaMixin, checkUser],
     data() {
         return {
             form: {

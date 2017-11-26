@@ -119,7 +119,9 @@ app.use('/api', routes)
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
-app.use(microcache.cacheSeconds(1, () => useMicroCache))
+app.use(microcache.cacheSeconds(1, req => {
+    return req.url.indexOf('/backend') === -1 && useMicroCache
+}))
 
 const checkAdminToken = (req, res) => {
     var token = req.cookies.b_user,

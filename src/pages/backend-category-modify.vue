@@ -20,10 +20,12 @@
 <script lang="babel">
 import api from '~api'
 import { mapGetters } from 'vuex'
+import checkAdmin from '~mixins/check-admin'
 import aInput from '../components/_input.vue'
 
 export default {
     name: 'backend-category-modify',
+    mixins: [checkAdmin],
     async asyncData({store, route}) {
         await store.dispatch('global/category/getCategoryItem', {
             path: route.path,
