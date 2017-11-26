@@ -47,6 +47,12 @@ module.exports = {
             /vue-ssr-client-manifest\.json/,
             /\/backend/
         ],
+        ignoreUrlParametersMatching: [
+            // map文件不需要缓存
+            /\.map$/,
+            /vue-ssr-client-manifest\.json/,
+            /\/backend/
+        ],
 
         /**
          * 需要省略掉的前缀名

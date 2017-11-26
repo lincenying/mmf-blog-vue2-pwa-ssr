@@ -28,7 +28,7 @@ export default {
     name: 'backend-login',
     beforeRouteEnter (to, from, next) {
         if (cookies.get('b_user')) {
-            window.location.href= '/backend/article/list'
+            next('/backend/article/list')
         }
         next()
     },
@@ -51,7 +51,7 @@ export default {
             }
             const { data: { data, code} } = await api.post('backend/admin/login', this.form)
             if (data && code === 200) {
-                window.location.href= '/backend/article/list'
+                window.location.href = '/backend/article/list'
             }
         }
     },
