@@ -53,7 +53,7 @@ export default {
         }
     },
     activated() {
-        this.loadMore(1)
+        //this.loadMore(1)
     },
     metaInfo() {
         var title = 'M.M.F 小屋'
