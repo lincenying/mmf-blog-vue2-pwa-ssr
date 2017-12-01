@@ -5,8 +5,17 @@ a {
     color: #3aced5;
 }
 
-#app {
+.frontend {
     padding-top: 60px;
+}
+
+.backend {
+    padding-top: 0;
+}
+.backend .global-nav {
+    position: static;
+    top: auto;
+    z-index: auto;
 }
 
 .wrap {

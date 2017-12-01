@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div id="app" :class="backend ? 'backend' : 'frontend'">
     <Navigation :backend="backend"></Navigation>
     <template v-if="!backend">
         <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
