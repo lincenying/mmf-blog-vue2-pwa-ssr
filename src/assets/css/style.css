@@ -1894,7 +1894,7 @@ a:hover .icon-arrow-right {
 }
 /* fix */
 .editormd {
-    z-index: 2;
+    z-index: 1000;
 }
 .editormd, .editormd .CodeMirror {
     border-radius: 5px;
