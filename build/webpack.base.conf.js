@@ -5,11 +5,12 @@
 
 /* eslint-disable no-console */
 
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
@@ -82,11 +83,14 @@ module.exports = {
     },
     plugins: process.env.NODE_ENV === 'production'
         ? [
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        warnings: false
+                    }
                 },
-                sourceMap: true
+                sourceMap: config.build.productionSourceMap,
+                parallel: true
             }),
             new ExtractTextPlugin({
                 filename: utils.assetsPath('css/[name].[contenthash].css')
