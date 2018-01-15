@@ -4,6 +4,7 @@
  */
 
 import {createApp} from './app'
+import api from '~api'
 
 // const isDev = process.env.NODE_ENV !== 'production'
 
@@ -40,7 +41,8 @@ export default function (context) {
             // A preFetch hook dispatches a store action and returns a Promise,
             // which is resolved when the action is complete and store state has been
             // updated.
-            process.userCookies = context.cookies
+            // process.userCookies = context.cookies
+            api.setCookies(context.cookies)
             Promise.all(matchedComponents.map(({asyncData}) => asyncData && asyncData({
                 store,
                 route: router.currentRoute,
