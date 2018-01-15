@@ -17,7 +17,6 @@ const parseCookie = cookies => {
 export default {
     api: null,
     cookies: {},
-    isSetCookies: false,
     setCookies(value) {
         value = value || {}
         this.cookies = value
