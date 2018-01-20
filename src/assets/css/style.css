@@ -1525,7 +1525,7 @@ a:hover .icon-arrow-right {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 30;
+    z-index: 1000;
     font-size: 0;
     padding-left: 1px;
     padding-right: 1px;
