@@ -180,7 +180,7 @@ const checkAdmin = async (req, res) => {
     return ''
 }
 
-async function render(req, res) {
+const render = async (req, res) => {
     const backUrl = await checkAdmin(req, res)
     if (backUrl) {
         return res.redirect(backUrl)
