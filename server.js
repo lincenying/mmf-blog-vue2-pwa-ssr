@@ -2,8 +2,8 @@
  * @file render server
  * @author lincenying(lincenying@qq.com)
  */
-var jwt = require('jsonwebtoken')
-var config = require('./server/config')
+const jwt = require('jsonwebtoken')
+const config = require('./server/config')
 
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
