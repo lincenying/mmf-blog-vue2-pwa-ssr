@@ -13,21 +13,30 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
-const env = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
+
+const env = isProduction
     ? config.build.env
     : config.dev.env
+
+let sourceMap = '#eval-source-map'
+if (isProduction) {
+    if (config.build.productionSourceMap) sourceMap = '#source-map'
+    else sourceMap = false
+}
 
 const webpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
-            extract: process.env.NODE_ENV === 'production'
+            extract: isProduction,
+            usePostCSS: isProduction,
         })
     },
     externals: {
         'jquery': 'jQuery'
     },
-    devtool: config.build.productionSourceMap ? '#source-map' : false,
+    devtool: sourceMap,
     output: {
         path: config.build.assetsRoot,
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -66,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]
 })
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
     webpackConfig.plugins = [
         ...webpackConfig.plugins,
         // service worker caching

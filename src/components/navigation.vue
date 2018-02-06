@@ -1,6 +1,6 @@
 <template>
     <nav class="global-nav">
-        <div class="wrap clearfix">
+        <div class="wrap">
             <div class="left-part">
                 <router-link to="/" active-class="current" exact class="logo-link"><i class="icon icon-nav-logo"></i><span class="hidden">M.M.F 小屋</span></router-link>
                 <div class="main-nav">

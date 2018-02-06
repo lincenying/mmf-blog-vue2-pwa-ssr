@@ -66,6 +66,7 @@
     "opn": "^5.2.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
+    "postcss-loader": "^2.1.0",
     "rimraf": "^2.6.2",
     "route-cache": "^0.4.4",
     "semver": "^5.5.0",
@@ -91,7 +92,7 @@
     "npm": ">= 4.0.0"
   },
   "browserslist": [
-    "> 1%",
+    "> 0.1%",
     "last 3 versions",
     "not ie <= 8",
     "iOS > 8"
