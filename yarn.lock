@@ -3329,9 +3329,9 @@ jws@^3.1.4:
     jwa "^1.1.4"
     safe-buffer "^5.0.1"
 
-kareem@2.0.1:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/kareem/download/kareem-2.0.1.tgz#f17f77e9032f64aa402b334f91fb4407fe4c042c"
+kareem@2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/kareem/download/kareem-2.0.3.tgz#d05c7ad76b045bc50c197b2cd13d2d1ef5671070"
 
 kind-of@^3.0.2:
   version "3.2.2"
@@ -3755,35 +3755,35 @@ moment@^2.20.1:
   version "2.20.1"
   resolved "http://registry.npm.taobao.org/moment/download/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
-mongodb-core@3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/mongodb-core/download/mongodb-core-3.0.1.tgz#ff6dc36ee96ff596953d80a6840d6731bc92efed"
+mongodb-core@3.0.2:
+  version "3.0.2"
+  resolved "http://registry.npm.taobao.org/mongodb-core/download/mongodb-core-3.0.2.tgz#914896092dd45427d9a4f98a7997a0bfb81d163b"
   dependencies:
     bson "~1.0.4"
     require_optional "^1.0.1"
 
-mongodb@3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/mongodb/download/mongodb-3.0.1.tgz#278ee8006257ec22798594a6259546825d6de1b2"
+mongodb@3.0.2:
+  version "3.0.2"
+  resolved "http://registry.npm.taobao.org/mongodb/download/mongodb-3.0.2.tgz#28172302ed4e9388d8091e2cc4618057e6f5debc"
   dependencies:
-    mongodb-core "3.0.1"
+    mongodb-core "3.0.2"
 
-mongoose-legacy-pluralize@1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.1.tgz#31ae25db45c30f1448c0f93f52769e903367c701"
+mongoose-legacy-pluralize@1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
-mongoose@5.0.0:
-  version "5.0.0"
-  resolved "http://registry.npm.taobao.org/mongoose/download/mongoose-5.0.0.tgz#85e92fd72d718b21b3d55a62b09434da37354b5a"
+mongoose@5.0.3:
+  version "5.0.3"
+  resolved "http://registry.npm.taobao.org/mongoose/download/mongoose-5.0.3.tgz#e320c629fa44e4afba1d8b4ac865f9a4cea7f157"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
-    kareem "2.0.1"
+    kareem "2.0.3"
     lodash.get "4.4.2"
-    mongodb "3.0.1"
-    mongoose-legacy-pluralize "1.0.1"
+    mongodb "3.0.2"
+    mongoose-legacy-pluralize "1.0.2"
     mpath "0.3.0"
-    mquery "3.0.0-rc0"
+    mquery "3.0.0"
     ms "2.0.0"
     regexp-clone "0.0.1"
     sliced "1.0.1"
@@ -3813,9 +3813,9 @@ mpath@0.3.0:
   version "0.3.0"
   resolved "http://registry.npm.taobao.org/mpath/download/mpath-0.3.0.tgz#7a58f789e9b5fd3c94520634157960f26bd5ef44"
 
-mquery@3.0.0-rc0:
-  version "3.0.0-rc0"
-  resolved "http://registry.npm.taobao.org/mquery/download/mquery-3.0.0-rc0.tgz#05ec656e92f079828bedf4202e60fb8eaacb9f47"
+mquery@3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/mquery/download/mquery-3.0.0.tgz#e5f387dbabc0b9b69859e550e810faabe0ceabb0"
   dependencies:
     bluebird "3.5.0"
     debug "2.6.9"
@@ -5463,9 +5463,9 @@ sw-precache@^5.1.1:
     sw-toolbox "^3.4.0"
     update-notifier "^2.3.0"
 
-sw-register-webpack-plugin@^1.0.16:
-  version "1.0.19"
-  resolved "http://registry.npm.taobao.org/sw-register-webpack-plugin/download/sw-register-webpack-plugin-1.0.19.tgz#7d60e72c06cef18c9364ef8dd96a3d4be37a5b75"
+sw-register-webpack-plugin@^1.0.20-rc.0:
+  version "1.0.20-rc.0"
+  resolved "http://registry.npm.taobao.org/sw-register-webpack-plugin/download/sw-register-webpack-plugin-1.0.20-rc.0.tgz#6a9aff848be4b8d0044904f09b579d889e1cb9ad"
   dependencies:
     babel-core "^6.25.0"
     etpl "^3.2.0"
@@ -5835,9 +5835,9 @@ vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
 
-vue-loader@^13.7.0:
-  version "13.7.1"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.7.1.tgz#d9009d0abd392b4efe8b8fb1f542f6723b02dd3a"
+vue-loader@^14.1.1:
+  version "14.1.1"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-14.1.1.tgz#331f197fcea790d6b8662c29b850806e7eb29342"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -5850,7 +5850,7 @@ vue-loader@^13.7.0:
     resolve "^1.4.0"
     source-map "^0.6.1"
     vue-hot-reload-api "^2.2.0"
-    vue-style-loader "^3.0.0"
+    vue-style-loader "^4.0.1"
     vue-template-es2015-compiler "^1.6.0"
 
 vue-meta@^1.4.2:
@@ -5878,9 +5878,16 @@ vue-server-renderer@^2.5.13:
     serialize-javascript "^1.3.0"
     source-map "0.5.6"
 
-vue-style-loader@^3.0.0, vue-style-loader@^3.0.3:
+vue-style-loader@^3.0.3:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-3.1.2.tgz#6b66ad34998fc9520c2f1e4d5fa4091641c1597a"
+  dependencies:
+    hash-sum "^1.0.2"
+    loader-utils "^1.0.2"
+
+vue-style-loader@^4.0.1:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-4.0.1.tgz#252300d32eb97e83c1a1cb5b2029e2d8c3adcf9f"
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
