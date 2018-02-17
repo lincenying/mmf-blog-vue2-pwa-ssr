@@ -146,9 +146,9 @@ const checkAdminToken = (req, res) => {
 }
 
 const checkUserToken = (req, res) => {
-    var token = req.cookies.user,
-        userid = req.cookies.userid,
-        username = req.cookies.username
+    var token = req.cookies.user || req.headers.user,
+        userid = req.cookies.userid || req.headers.userid,
+        username = req.cookies.username || req.headers.username
     if (token) {
         return new Promise(resolve => {
             jwt.verify(token, config.secretClient, function(err, decoded) {

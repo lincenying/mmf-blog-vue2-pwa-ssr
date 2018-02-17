@@ -16,8 +16,8 @@ exports.insert = (req, res) => {
         creat_date = moment().format('YYYY-MM-DD HH:mm:ss'),
         id = req.body.id,
         timestamp = moment().format('X'),
-        userid = req.cookies.userid,
-        username = req.cookies.username
+        userid = req.cookies.userid || req.headers.userid,
+        username = req.cookies.username || req.headers.username
     username = decodeURI(username)
     if (!id) {
         res.json({ code: -200, message: '参数错误' })
