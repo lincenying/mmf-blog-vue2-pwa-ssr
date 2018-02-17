@@ -48,6 +48,7 @@
     "connect-multiparty": "^2.1.0",
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.1.3",
+    "crypto": "^1.0.1",
     "css-loader": "^0.28.9",
     "eslint-config-lcy-vue": "^2.0.2",
     "eventsource-polyfill": "^0.9.6",

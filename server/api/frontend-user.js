@@ -88,74 +88,75 @@ exports.wxLogin = (req, res) => {
             code: -200,
             message: '参数有误, 微信登录失败'
         }
-        return res.json(json)
-    }
-    var pc = new WXBizDataCrypt(appId, wxCode)
-    var data = pc.decryptData(wxEncryptedData , wxIv)
+        res.json(json)
+    } else {
+        var pc = new WXBizDataCrypt(appId, wxCode)
+        var data = pc.decryptData(wxEncryptedData , wxIv)
 
-    if (!data || !data.nickName) {
-        json = {
-            code: -200,
-            message: '微信登录失败'
-        }
-        return res.json(json)
-    }
-    User.findOneAsync({
-        username: data.nickName,
-        wx_signature: wxSignature,
-        is_delete: 0
-    }).then(result => {
-        if (result) {
-            var id = result._id
-            var username = encodeURI(data.nickName)
-            var token = jwt.sign({ id, username }, secret, { expiresIn: 60*60*24*30 })
+        if (!data || !data.nickName) {
             json = {
-                code: 200,
-                message: '登录成功',
-                data: {
-                    user: token,
-                    userid: id,
-                    username,
-                }
+                code: -200,
+                message: '微信登录失败'
             }
-            res.json(json)
-        } else {
-            User.createAsync({
-                username: data.nickName,
-                password: '',
-                email: '',
-                creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-                update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-                is_delete: 0,
-                timestamp: moment().format('X'),
-                wx_avatar: data.avatar,
-                wx_signature: wxSignature,
-            }).then(_result => {
+            return res.json(json)
+        }
+        User.findOneAsync({
+            username: data.nickName,
+            wx_signature: wxSignature,
+            is_delete: 0
+        }).then(result => {
+            if (result) {
+                var id = result._id
                 var username = encodeURI(data.nickName)
-                var id = _result._id
                 var token = jwt.sign({ id, username }, secret, { expiresIn: 60*60*24*30 })
-                res.json({
+                json = {
                     code: 200,
-                    message: '注册成功!',
+                    message: '登录成功',
                     data: {
                         user: token,
                         userid: id,
                         username,
                     }
+                }
+                res.json(json)
+            } else {
+                User.createAsync({
+                    username: data.nickName,
+                    password: '',
+                    email: '',
+                    creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    is_delete: 0,
+                    timestamp: moment().format('X'),
+                    wx_avatar: data.avatar,
+                    wx_signature: wxSignature,
+                }).then(_result => {
+                    var username = encodeURI(data.nickName)
+                    var id = _result._id
+                    var token = jwt.sign({ id, username }, secret, { expiresIn: 60*60*24*30 })
+                    res.json({
+                        code: 200,
+                        message: '注册成功!',
+                        data: {
+                            user: token,
+                            userid: id,
+                            username,
+                        }
+                    })
+                }).catch(err => {
+                    res.json({
+                        code: -200,
+                        message: err.toString()
+                    })
                 })
-            }).catch(err => {
-                res.json({
-                    code: -200,
-                    message: err.toString()
-                })
+            }
+        }).catch(err => {
+            res.json({
+                code: -200,
+                message: err.toString()
             })
-        }
-    }).catch(err => {
-        res.json({
-            code: -200,
-            message: err.toString()
         })
-    })
+    }
 }
 
 
