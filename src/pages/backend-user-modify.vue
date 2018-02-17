@@ -16,7 +16,7 @@
         </div>
         <div class="settings-footer clearfix">
             <router-link to="/backend/user/list" class="btn btn-blue">返回</router-link>
-            <a @click="modify" href="javascript:;" class="btn btn-yellow">编辑管理员</a>
+            <a @click="modify" href="javascript:;" class="btn btn-yellow">编辑用户</a>
         </div>
     </div>
 </template>
