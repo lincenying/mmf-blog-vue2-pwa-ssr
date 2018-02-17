@@ -23,11 +23,11 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
         decoded = JSON.parse(decoded)
 
     } catch (err) {
-        throw new Error('Illegal Buffer')
+        throw new Error('Illegal Buffer ~')
     }
 
     if (decoded.watermark.appid !== this.appId) {
-        throw new Error('Illegal Buffer')
+        throw new Error('Illegal Buffer !')
     }
 
     return decoded
