@@ -88,7 +88,7 @@ exports.wxLogin = (req, res) => {
             code: -200,
             message: '参数有误, 微信登录失败'
         }
-        res.json(json)
+        return res.json(json)
     }
     var pc = new WXBizDataCrypt(appId, wxCode)
     var data = pc.decryptData(wxEncryptedData , wxIv)
@@ -98,7 +98,7 @@ exports.wxLogin = (req, res) => {
             code: -200,
             message: '微信登录失败'
         }
-        res.json(json)
+        return res.json(json)
     }
     User.findOneAsync({
         username: data.nickName,
