@@ -83,7 +83,10 @@ exports.wxLogin = (req, res) => {
     let json = {}
     const appId = 'wxa65568a8445e7347'
     const { wxCode, wxEncryptedData, wxIv, wxSignature } = req.body
-    console.log(wxCode, wxEncryptedData, wxIv, wxSignature)
+    console.log(wxCode)
+    console.log(wxEncryptedData)
+    console.log(wxIv)
+    console.log(wxSignature)
     if (!wxCode || !wxEncryptedData || !wxIv || !wxSignature) {
         json = {
             code: -200,
