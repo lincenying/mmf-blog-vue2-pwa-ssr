@@ -1,7 +1,6 @@
 var md5 = require('md5')
 var moment = require('moment')
 var jwt = require('jsonwebtoken')
-var WXBizDataCrypt = require('../utils/WXBizDataCrypt')
 
 var mongoose = require('../mongoose')
 var User = mongoose.model('User')
@@ -81,37 +80,22 @@ exports.login = (req, res) => {
  */
 exports.wxLogin = (req, res) => {
     let json = {}
-    const appId = 'wxa65568a8445e7347'
-    const { wxCode, wxEncryptedData, wxIv, wxSignature } = req.body
-    console.log(wxCode)
-    console.log(wxEncryptedData)
-    console.log(wxIv)
-    console.log(wxSignature)
-    if (!wxCode || !wxEncryptedData || !wxIv || !wxSignature) {
+    const { nickName, wxSignature, avatar } = req.body
+    if (!nickName || !wxSignature) {
         json = {
             code: -200,
             message: '参数有误, 微信登录失败'
         }
         res.json(json)
     } else {
-        var pc = new WXBizDataCrypt(appId, wxCode)
-        var data = pc.decryptData(wxEncryptedData , wxIv)
-
-        if (!data || !data.nickName) {
-            json = {
-                code: -200,
-                message: '微信登录失败'
-            }
-            return res.json(json)
-        }
         User.findOneAsync({
-            username: data.nickName,
+            username: nickName,
             wx_signature: wxSignature,
             is_delete: 0
         }).then(result => {
             if (result) {
                 var id = result._id
-                var username = encodeURI(data.nickName)
+                var username = encodeURI(nickName)
                 var token = jwt.sign({ id, username }, secret, { expiresIn: 60*60*24*30 })
                 json = {
                     code: 200,
@@ -125,17 +109,17 @@ exports.wxLogin = (req, res) => {
                 res.json(json)
             } else {
                 User.createAsync({
-                    username: data.nickName,
+                    username: nickName,
                     password: '',
                     email: '',
                     creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     is_delete: 0,
                     timestamp: moment().format('X'),
-                    wx_avatar: data.avatar,
+                    wx_avatar: avatar,
                     wx_signature: wxSignature,
                 }).then(_result => {
-                    var username = encodeURI(data.nickName)
+                    var username = encodeURI(nickName)
                     var id = _result._id
                     var token = jwt.sign({ id, username }, secret, { expiresIn: 60*60*24*30 })
                     res.json({
