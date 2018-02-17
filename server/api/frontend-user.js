@@ -82,8 +82,14 @@ exports.login = (req, res) => {
 exports.wxLogin = (req, res) => {
     let json = {}
     const appId = 'wxa65568a8445e7347'
-    const {wxCode, wxEncryptedData, wxIv, wxSignature } = req.body
-
+    const { wxCode, wxEncryptedData, wxIv, wxSignature } = req.body
+    if (!wxCode || !wxEncryptedData || !wxIv || !wxSignature) {
+        json = {
+            code: -200,
+            message: '参数有误, 微信登录失败'
+        }
+        res.json(json)
+    }
     var pc = new WXBizDataCrypt(appId, wxCode)
     var data = pc.decryptData(wxEncryptedData , wxIv)
 
