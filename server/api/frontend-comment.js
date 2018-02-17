@@ -12,7 +12,8 @@ var Article = mongoose.model('Article')
  * @return {[type]}     [description]
  */
 exports.insert = (req, res) => {
-    var content = req.body.content,
+    var avatar = req.body.avatar || '',
+        content = req.body.content,
         creat_date = moment().format('YYYY-MM-DD HH:mm:ss'),
         id = req.body.id,
         timestamp = moment().format('X'),
@@ -28,6 +29,7 @@ exports.insert = (req, res) => {
     }
     var data = {
         article_id: id,
+        avatar,
         userid,
         username,
         email: '',
