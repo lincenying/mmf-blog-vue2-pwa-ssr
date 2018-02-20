@@ -13,7 +13,6 @@ require('./server/models/admin')
 require('./server/models/article')
 require('./server/models/category')
 require('./server/models/comment')
-require('./server/models/like')
 require('./server/models/user')
 // 引入 api 路由
 const routes = require('./server/routes/index')
@@ -124,9 +123,9 @@ app.use(microcache.cacheSeconds(1, req => {
 }))
 
 const checkAdminToken = (req, res) => {
-    var token = req.cookies.b_user,
-        userid = req.cookies.b_userid,
-        username = req.cookies.b_username
+    const token = req.cookies.b_user
+    const userid = req.cookies.b_userid
+    const username = req.cookies.b_username
     if (token) {
         return new Promise(resolve => {
             jwt.verify(token, config.secretServer, function(err, decoded) {
