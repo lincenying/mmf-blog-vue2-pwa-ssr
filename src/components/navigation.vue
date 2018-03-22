@@ -18,14 +18,14 @@
     </nav>
 </template>
 
-<script lang="babel">
+<script>
 import cookies from 'js-cookie'
 export default {
     name: 'navigation',
     props: ['backend'],
     data() {
         return {
-            isLogin: cookies.get('user')
+            isLogin: cookies.get('user'),
         }
     },
     methods: {
@@ -34,11 +34,11 @@ export default {
         },
         search(e) {
             var qs = e.target.value
-            if (qs === "") {
+            if (qs === '') {
                 return false
             }
             this.$router.replace('/search/' + qs)
-        }
-    }
+        },
+    },
 }
 </script>

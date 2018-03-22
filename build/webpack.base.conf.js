@@ -10,10 +10,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 require('babel-polyfill')
 
@@ -22,15 +19,14 @@ function resolve(dir) {
 }
 
 module.exports = {
+    mode: 'development',
     entry: {
-        app: './src/entry-client.js'
+        app: './src/entry-client.js',
     },
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? config.build.assetsPublicPath
-            : config.dev.assetsPublicPath
+        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -43,9 +39,9 @@ module.exports = {
             '~mixins': resolve('src/mixins'),
             '~store': resolve('src/store'),
             '~utils': resolve('src/utils'),
-            'assets': resolve('src/assets'),
-            'api-config': resolve('src/api/config-client')
-        }
+            assets: resolve('src/assets'),
+            'api-config': resolve('src/api/config-client'),
+        },
     },
     module: {
         rules: [
@@ -54,54 +50,33 @@ module.exports = {
                 use: [
                     {
                         loader: 'vue-loader',
-                        options: vueLoaderConfig
+                        options: vueLoaderConfig,
                     },
                 ],
-                include: [resolve('src')]
-            }, {
+                include: [resolve('src')],
+            },
+            {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [
-                    resolve('src')
-                ]
-            }, {
+                include: [resolve('src')],
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('img/[name].[hash:7].[ext]')
-                }
-            }, {
+                    name: utils.assetsPath('img/[name].[hash:7].[ext]'),
+                },
+            },
+            {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-                }
-            }
-        ]
-    },
-    plugins: process.env.NODE_ENV === 'production'
-        ? [
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    compress: {
-                        warnings: false
-                    }
+                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
                 },
-                sourceMap: config.build.productionSourceMap,
-                parallel: true
-            }),
-            new ExtractTextPlugin({
-                filename: utils.assetsPath('css/[name].[contenthash].css')
-            }),
-            new OptimizeCSSPlugin({
-                cssProcessorOptions: {
-                    safe: true
-                }
-            })
-        ]
-        : [
-            new FriendlyErrorsPlugin()
-        ]
+            },
+        ],
+    },
+    plugins: process.env.NODE_ENV === 'production' ? [] : [new FriendlyErrorsPlugin()],
 }

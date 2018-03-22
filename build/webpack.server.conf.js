@@ -11,15 +11,16 @@ const path = require('path')
 const base = require('./webpack.base.conf')
 const config = require('../config')
 
-function resolve(dir) {
-    return path.join(__dirname, '..', dir)
-}
+// function resolve(dir) {
+//     return path.join(__dirname, '..', dir)
+// }
 
 const env = process.env.NODE_ENV === 'production'
     ? config.build.env
     : config.dev.env
 
 module.exports = merge(base, {
+    mode: 'production',
     target: 'node',
     entry: './src/entry-server.js',
     output: {

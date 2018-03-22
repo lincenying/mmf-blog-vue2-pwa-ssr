@@ -14,15 +14,14 @@ const serverConfig = require('./webpack.server.conf')
 const readFile = (fs, file) => {
     try {
         return fs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8')
-    }
-    catch (e) {}
+    } catch (e) {}
 }
 
 module.exports = function setupDevServer(app, cb) {
     let bundle
     let clientManifest
     let resolve
-    const readyPromise = new Promise(r => resolve = r) // eslint-disable-line
+    const readyPromise = new Promise(r => (resolve = r)) // eslint-disable-line
     const ready = (...args) => {
         resolve()
         cb(...args)
@@ -32,16 +31,13 @@ module.exports = function setupDevServer(app, cb) {
     // clientConfig.entry.app = [...clientConfig.entry.app];
     clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
     clientConfig.output.filename = '[name].js'
-    clientConfig.plugins.push(
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    )
+    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
 
     // dev middleware
     const clientCompiler = webpack(clientConfig)
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
         publicPath: clientConfig.output.publicPath,
-        noInfo: true
+        noInfo: true,
     })
 
     app.use(devMiddleware)
@@ -54,20 +50,17 @@ module.exports = function setupDevServer(app, cb) {
             return
         }
 
-        clientManifest = JSON.parse(readFile(
-            devMiddleware.fileSystem,
-            'vue-ssr-client-manifest.json'
-        ))
+        clientManifest = JSON.parse(readFile(devMiddleware.fileSystem, 'vue-ssr-client-manifest.json'))
 
         if (bundle) {
             ready(bundle, {
-                clientManifest
+                clientManifest,
             })
         }
     })
 
     // hot middleware
-    app.use(require('webpack-hot-middleware')(clientCompiler, {heartbeat: 5000}))
+    app.use(require('webpack-hot-middleware')(clientCompiler, { heartbeat: 5000 }))
 
     // watch and update server renderer
     const serverCompiler = webpack(serverConfig)
@@ -79,7 +72,6 @@ module.exports = function setupDevServer(app, cb) {
         }
         stats = stats.toJson()
         if (stats.errors.length) {
-
             // print all errors
             for (const error of stats.errors) {
                 console.error(error)
@@ -92,7 +84,7 @@ module.exports = function setupDevServer(app, cb) {
         bundle = JSON.parse(readFile(mfs, 'vue-ssr-server-bundle.json'))
         if (clientManifest) {
             ready(bundle, {
-                clientManifest
+                clientManifest,
             })
         }
     })
