@@ -1,10 +1,13 @@
 const md5 = require('md5')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')
+import axios from 'axios'
 
 const mongoose = require('../mongoose')
 const User = mongoose.model('User')
 
+const mpappApiId = require('../config/mpapp').apiId
+const mpappSecret = require('../config/mpapp').secret
 const config = require('../config')
 const md5Pre = config.md5Pre
 const secret = config.secretClient
@@ -69,6 +72,29 @@ exports.login = (req, res) => {
         })
 }
 
+/**
+ * 微信登录
+ * @method login
+ * @param  {[type]}   req [description]
+ * @param  {[type]}   res [description]
+ * @return {[type]}       [description]
+ */
+exports.jscode2session = async (req, res) => {
+    const { js_code } = req.body
+    const xhr = await axios.get('https://api.weixin.qq.com/sns/jscode2session', {
+        params: {
+            appid: mpappApiId,
+            secret: mpappSecret,
+            js_code,
+            grant_type: 'authorization_code',
+        },
+    })
+    res.json({
+        code: 200,
+        message: '登录成功',
+        data: xhr.data,
+    })
+}
 /**
  * 微信登录
  * @method login
