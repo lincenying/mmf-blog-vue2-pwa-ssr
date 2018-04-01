@@ -1,7 +1,7 @@
 const md5 = require('md5')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')
-import axios from 'axios'
+const axios = require('axios')
 
 const mongoose = require('../mongoose')
 const User = mongoose.model('User')
