@@ -6,11 +6,11 @@ const axios = require('axios')
 const mongoose = require('../mongoose')
 const User = mongoose.model('User')
 
-const mpappApiId = require('../config/mpapp').apiId
-const mpappSecret = require('../config/mpapp').secret
 const config = require('../config')
 const md5Pre = config.md5Pre
 const secret = config.secretClient
+const mpappApiId = config.apiId
+const mpappSecret = config.secret
 const strlen = require('../utils').strlen
 const general = require('./general')
 const { list, modify, deletes, recover } = general
