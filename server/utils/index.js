@@ -30,6 +30,7 @@ exports.secretClient = '${secretClient}'`
         fs.writeFileSync('./server/config/secret.js', secret)
     }
 }
+
 exports.creatMpApp = () => {
     if (!fsExistsSync('./server/config/mpapp.js')) {
         const secret = `exports.apiId = ''

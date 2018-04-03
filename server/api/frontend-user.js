@@ -74,7 +74,7 @@ exports.login = (req, res) => {
 
 /**
  * 微信登录
- * @method login
+ * @method jscode2session
  * @param  {[type]}   req [description]
  * @param  {[type]}   res [description]
  * @return {[type]}       [description]
