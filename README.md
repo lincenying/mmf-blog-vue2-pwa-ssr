@@ -39,6 +39,13 @@ https://nodejs.org/zh-cn/
 安装 Mongodb:
 https://www.mongodb.com/download-center#community
 
+在 server/config 文件夹下 创建 mpapp.js 文件
+里面写入: (小程序登录用的)
+```javascript
+exports.apiId = ''
+exports.secret = ''
+```
+
 ```shell
 # 安装依赖
 $ npm install
