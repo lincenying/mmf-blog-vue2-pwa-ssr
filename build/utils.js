@@ -57,24 +57,12 @@ exports.cssLoaders = function(options) {
         //     })
         // }
         if (options.extract) {
-            const use1 = [
-                MiniCssExtractPlugin.loader,
-                ...loaders
-            ]
-            const use2 = [
-                'vue-style-loader',
-                ...loaders
-            ]
-            if (loader) {
-                use1.push(loader + '-loader')
-                use2.push(loader + '-loader')
-            }
             return [
                 {
-                    use: use1,
+                    use: [MiniCssExtractPlugin.loader, ...loaders],
                 },
                 {
-                    use: use2,
+                    use: ['vue-style-loader', ...loaders],
                 },
             ]
         }
