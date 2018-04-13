@@ -50,7 +50,11 @@ module.exports = {
                 use: [
                     {
                         loader: 'vue-loader',
-                        options: vueLoaderConfig,
+                        options: {
+                            compilerOptions: {
+                                preserveWhitespace: false,
+                            },
+                        },
                     },
                 ],
                 include: [resolve('src')],

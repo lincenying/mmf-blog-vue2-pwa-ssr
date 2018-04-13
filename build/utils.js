@@ -6,8 +6,11 @@
 'use strict'
 
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const isProd = process.env.NODE_ENV === 'production'
+
 const config = require('../config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.assetsPath = function(newPath) {
     const assetsSubDirectory =
@@ -47,13 +50,34 @@ exports.cssLoaders = function(options) {
 
         // Extract CSS when that option is specified
         // (which is the case during production build)
+        // if (options.extract) {
+        //     return ExtractTextPlugin.extract({
+        //         use: loaders,
+        //         fallback: 'vue-style-loader',
+        //     })
+        // }
         if (options.extract) {
-            return ExtractTextPlugin.extract({
-                use: loaders,
-                fallback: 'vue-style-loader',
-            })
+            const use1 = [
+                MiniCssExtractPlugin.loader,
+                ...loaders
+            ]
+            const use2 = [
+                'vue-style-loader',
+                ...loaders
+            ]
+            if (loader) {
+                use1.push(loader + '-loader')
+                use2.push(loader + '-loader')
+            }
+            return [
+                {
+                    use: use1,
+                },
+                {
+                    use: use2,
+                },
+            ]
         }
-
         return ['vue-style-loader'].concat(loaders)
     }
 
@@ -62,10 +86,10 @@ exports.cssLoaders = function(options) {
         css: generateLoaders(),
         postcss: generateLoaders(),
         less: generateLoaders('less'),
-        sass: generateLoaders('sass', { indentedSyntax: true }),
-        scss: generateLoaders('sass'),
-        stylus: generateLoaders('stylus'),
-        styl: generateLoaders('stylus'),
+        // sass: generateLoaders('sass', { indentedSyntax: true }),
+        // scss: generateLoaders('sass'),
+        // stylus: generateLoaders('stylus'),
+        // styl: generateLoaders('stylus'),
     }
 }
 
@@ -75,9 +99,10 @@ exports.styleLoaders = function(options) {
     const loaders = exports.cssLoaders(options)
 
     Object.keys(loaders).forEach(function(extension) {
+        console.log(loaders[extension])
         output.push({
             test: new RegExp('\\.' + extension + '$'),
-            use: loaders[extension],
+            oneOf: loaders[extension],
         })
     })
 
