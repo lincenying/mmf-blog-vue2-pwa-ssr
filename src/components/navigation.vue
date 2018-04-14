@@ -25,7 +25,7 @@ export default {
     props: ['backend'],
     data() {
         return {
-            isLogin: cookies.get('user'),
+            isLogin: cookies.get('user')
         }
     },
     methods: {
@@ -38,7 +38,7 @@ export default {
                 return false
             }
             this.$router.replace('/search/' + qs)
-        },
-    },
+        }
+    }
 }
 </script>

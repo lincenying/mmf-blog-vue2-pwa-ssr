@@ -154,54 +154,54 @@ export function createRouter() {
                 path: '/backend/admin/modify/:id',
                 component: adminModify,
                 meta: { notKeepAlive: true },
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
 
             {
                 name: 'article_list',
                 path: '/backend/article/list',
                 component: articleList,
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_insert',
                 path: '/backend/article/insert',
                 component: articleInsert,
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_modify',
                 path: '/backend/article/modify/:id',
                 component: articleModify,
                 meta: { notKeepAlive: true },
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_comment',
                 path: '/backend/article/comment/:id',
                 component: articleComment,
                 meta: { notKeepAlive: true },
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
 
             {
                 name: 'category_list',
                 path: '/backend/category/list',
                 component: categoryList,
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
             {
                 name: 'category_insert',
                 path: '/backend/category/insert',
                 component: categoryInsert,
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
             {
                 name: 'category_modify',
                 path: '/backend/category/modify/:id',
                 component: categoryModify,
                 meta: { notKeepAlive: true },
-                beforeEnter: guardRouteBackend,
+                beforeEnter: guardRouteBackend
             },
 
             { name: 'user_list', path: '/backend/user/list', component: userList, beforeEnter: guardRouteBackend },
@@ -210,9 +210,9 @@ export function createRouter() {
                 path: '/backend/user/modify/:id',
                 component: userModify,
                 meta: { notKeepAlive: true },
-                beforeEnter: guardRouteBackend,
-            },
-        ],
+                beforeEnter: guardRouteBackend
+            }
+        ]
     })
 
     /**

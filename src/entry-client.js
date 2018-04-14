@@ -19,7 +19,7 @@ import 'toastr/build/toastr.css'
 // 如果你需要前端错误信息监控, 可以到 https://sentry.io/ 注册个账号, 然后将 PUBLIC_DSN 替换下方的
 // 如果不需要可以直接删除
 Raven.config('https://cefc965cf10748aea0cc56659c2fe9ea@sentry.io/256376', {
-    includePaths: [/https?:\/\/www\.mmxiaowu\.com/],
+    includePaths: [/https?:\/\/www\.mmxiaowu\.com/]
     // includePaths: [/https?:\/\/www\.mmxiaowu\.com/, /http:\/\/localhost:8080/]
 })
     .addPlugin(RavenVue, Vue)
@@ -76,10 +76,10 @@ Vue.mixin({
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('appShell/saveScrollTop', {
             path: from.fullPath,
-            scrollTop: Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop),
+            scrollTop: Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
         })
         next()
-    },
+    }
 })
 
 // 此时异步组件已经加载完成
@@ -111,7 +111,7 @@ router.beforeResolve((to, from, next) => {
                         store,
                         route: to,
                         isServer: false,
-                        isClient: true,
+                        isClient: true
                     })
                     .then(() => {
                         c.asyncDataFetched = true

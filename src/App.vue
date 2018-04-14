@@ -47,14 +47,14 @@ export default {
         signUp,
         signIn,
         backTop,
-        backendMenu,
+        backendMenu
     },
     data() {
         return {}
     },
     computed: {
         ...mapGetters({
-            global: 'global/getGlobal',
+            global: 'global/getGlobal'
         }),
         ...mapState('appShell', ['pageTransitionName']),
         key() {
@@ -65,7 +65,7 @@ export default {
         },
         isLogin() {
             return ['/backend', '/backend/'].includes(this.$route.path)
-        },
+        }
     },
     methods: {
         handleBeforeEnter() {
@@ -76,7 +76,7 @@ export default {
         },
         handleClickHeaderBack() {
             this.$router.go(-1)
-        },
-    },
+        }
+    }
 }
 </script>
