@@ -25,14 +25,14 @@ exports.cssLoaders = function(options) {
         loader: 'css-loader',
         options: {
             minimize: process.env.NODE_ENV === 'production',
-            sourceMap: options.sourceMap,
-        },
+            sourceMap: options.sourceMap
+        }
     }
     const postcssLoader = {
         loader: 'postcss-loader',
         options: {
-            sourceMap: options.sourceMap,
-        },
+            sourceMap: options.sourceMap
+        }
     }
 
     // generate loader string to be used with extract text plugin
@@ -43,8 +43,8 @@ exports.cssLoaders = function(options) {
             loaders.push({
                 loader: loader + '-loader',
                 options: Object.assign({}, loaderOptions, {
-                    sourceMap: options.sourceMap,
-                }),
+                    sourceMap: options.sourceMap
+                })
             })
         }
 
@@ -59,21 +59,25 @@ exports.cssLoaders = function(options) {
         if (options.extract) {
             return [
                 {
-                    use: [MiniCssExtractPlugin.loader, ...loaders],
+                    use: [MiniCssExtractPlugin.loader, ...loaders]
                 },
                 {
-                    use: ['vue-style-loader', ...loaders],
-                },
+                    use: ['vue-style-loader', ...loaders]
+                }
             ]
         }
-        return ['vue-style-loader'].concat(loaders)
+        return [
+            {
+                use: ['vue-style-loader', ...loaders]
+            }
+        ]
     }
 
     // https://vue-loader.vuejs.org/en/configurations/extract-css.html
     return {
         css: generateLoaders(),
         postcss: generateLoaders(),
-        less: generateLoaders('less'),
+        less: generateLoaders('less')
         // sass: generateLoaders('sass', { indentedSyntax: true }),
         // scss: generateLoaders('sass'),
         // stylus: generateLoaders('stylus'),
@@ -87,10 +91,9 @@ exports.styleLoaders = function(options) {
     const loaders = exports.cssLoaders(options)
 
     Object.keys(loaders).forEach(function(extension) {
-        console.log(loaders[extension])
         output.push({
             test: new RegExp('\\.' + extension + '$'),
-            oneOf: loaders[extension],
+            oneOf: loaders[extension]
         })
     })
 

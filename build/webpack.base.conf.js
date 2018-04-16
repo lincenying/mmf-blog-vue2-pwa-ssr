@@ -7,10 +7,11 @@
 
 // const webpack = require('webpack')
 const path = require('path')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+
 const utils = require('./utils')
 const config = require('../config')
-const vueLoaderConfig = require('./vue-loader.conf')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 require('babel-polyfill')
 
@@ -21,12 +22,12 @@ function resolve(dir) {
 module.exports = {
     mode: 'development',
     entry: {
-        app: './src/entry-client.js',
+        app: './src/entry-client.js'
     },
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
+        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -40,8 +41,8 @@ module.exports = {
             '~store': resolve('src/store'),
             '~utils': resolve('src/utils'),
             assets: resolve('src/assets'),
-            'api-config': resolve('src/api/config-client'),
-        },
+            'api-config': resolve('src/api/config-client')
+        }
     },
     module: {
         rules: [
@@ -52,35 +53,38 @@ module.exports = {
                         loader: 'vue-loader',
                         options: {
                             compilerOptions: {
-                                preserveWhitespace: false,
-                            },
-                        },
-                    },
+                                preserveWhitespace: false
+                            }
+                        }
+                    }
                 ],
-                include: [resolve('src')],
+                include: [resolve('src')]
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src')],
+                include: [resolve('src')]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('img/[name].[hash:7].[ext]'),
-                },
+                    name: utils.assetsPath('img/[name].[hash:7].[ext]')
+                }
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
-                },
-            },
-        ],
+                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+                }
+            }
+        ]
     },
-    plugins: process.env.NODE_ENV === 'production' ? [] : [new FriendlyErrorsPlugin()],
+    plugins:
+        process.env.NODE_ENV === 'production'
+            ? [new VueLoaderPlugin()]
+            : [new VueLoaderPlugin(), new FriendlyErrorsPlugin()]
 }
