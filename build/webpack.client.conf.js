@@ -7,12 +7,11 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const baseConfig = require('./webpack.base.conf')
 const config = require('../config')
@@ -94,11 +93,6 @@ if (isProduction) {
             // both options are optional
             filename: utils.assetsPath('css/[name].[contenthash:7].css'),
             chunkFilename: utils.assetsPath('css/[name].[contenthash:7].css'),
-        }),
-        new OptimizeCSSAssetsPlugin({
-            cssProcessorOptions: {
-                safe: true
-            }
         }),
         // service worker caching
         new SWPrecacheWebpackPlugin(config.swPrecache.build),
