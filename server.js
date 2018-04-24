@@ -51,14 +51,14 @@ function createRenderer(bundle, options) {
             // for component caching
             cache: lruCache({
                 max: 1000,
-                maxAge: 1000 * 60 * 15,
+                maxAge: 1000 * 60 * 15
             }),
 
             // this is only needed when vue-server-renderer is npm-linked
             basedir: resolve('./dist'),
 
             // recommended for performance
-            runInNewContext: false,
+            runInNewContext: false
         })
     )
 }
@@ -77,7 +77,7 @@ if (isProd) {
     const clientManifest = require('./dist/vue-ssr-client-manifest.json')
 
     renderer = createRenderer(bundle, {
-        clientManifest,
+        clientManifest
     })
 } else {
     // In development: setup the dev server with watch and hot-reload,
@@ -89,7 +89,7 @@ if (isProd) {
 
 const serve = (path, cache) =>
     express.static(resolve(path), {
-        maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
+        maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
     })
 
 // 引用 esj 模板引擎
@@ -218,7 +218,7 @@ const render = async (req, res) => {
         // default title
         title: 'M.M.F 小屋',
         url: req.url,
-        cookies: req.cookies,
+        cookies: req.cookies
     }
     renderer.renderToString(context, (err, html) => {
         if (err) {
