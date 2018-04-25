@@ -4795,32 +4795,32 @@ moment@^2.22.1:
   version "2.22.1"
   resolved "http://registry.npm.taobao.org/moment/download/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
-mongodb-core@3.0.6:
-  version "3.0.6"
-  resolved "http://registry.npm.taobao.org/mongodb-core/download/mongodb-core-3.0.6.tgz#c1bf0ab868ece5b1d90917b58d7a8855cd8ba6ff"
+mongodb-core@3.0.7:
+  version "3.0.7"
+  resolved "http://registry.npm.taobao.org/mongodb-core/download/mongodb-core-3.0.7.tgz#a9941f14883a75768d554cef5fd67756a9cc0f25"
   dependencies:
     bson "~1.0.4"
     require_optional "^1.0.1"
 
-mongodb@3.0.6:
-  version "3.0.6"
-  resolved "http://registry.npm.taobao.org/mongodb/download/mongodb-3.0.6.tgz#72d2444b14f9784869e0c33436c49c8dca5083e4"
+mongodb@3.0.7:
+  version "3.0.7"
+  resolved "http://registry.npm.taobao.org/mongodb/download/mongodb-3.0.7.tgz#cfcbaee992d78dabca67177f8f9db9cf13ac3a44"
   dependencies:
-    mongodb-core "3.0.6"
+    mongodb-core "3.0.7"
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
-mongoose@5.0.15:
-  version "5.0.15"
-  resolved "http://registry.npm.taobao.org/mongoose/download/mongoose-5.0.15.tgz#5260a65e5777224ae6a24f5dc8b8d39b548c826c"
+mongoose@5.0.16:
+  version "5.0.16"
+  resolved "http://registry.npm.taobao.org/mongoose/download/mongoose-5.0.16.tgz#a405ff0a6583442d9c55fead8ea4fdbdc0b4f5ba"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
     kareem "2.0.6"
     lodash.get "4.4.2"
-    mongodb "3.0.6"
+    mongodb "3.0.7"
     mongoose-legacy-pluralize "1.0.2"
     mpath "0.4.1"
     mquery "3.0.0"
@@ -7401,9 +7401,9 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
-vue-loader@^15.0.0-rc.2:
-  version "15.0.0-rc.2"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-15.0.0-rc.2.tgz#f7f71035912f67b9e0b52fbd51a4f9de5c7c0bfc"
+vue-loader@^15.0.0:
+  version "15.0.0"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-15.0.0.tgz#536dd4ea8bb6e2a070ac70a9d0ca2f2ca073c604"
   dependencies:
     "@vue/component-compiler-utils" "^1.0.0"
     hash-sum "^1.0.2"
