@@ -9,9 +9,12 @@
 const path = require('path')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const WebpackBar = require('webpackbar')
 
 const utils = require('./utils')
 const config = require('../config')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 require('babel-polyfill')
 
@@ -21,6 +24,13 @@ function resolve(dir) {
 
 module.exports = {
     mode: 'development',
+    performance: {
+        maxEntrypointSize: 300000,
+        hints: isProd ? 'warning' : false,
+        assetFilter: function(assetFilename) {
+            return assetFilename.endsWith('.js')
+        }
+    },
     entry: {
         app: './src/entry-client.js'
     },
@@ -83,8 +93,7 @@ module.exports = {
             }
         ]
     },
-    plugins:
-        process.env.NODE_ENV === 'production'
-            ? [new VueLoaderPlugin()]
-            : [new VueLoaderPlugin(), new FriendlyErrorsPlugin()]
+    plugins: [new VueLoaderPlugin(), new WebpackBar()].concat(
+        process.env.NODE_ENV === 'production' ? [] : [new FriendlyErrorsPlugin()]
+    )
 }

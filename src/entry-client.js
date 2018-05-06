@@ -9,6 +9,7 @@ import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 
 import FastClick from 'fastclick'
+import api from '~api'
 import { createApp } from './app'
 import ProgressBar from '@/components/ProgressBar.vue'
 
@@ -31,6 +32,7 @@ const { app, router, store } = createApp()
 
 if (window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
+    store.$api = store.state.$api = api
 }
 
 document.body.appendChild(loading.$el)

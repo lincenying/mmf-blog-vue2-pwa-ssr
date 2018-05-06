@@ -11,27 +11,27 @@ import cookies from 'js-cookie'
 import { inBrowser } from './utils'
 
 // 定义切割点，异步加载路由组件
-const index = () => import('./pages/frontend-index.vue')
-const article = () => import('./pages/frontend-article.vue')
-const about = () => import('./pages/frontend-about.vue')
-const account = () => import('./pages/frontend-user-account.vue')
-const password = () => import('./pages/frontend-user-password.vue')
+const index = () => import(/* webpackChunkName: "frontend-topics" */ './pages/frontend-index.vue')
+const article = () => import(/* webpackChunkName: "frontend-topics" */ './pages/frontend-article.vue')
+const about = () => import(/* webpackChunkName: "frontend-about" */ './pages/frontend-about.vue')
+const account = () => import(/* webpackChunkName: "frontend-user" */ './pages/frontend-user-account.vue')
+const password = () => import(/* webpackChunkName: "frontend-user" */ './pages/frontend-user-password.vue')
 
-const login = () => import('./pages/backend-login.vue')
-const articleList = () => import('./pages/backend-article-list.vue')
-const articleInsert = () => import('./pages/backend-article-insert.vue')
-const articleModify = () => import('./pages/backend-article-modify.vue')
-const articleComment = () => import('./pages/backend-article-comment.vue')
+const login = () => import(/* webpackChunkName: "backend-login" */ './pages/backend-login.vue')
+const articleList = () => import(/* webpackChunkName: "backend-topics" */ './pages/backend-article-list.vue')
+const articleInsert = () => import(/* webpackChunkName: "backend-topics" */ './pages/backend-article-insert.vue')
+const articleModify = () => import(/* webpackChunkName: "backend-topics" */ './pages/backend-article-modify.vue')
+const articleComment = () => import(/* webpackChunkName: "backend-topics" */ './pages/backend-article-comment.vue')
 
-const categoryList = () => import('./pages/backend-category-list.vue')
-const categoryInsert = () => import('./pages/backend-category-insert.vue')
-const categoryModify = () => import('./pages/backend-category-modify.vue')
+const categoryList = () => import(/* webpackChunkName: "backend-category" */ './pages/backend-category-list.vue')
+const categoryInsert = () => import(/* webpackChunkName: "backend-category" */ './pages/backend-category-insert.vue')
+const categoryModify = () => import(/* webpackChunkName: "backend-category" */ './pages/backend-category-modify.vue')
 
-const adminList = () => import('./pages/backend-admin-list.vue')
-const adminModify = () => import('./pages/backend-admin-modify.vue')
+const adminList = () => import(/* webpackChunkName: "backend-admin" */ './pages/backend-admin-list.vue')
+const adminModify = () => import(/* webpackChunkName: "backend-admin" */ './pages/backend-admin-modify.vue')
 
-const userList = () => import('./pages/backend-user-list.vue')
-const userModify = () => import('./pages/backend-user-modify.vue')
+const userList = () => import(/* webpackChunkName: "backend-user" */ './pages/backend-user-list.vue')
+const userModify = () => import(/* webpackChunkName: "backend-user" */ './pages/backend-user-modify.vue')
 
 Vue.use(Router)
 Vue.use(Meta)

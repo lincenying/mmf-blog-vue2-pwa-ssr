@@ -17,12 +17,12 @@ const baseConfig = require('./webpack.base.conf')
 const config = require('../config')
 const utils = require('./utils')
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 
-const env = isProduction ? config.build.env : config.dev.env
+const env = isProd ? config.build.env : config.dev.env
 
 let sourceMap = '#eval-source-map'
-if (isProduction) {
+if (isProd) {
     if (config.build.productionSourceMap) sourceMap = '#source-map'
     else sourceMap = false
 }
@@ -31,8 +31,8 @@ const webpackConfig = merge(baseConfig, {
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
-            extract: isProduction,
-            usePostCSS: isProduction
+            extract: isProd,
+            usePostCSS: isProd
         })
     },
     externals: {
@@ -41,8 +41,8 @@ const webpackConfig = merge(baseConfig, {
     devtool: sourceMap,
     output: {
         path: config.build.assetsRoot,
-        filename: utils.assetsPath(isProduction ? 'js/[name].[chunkhash:7].js' : 'js/[name].js'),
-        chunkFilename: utils.assetsPath(isProduction ? 'js/[name].[chunkhash:7].js' : 'js/[name].js')
+        filename: utils.assetsPath(isProd ? 'js/[name].[chunkhash:7].js' : 'js/[name].js'),
+        chunkFilename: utils.assetsPath(isProd ? 'js/[name].[chunkhash:7].js' : 'js/[name].js')
     },
     plugins: [
         // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -54,7 +54,7 @@ const webpackConfig = merge(baseConfig, {
     ]
 })
 
-if (isProduction) {
+if (isProd) {
     webpackConfig.mode = 'production'
     webpackConfig.optimization = {
         runtimeChunk: {
