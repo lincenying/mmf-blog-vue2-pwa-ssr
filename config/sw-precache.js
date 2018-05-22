@@ -90,7 +90,7 @@ module.exports = {
          *
          * @type {string}
          */
-        templateFilePath: 'config/sw.tmpl.js',
+        templateFilePath: 'config/sw.tmpl.tpl',
 
         /**
          * 是否 verbose
