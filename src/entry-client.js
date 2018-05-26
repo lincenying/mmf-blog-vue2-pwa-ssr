@@ -3,7 +3,7 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-import './polyfill'
+import 'babel-polyfill'
 import Vue from 'vue'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
