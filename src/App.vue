@@ -34,6 +34,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+
 import Navigation from './components/navigation.vue'
 import signUp from './components/signup.vue'
 import signIn from './components/signin.vue'

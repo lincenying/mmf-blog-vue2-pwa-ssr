@@ -16,7 +16,7 @@ const config = require('../config')
 
 const isProd = process.env.NODE_ENV === 'production'
 
-require('babel-polyfill')
+require('@babel/polyfill')
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)

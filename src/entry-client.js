@@ -4,11 +4,12 @@
  */
 
 import './polyfill'
+
 import Vue from 'vue'
 import Raven from 'raven-js'
+import FastClick from 'fastclick'
 import RavenVue from 'raven-js/plugins/vue'
 
-import FastClick from 'fastclick'
 import api from '~api'
 import { createApp } from './app'
 import ProgressBar from '@/components/ProgressBar.vue'

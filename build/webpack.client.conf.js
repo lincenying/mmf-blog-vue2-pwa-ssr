@@ -3,12 +3,10 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -58,15 +56,15 @@ if (isProd) {
     webpackConfig.mode = 'production'
     webpackConfig.optimization = {
         runtimeChunk: {
-            name: "manifest"
+            name: 'manifest'
         },
         splitChunks: {
             cacheGroups: {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
+                    name: 'vendors',
                     priority: -20,
-                    chunks: "all"
+                    chunks: 'all'
                 }
             }
         },
@@ -98,14 +96,10 @@ if (isProd) {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: utils.assetsPath('css/[name].[contenthash:7].css'),
-            chunkFilename: utils.assetsPath('css/[name].[contenthash:7].css'),
+            chunkFilename: utils.assetsPath('css/[name].[contenthash:7].css')
         }),
         // service worker caching
-        new SWPrecacheWebpackPlugin(config.swPrecache.build),
-        new SwRegisterWebpackPlugin({
-            prefix: '/',
-            filePath: path.resolve(__dirname, '../src/sw-register.js')
-        })
+        new SWPrecacheWebpackPlugin(config.swPrecache.build)
     ]
 }
 

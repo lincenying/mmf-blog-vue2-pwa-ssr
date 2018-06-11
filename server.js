@@ -5,9 +5,18 @@
 const jwt = require('jsonwebtoken')
 const config = require('./server/config')
 
+const fs = require('fs')
+const path = require('path')
+const express = require('express')
+const lruCache = require('lru-cache')
+const favicon = require('serve-favicon')
+const compression = require('compression')
+const microcache = require('route-cache')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const vueServerRenderer = require('vue-server-renderer')
+
 // 引入 mongoose 相关模型
 require('./server/models/admin')
 require('./server/models/article')
@@ -17,15 +26,7 @@ require('./server/models/user')
 // 引入 api 路由
 const routes = require('./server/routes/index')
 
-const fs = require('fs')
-const path = require('path')
-const lruCache = require('lru-cache')
-const express = require('express')
-const favicon = require('serve-favicon')
-const compression = require('compression')
-const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
-const vueServerRenderer = require('vue-server-renderer')
 const createBundleRenderer = vueServerRenderer.createBundleRenderer
 
 const isProd = process.env.NODE_ENV === 'production'

@@ -8,6 +8,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
 import cookies from 'js-cookie'
+
 import { inBrowser } from './utils'
 
 // 定义切割点，异步加载路由组件
