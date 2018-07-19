@@ -22,6 +22,24 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
+const jsLoader = [
+    {
+        loader: 'cache-loader',
+        options: {
+            cacheDirectory: path.join(__dirname, '../node_modules/.cache/babel-loader'),
+            cacheIdentifier: process.env.NODE_ENV + '_babel'
+        }
+    }
+]
+if (isProd) {
+    jsLoader.push({
+        loader: 'thread-loader'
+    })
+}
+jsLoader.push({
+    loader: 'babel-loader'
+})
+
 module.exports = {
     mode: 'development',
     performance: {
@@ -60,20 +78,30 @@ module.exports = {
                 test: /\.vue$/,
                 use: [
                     {
+                        loader: 'cache-loader',
+                        options: {
+                            cacheDirectory: path.join(__dirname, '../node_modules/.cache/vue-loader'),
+                            cacheIdentifier: process.env.NODE_ENV + '_vue'
+                        }
+                    },
+                    {
                         loader: 'vue-loader',
                         options: {
                             compilerOptions: {
                                 preserveWhitespace: true
-                            }
+                            },
+                            cacheDirectory: path.join(__dirname, '../node_modules/.cache/vue-loader'),
+                            cacheIdentifier: process.env.NODE_ENV + '_vue'
                         }
                     }
                 ],
                 include: [resolve('src')]
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                include: [resolve('src')]
+                test: /\.jsx?$/,
+                use: jsLoader,
+                include: [resolve('src')],
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

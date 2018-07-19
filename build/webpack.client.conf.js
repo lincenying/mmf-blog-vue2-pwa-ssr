@@ -28,7 +28,7 @@ if (isProd) {
 const webpackConfig = merge(baseConfig, {
     module: {
         rules: utils.styleLoaders({
-            sourceMap: config.build.productionSourceMap,
+            sourceMap: false,
             extract: isProd,
             usePostCSS: isProd
         })
@@ -75,14 +75,15 @@ if (isProd) {
                         warnings: false
                     }
                 },
+                cache: true,
                 sourceMap: config.build.productionSourceMap,
                 parallel: true
             }),
             new OptimizeCSSAssetsPlugin({
                 cssProcessorOptions: {
-                    discardComments: { removeAll: true },
+                    discardComments: { removeAll: true }
                     // 避免 cssnano 重新计算 z-index
-                    safe: true
+                    // safe: true
                 }
             })
         ]
