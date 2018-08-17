@@ -14,7 +14,7 @@
     "lint:client": "eslint --ext .jsx,.js,.vue src/ --fix",
     "lint:server": "eslint --ext .js server/ --fix",
     "lint": "npm run lint:client && npm run lint:server",
-    "precommit": "pretty-quick --staged"
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -54,7 +54,7 @@
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
-    "eslint-config-lcy-vue": "^3.0.1",
+    "eslint-config-lcy-vue": "^3.0.2",
     "eslint-plugin-prettier": "^2.6.2",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",
@@ -70,7 +70,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.14.2",
-    "pretty-quick": "^1.6.0",
     "route-cache": "^0.4.4",
     "serve-favicon": "^2.5.0",
     "shelljs": "^0.8.2",
