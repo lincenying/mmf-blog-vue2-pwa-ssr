@@ -101,9 +101,7 @@ export default {
                 return
             }
             this.form.content = content
-            const {
-                data: { message, code, data }
-            } = await this.$store.$api.post('backend/article/insert', this.form)
+            const { code, data, message } = await this.$store.$api.post('backend/article/insert', this.form)
             if (code === 200) {
                 showMsg({
                     type: 'success',
