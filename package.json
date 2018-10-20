@@ -13,8 +13,7 @@
     "static": "node ./build/copy",
     "lint:client": "eslint --ext .jsx,.js,.vue src/ --fix",
     "lint:server": "eslint --ext .js server/ --fix",
-    "lint": "npm run lint:client && npm run lint:server",
-    "precommit": "lint-staged"
+    "lint": "npm run lint:client && npm run lint:server"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -114,5 +113,10 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
