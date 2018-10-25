@@ -54,6 +54,13 @@ const webpackConfig = merge(baseConfig, {
 
 if (isProd) {
     webpackConfig.mode = 'production'
+    webpackConfig.performance = {
+        maxAssetSize: 500000,
+        maxEntrypointSize: 1000000,
+        assetFilter: function(assetFilename) {
+            return assetFilename.endsWith('.js')
+        }
+    }
     webpackConfig.optimization = {
         runtimeChunk: {
             name: 'manifest'
