@@ -29,7 +29,7 @@ export const api = cookies => {
         getCookes() {
             return this.cookies
         },
-        post(url, data) {
+        async post(url, data) {
             const cookies = this.getCookes() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(data) + username)
@@ -37,17 +37,16 @@ export const api = cookies => {
                 const res = config.cached.get(key)
                 return Promise.resolve(res && res.data)
             }
-            return this.api({
+            const res_1 = await this.api({
                 method: 'post',
                 url,
                 data: qs.stringify(data),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 }
-            }).then(res => {
-                if (config.cached && data.cache) config.cached.set(key, res)
-                return res && res.data
             })
+            if (config.cached && data.cache) config.cached.set(key, res_1)
+            return res_1 && res_1.data
         },
         async get(url, params) {
             const cookies = this.getCookes() || {}

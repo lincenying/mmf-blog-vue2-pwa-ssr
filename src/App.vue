@@ -3,9 +3,7 @@
         <Navigation :backend="backend"></Navigation>
         <template v-if="!backend">
             <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
-                <keep-alive>
-                    <router-view :key="$route.fullPath" v-if="!$route.meta.notKeepAlive" class="app-view"></router-view>
-                </keep-alive>
+                <keep-alive> <router-view :key="$route.fullPath" v-if="!$route.meta.notKeepAlive" class="app-view"></router-view> </keep-alive>
             </transition>
             <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
                 <router-view :key="$route.fullPath" v-if="$route.meta.notKeepAlive" class="app-view"></router-view>

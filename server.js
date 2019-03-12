@@ -31,12 +31,7 @@ const createBundleRenderer = vueServerRenderer.createBundleRenderer
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
-const serverInfo =
-    '' +
-    'express/' +
-    require('express/package.json').version +
-    'vue-server-renderer/' +
-    require('vue-server-renderer/package.json').version
+const serverInfo = 'express/' + require('express/package.json').version + 'vue-server-renderer/' + require('vue-server-renderer/package.json').version
 
 const app = express()
 
@@ -50,7 +45,7 @@ function createRenderer(bundle, options) {
             template,
 
             // for component caching
-            cache: lruCache({
+            cache: new lruCache({
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             }),
@@ -134,11 +129,7 @@ const checkAdminToken = (req, res) => {
     if (token) {
         return new Promise(resolve => {
             jwt.verify(token, config.secretServer, function(err, decoded) {
-                if (
-                    !err &&
-                    decoded.id === userid &&
-                    (decoded.username === username || decoded.username === encodeURI(username))
-                ) {
+                if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
                     req.decoded = decoded
                     resolve(true)
                 } else {
@@ -160,11 +151,7 @@ const checkUserToken = (req, res) => {
     if (token) {
         return new Promise(resolve => {
             jwt.verify(token, config.secretClient, function(err, decoded) {
-                if (
-                    !err &&
-                    decoded.id === userid &&
-                    (decoded.username === username || decoded.username === encodeURI(username))
-                ) {
+                if (!err && decoded.id === userid && (decoded.username === username || decoded.username === encodeURI(username))) {
                     req.decoded = decoded
                     resolve('')
                 } else {

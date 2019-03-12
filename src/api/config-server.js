@@ -12,7 +12,7 @@ if (process.__API__) {
         timeout: 30000,
         cached:
             cached &&
-            lruCache({
+            new lruCache({
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             }),
