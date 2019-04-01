@@ -9,3 +9,4 @@ package-lock.json
 admin.lock
 server/config/secret.js
 server/config/mpapp.js
+server/config/shihua.js
