@@ -13,6 +13,7 @@ const frontendComment = require('../api/frontend-comment')
 const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
 const frontendShihua = require('../api/frontend-shihua')
+const frontendWeiBo = require('../api/frontend-weibo')
 const isAdmin = require('./is-admin')
 const isUser = require('./is-user')
 
@@ -122,6 +123,10 @@ router.get('/frontend/reset/like', isUser, frontendLike.resetLike)
 // ------ 识花 ------
 router.post('/frontend/shihua/upload', cors, frontendShihua.upload)
 router.get('/frontend/shihua/get', cors, frontendShihua.shihua)
+// ------ 微博 ------
+router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
+router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
+router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
 
 router.get('*', (req, res) => {
     res.json({
