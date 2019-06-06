@@ -54,7 +54,11 @@ exports.login = (req, res) => {
                 json = {
                     code: 200,
                     message: '登录成功',
-                    data: token
+                    data: {
+                        user: token,
+                        userid: id,
+                        username
+                    }
                 }
             } else {
                 json = {

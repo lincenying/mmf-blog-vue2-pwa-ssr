@@ -123,10 +123,14 @@ router.get('/frontend/reset/like', isUser, frontendLike.resetLike)
 // ------ 识花 ------
 router.post('/frontend/shihua/upload', cors, frontendShihua.upload)
 router.get('/frontend/shihua/get', cors, frontendShihua.shihua)
+router.get('/frontend/shihua/history/list', cors, frontendShihua.getHistory)
+router.get('/frontend/shihua/history/delete', cors, frontendShihua.delHistory)
 // ------ 微博 ------
 router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
 router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
 router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
+router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
+router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
 
 router.get('*', (req, res) => {
     res.json({

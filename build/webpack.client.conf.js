@@ -79,7 +79,6 @@ if (isProd) {
             new UglifyJsPlugin({
                 uglifyOptions: {
                     compress: {
-                        warnings: false
                     }
                 },
                 cache: true,

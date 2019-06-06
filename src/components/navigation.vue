@@ -23,11 +23,11 @@
                 /></span>
                 <span v-if="isLogin" class="nav-me"
                     ><router-link to="/user/account" class="nav-me-link"
-                        ><img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" class="nav-avatar-img"/></router-link
+                        ><img src="https://ae01.alicdn.com/kf/HTB1VzjybLWG3KVjSZPcq6zkbXXaN.jpg" class="nav-avatar-img"/></router-link
                 ></span>
                 <span v-else class="nav-me"
                     ><a @click="login" href="javascript:;" class="nav-me-link"
-                        ><img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" class="nav-avatar-img"/></a
+                        ><img src="https://ae01.alicdn.com/kf/HTB1VzjybLWG3KVjSZPcq6zkbXXaN.jpg" class="nav-avatar-img"/></a
                 ></span>
             </div>
         </div>
