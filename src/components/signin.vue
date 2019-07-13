@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
 export default {
     name: 'sign-in',

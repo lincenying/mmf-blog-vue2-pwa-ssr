@@ -6,30 +6,17 @@
 import './polyfill'
 
 import Vue from 'vue'
-import Raven from 'raven-js'
 import FastClick from 'fastclick'
-import RavenVue from 'raven-js/plugins/vue'
 
 import api from '~api'
 import VueBus from './event-bus'
 
-import { createApp } from './app'
+import { createApp } from './main'
 import ProgressBar from '@/components/progress-bar.vue'
 
 import './assets/css/hljs/googlecode.css'
 import './assets/less/style.less'
 import 'toastr/build/toastr.css'
-
-// 如果你需要前端错误信息监控, 可以到 https://sentry.io/ 注册个账号, 然后将 PUBLIC_DSN 替换下方的
-// 如果不需要可以直接删除
-if (process.env.NODE_ENV === 'production' && window.location.host === 'www.mmxiaowu.com') {
-    Raven.config('https://cefc965cf10748aea0cc56659c2fe9ea@sentry.io/256376', {
-        includePaths: [/https?:\/\/www\.mmxiaowu\.com/]
-        // includePaths: [/https?:\/\/www\.mmxiaowu\.com/, /http:\/\/localhost:8080/]
-    })
-        .addPlugin(RavenVue, Vue)
-        .install()
-}
 
 // 全局的进度条，在组件中可通过 $loading 访问
 const loading = (Vue.prototype.$loading = new Vue(ProgressBar).$mount())

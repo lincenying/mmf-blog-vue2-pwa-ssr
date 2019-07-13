@@ -32,7 +32,7 @@
 
 <script>
 // import api from '~api'
-import { strlen, showMsg } from '~utils'
+import { strlen, showMsg } from '@/utils'
 
 export default {
     name: 'sign-up',

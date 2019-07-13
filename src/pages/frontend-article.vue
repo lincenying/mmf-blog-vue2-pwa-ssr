@@ -46,7 +46,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ContentLoader } from 'vue-content-loader'
-import metaMixin from '~mixins'
+import metaMixin from '@/mixins'
 import actions from '../components/item-actions.vue'
 import category from '../components/aside-category.vue'
 import trending from '../components/aside-trending.vue'

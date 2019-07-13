@@ -23,12 +23,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
-import checkAdmin from '~mixins/check-admin'
+import checkAdmin from '@/mixins/check-admin'
 
-// import backendMenu from '~components/backend-menu.vue'
-import aInput from '~components/_input.vue'
+// import backendMenu from '@/components/backend-menu.vue'
+import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-admin-modify',

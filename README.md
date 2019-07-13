@@ -64,13 +64,13 @@ $ yarn
 # 注意: 不要用 cnpm 安装依赖
 
 # 开发模式
-$ npm run dev
+$ yarn ssr:serve
 
 # 生产模式
-$ npm run build
+$ yarn ssr:build
 
-# 启动(需先运行 npm run build )
-$ npm run start
+# 启动(需先运行 yarn ssr:build )
+$ yarn ssr:start
 ```
 
 首页

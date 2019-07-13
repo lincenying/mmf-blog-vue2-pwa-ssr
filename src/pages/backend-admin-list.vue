@@ -27,8 +27,8 @@
 <script>
 // import api from '~api'
 import { mapGetters } from 'vuex'
-import checkAdmin from '~mixins/check-admin'
-import { showMsg } from '~utils'
+import checkAdmin from '@/mixins/check-admin'
+import { showMsg } from '@/utils'
 
 export default {
     name: 'backend-admin-list',

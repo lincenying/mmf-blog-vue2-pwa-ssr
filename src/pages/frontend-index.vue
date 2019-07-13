@@ -28,7 +28,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ContentLoader } from 'vue-content-loader'
-import metaMixin from '~mixins'
+import metaMixin from '@/mixins'
 
 import topicsItem from '../components/topics-item.vue'
 import topicsItemNone from '../components/topics-item-none.vue'

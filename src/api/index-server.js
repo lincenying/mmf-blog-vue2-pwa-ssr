@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-// import { sleep } from '~utils'
+// import { sleep } from '@/utils'
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
 const parseCookie = cookies => {

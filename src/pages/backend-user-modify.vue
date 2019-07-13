@@ -23,10 +23,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
-import checkAdmin from '~mixins/check-admin'
-import aInput from '~components/_input.vue'
+import checkAdmin from '@/mixins/check-admin'
+import aInput from '@/components/_input.vue'
 
 export default {
     name: 'backend-user-modify',

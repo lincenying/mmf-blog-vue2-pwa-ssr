@@ -29,9 +29,9 @@
 <script>
 /* global modifyEditor */
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
-import checkAdmin from '~mixins/check-admin'
+import checkAdmin from '@/mixins/check-admin'
 import aInput from '../components/_input.vue'
 
 export default {
@@ -82,7 +82,7 @@ export default {
             height: 500,
             markdown: data.content,
             placeholder: '请输入内容...',
-            path: '/static/editor.md/lib/',
+            path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
             toolbarIcons() {
                 return [
                     'bold',

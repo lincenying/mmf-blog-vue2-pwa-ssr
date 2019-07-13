@@ -17,7 +17,7 @@
 </template>
 <script>
 import cookies from 'js-cookie'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
 export default {
     name: 'item-actions',

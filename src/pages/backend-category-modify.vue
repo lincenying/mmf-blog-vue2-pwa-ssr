@@ -20,8 +20,8 @@
 <script>
 // import api from '~api'
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
-import checkAdmin from '~mixins/check-admin'
+import { showMsg } from '@/utils'
+import checkAdmin from '@/mixins/check-admin'
 import aInput from '../components/_input.vue'
 
 export default {

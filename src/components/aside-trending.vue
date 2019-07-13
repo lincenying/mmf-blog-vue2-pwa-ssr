@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-// import Affix from '~components/affix.vue'
+// import Affix from '@/components/affix.vue'
 export default {
     name: 'aside-trending',
     components: {

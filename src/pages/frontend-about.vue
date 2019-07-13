@@ -55,7 +55,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import metaMixin from '~mixins'
+import metaMixin from '@/mixins'
 import trending from '../components/aside-trending.vue'
 
 export default {

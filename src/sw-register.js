@@ -1,4 +1,3 @@
-/* global navigator */
 /**
  * @file serviceworker register
  * @author lincenying(lincenying@qq.com)
