@@ -88,6 +88,10 @@ module.exports = {
             appleTouchIcon: 'static/img/icons/apple-touch-icon-152x152.png',
             maskIcon: 'static/img/icons/safari-pinned-tab.svg',
             msTileImage: 'static/img/icons/msapplication-icon-144x144.png'
+        },
+        workboxOptions: {
+            importWorkboxFrom: 'disabled',
+            importScripts: 'https://cdn.jsdelivr.net/npm/workbox-cdn@3.6.3/workbox/workbox-sw.js'
         }
     }
 }
