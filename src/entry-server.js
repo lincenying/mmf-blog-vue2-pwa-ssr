@@ -4,7 +4,7 @@ import { api } from '~api'
 export default context => {
     // eslint-disable-next-line
     return new Promise(async (resolve, reject) => {
-        const nowTime = Date.now()
+        // const nowTime = Date.now()
         const { app, router, store } = await createApp()
 
         const url = context.url
@@ -44,7 +44,7 @@ export default context => {
                 )
             )
                 .then(() => {
-                    console.log(`data pre-fetch: ${Date.now() - nowTime}ms`)
+                    // console.log(`data pre-fetch: ${Date.now() - nowTime}ms`)
 
                     // After all preFetch hooks are resolved, our store is now
                     // filled with the state needed to render the app.
