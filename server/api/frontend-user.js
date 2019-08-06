@@ -46,18 +46,21 @@ exports.login = (req, res) => {
             if (result) {
                 username = encodeURI(username)
                 const id = result._id
+                const email = result.email
                 const remember_me = 2592000000
                 const token = jwt.sign({ id, username }, secret, { expiresIn: 60 * 60 * 24 * 30 })
                 res.cookie('user', token, { maxAge: remember_me })
                 res.cookie('userid', id, { maxAge: remember_me })
                 res.cookie('username', username, { maxAge: remember_me })
+                res.cookie('useremail', email, { maxAge: remember_me })
                 json = {
                     code: 200,
                     message: '登录成功',
                     data: {
                         user: token,
                         userid: id,
-                        username
+                        username,
+                        email
                     }
                 }
             } else {

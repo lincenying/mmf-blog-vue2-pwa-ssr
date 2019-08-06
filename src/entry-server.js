@@ -25,7 +25,7 @@ export default context => {
             }
 
             store.$api = store.state.$api = api(context.req.cookies)
-
+            store.commit('global/setCookies', context.req.cookies)
             // Call fetchData hooks on components matched by the route.
             // A preFetch hook dispatches a store action and returns a Promise,
             // which is resolved when the action is complete and store state has been

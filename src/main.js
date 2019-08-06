@@ -11,6 +11,7 @@ import { createStore } from './store'
 import App from './App.vue'
 import * as filters from './filters'
 import titleMixin from './mixins'
+import { oc } from './utils'
 
 Vue.mixin(titleMixin)
 
@@ -18,6 +19,7 @@ Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
 })
 
+Vue.prototype.$oc = oc
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

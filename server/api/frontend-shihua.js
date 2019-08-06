@@ -72,6 +72,7 @@ exports.shihua = async (req, res) => {
                 res.json({
                     code: 200,
                     from: 'db',
+                    userid,
                     result: JSON.parse(result.result)
                 })
             } else {
@@ -80,6 +81,7 @@ exports.shihua = async (req, res) => {
                         res.json({
                             code: 200,
                             from: 'api',
+                            userid,
                             ...data
                         })
                     } else {
@@ -174,7 +176,7 @@ exports.delHistory = (req, res) => {
     const userid = req.cookies.userid || req.headers.userid
     const { img_id } = req.query
 
-    Shihua.remove({ img_id, user_id: userid })
+    Shihua.deleteOne({ img_id, user_id: userid })
         .then(() => {
             res.json({
                 code: 200,
