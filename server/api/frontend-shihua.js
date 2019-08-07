@@ -87,6 +87,7 @@ exports.shihua = async (req, res) => {
                     } else {
                         res.json({
                             code: -200,
+                            userid,
                             message: '读取数据失败'
                         })
                     }
