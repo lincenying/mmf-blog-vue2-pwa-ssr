@@ -2,11 +2,8 @@
     <div id="app" :class="backend ? 'backend' : 'frontend'">
         <Navigation :backend="backend"></Navigation>
         <template v-if="!backend">
-            <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
-                <keep-alive> <router-view :key="$route.fullPath" v-if="!$route.meta.notKeepAlive" class="app-view" /> </keep-alive>
-            </transition>
-            <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
-                <router-view :key="$route.fullPath" v-if="$route.meta.notKeepAlive" class="app-view" />
+            <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+                <keep-alive :include="cacheFronentComponents"> <router-view :key="key" class="app-view" /> </keep-alive>
             </transition>
             <sign-up :show="global.showRegisterModal"></sign-up>
             <sign-in :show="global.showLoginModal"></sign-in>
@@ -15,13 +12,8 @@
         <div v-else class="main wrap clearfix">
             <div class="main-left">
                 <div class="home-feeds cards-wrap">
-                    <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
-                        <keep-alive>
-                            <router-view :key="$route.fullPath" v-if="!$route.meta.notKeepAlive" class="app-view" />
-                        </keep-alive>
-                    </transition>
-                    <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
-                        <router-view :key="$route.fullPath" v-if="$route.meta.notKeepAlive" class="app-view" />
+                    <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+                        <keep-alive :include="cacheBackendComponents"> <router-view class="app-view" /> </keep-alive>
                     </transition>
                 </div>
             </div>
@@ -49,7 +41,11 @@ export default {
         backendMenu
     },
     data() {
-        return {}
+        return {
+            // 需要缓存的路由组件 name
+            cacheFronentComponents: 'frontend-index,frontend-about',
+            cacheBackendComponents: 'backend-admin-list, backend-article-comment, backend-article-list, backend-user-list'
+        }
     },
     computed: {
         ...mapGetters({

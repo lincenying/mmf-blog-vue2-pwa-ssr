@@ -8,8 +8,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
 import cookies from 'js-cookie'
-
-import { inBrowser } from './utils'
+import { inBrowser } from '@/utils'
 
 // 定义切割点，异步加载路由组件
 const index = () => import(/* webpackChunkName: "frontend-topics" */ './pages/frontend-index.vue')
@@ -43,7 +42,7 @@ Vue.use(Meta)
  * @type {Array.<string>}
  * @const
  */
-const alwaysBackPage = ['index', 'trending', 'category', 'search']
+// const alwaysBackPage = ['frontend-index', 'frontend-trending', 'frontend-category', 'frontend-search']
 
 /**
  * to 如果在这个列表中，始终采用从右到左的滑动效果
@@ -51,7 +50,7 @@ const alwaysBackPage = ['index', 'trending', 'category', 'search']
  * @type {Array.<string>}
  * @const
  */
-const alwaysForwardPage = ['article']
+// const alwaysForwardPage = ['frontend-article']
 
 /**
  * 历史记录，记录访问过的页面的 fullPath
@@ -59,7 +58,7 @@ const alwaysForwardPage = ['article']
  * @type {Array.<string>}
  * @const
  */
-const historyStack = []
+// const historyStack = []
 
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
@@ -68,6 +67,7 @@ const historyStack = []
  * @param {Object} from 源 route
  * @return {boolean} 是否表示返回
  */
+/*
 const isForward = (to, from) => {
     // to 如果在这个列表中，始终认为是后退
     if (to.name && alwaysBackPage.indexOf(to.name) !== -1) {
@@ -99,10 +99,11 @@ const isForward = (to, from) => {
     historyStack.push(to.fullPath)
     return true
 }
+*/
 
 const guardRoute = (to, from, next) => {
-    var token = cookies.get('user') || !inBrowser
-    if (!token) {
+    var token = cookies.get('user')
+    if (inBrowser && !token) {
         next('/')
     } else {
         next()
@@ -110,8 +111,8 @@ const guardRoute = (to, from, next) => {
 }
 
 const guardRouteBackend = (to, from, next) => {
-    const token = cookies.get('b_user') || !inBrowser
-    if (!token) {
+    const token = cookies.get('b_user')
+    if (inBrowser && !token) {
         next('/backend')
     } else {
         next()
@@ -138,23 +139,29 @@ export function createRouter() {
         mode: 'history',
         scrollBehavior,
         routes: [
-            { name: 'index', path: '/', component: index },
-            { name: 'trending', path: '/trending/:by', component: index },
-            { name: 'category', path: '/category/:id', component: index },
-            { name: 'search', path: '/search/:key', component: index },
-            { name: 'article', path: '/article/:id', component: article, meta: { notKeepAlive: true } },
-            { name: 'about', path: '/about', component: about },
-            { name: 'account', path: '/user/account', component: account, beforeEnter: guardRoute },
-            { name: 'password', path: '/user/password', component: password, beforeEnter: guardRoute },
+            { name: 'index', path: '/', component: index, meta: { index: 1 } },
+            { name: 'trending', path: '/trending/:by', component: index, meta: { index: 1 } },
+            { name: 'category', path: '/category/:id', component: index, meta: { index: 1 } },
+            { name: 'search', path: '/search/:key', component: index, meta: { index: 1 } },
+            { name: 'article', path: '/article/:id', component: article, meta: { notKeepAlive: true, index: 2 } },
+            { name: 'about', path: '/about', component: about, meta: { index: 1 } },
+            { name: 'account', path: '/user/account', component: account, meta: { index: 2 }, beforeEnter: guardRoute },
+            { name: 'password', path: '/user/password', component: password, meta: { index: 2 }, beforeEnter: guardRoute },
 
             { name: 'login', path: '/backend', component: login },
 
-            { name: 'admin_list', path: '/backend/admin/list', component: adminList, beforeEnter: guardRouteBackend },
+            {
+                name: 'admin_list',
+                path: '/backend/admin/list',
+                component: adminList,
+                meta: { index: 1 },
+                beforeEnter: guardRouteBackend
+            },
             {
                 name: 'admin_modify',
                 path: '/backend/admin/modify/:id',
                 component: adminModify,
-                meta: { notKeepAlive: true },
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
 
@@ -162,26 +169,28 @@ export function createRouter() {
                 name: 'article_list',
                 path: '/backend/article/list',
                 component: articleList,
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_insert',
                 path: '/backend/article/insert',
                 component: articleInsert,
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_modify',
                 path: '/backend/article/modify/:id',
                 component: articleModify,
-                meta: { notKeepAlive: true },
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
             {
                 name: 'article_comment',
                 path: '/backend/article/comment/:id',
                 component: articleComment,
-                meta: { notKeepAlive: true },
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
 
@@ -189,28 +198,36 @@ export function createRouter() {
                 name: 'category_list',
                 path: '/backend/category/list',
                 component: categoryList,
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
             {
                 name: 'category_insert',
                 path: '/backend/category/insert',
                 component: categoryInsert,
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
             {
                 name: 'category_modify',
                 path: '/backend/category/modify/:id',
                 component: categoryModify,
-                meta: { notKeepAlive: true },
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             },
 
-            { name: 'user_list', path: '/backend/user/list', component: userList, beforeEnter: guardRouteBackend },
+            {
+                name: 'user_list',
+                path: '/backend/user/list',
+                component: userList,
+                meta: { index: 1 },
+                beforeEnter: guardRouteBackend
+            },
             {
                 name: 'user_modify',
                 path: '/backend/user/modify/:id',
                 component: userModify,
-                meta: { notKeepAlive: true },
+                meta: { index: 1 },
                 beforeEnter: guardRouteBackend
             }
         ]
@@ -236,8 +253,19 @@ export function createRouter() {
         if (router.app.$store) {
             // 如果不需要切换动画，直接返回
             if (router.app.$store.state.appShell.needPageTransition) {
+                // 根据 alwaysBackPage, alwaysForwardPage 来判断切换动画
                 // 判断当前是前进还是后退，添加不同的动画效果
-                const pageTransitionName = isForward(to, from) ? slideLeft : slideRight
+                // const pageTransitionName = isForward(to, from) ? slideLeft : slideRight
+                // =================== //
+                // 根据路由中的 meta.index 来判断切换动画
+                let pageTransitionName
+                if (!from.meta.index || to.meta.index === from.meta.index) {
+                    pageTransitionName = 'fade'
+                } else if (to.meta.index > from.meta.index) {
+                    pageTransitionName = slideLeft
+                } else {
+                    pageTransitionName = slideRight
+                }
                 router.app.$store.commit(`appShell/setPageTransitionName`, { pageTransitionName })
             }
         }

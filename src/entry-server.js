@@ -13,6 +13,20 @@ export default context => {
         if (fullPath !== url) {
             reject({ url: fullPath })
         }
+
+        if (url !== '/backend/' && url.indexOf('/backend/') > -1) {
+            if (!context.req.cookies.b_user) {
+                context.req.res.redirect('/backend')
+                return
+            }
+        }
+        if (url !== '/user/' && url.indexOf('/user/') > -1) {
+            if (!context.req.cookies.b_user) {
+                context.req.res.redirect('/')
+                return
+            }
+        }
+
         router.push(url)
 
         // wait until router has resolved possible async hooks

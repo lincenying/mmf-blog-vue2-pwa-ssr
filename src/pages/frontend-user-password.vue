@@ -46,9 +46,7 @@ export default {
             }
         }
     },
-    mounted() {
-        this.$store.dispatch('global/gProgress', 100)
-    },
+    mounted() {},
     methods: {
         async modify() {
             if (!this.form.password || !this.form.old_password || !this.form.re_password) {
