@@ -5,7 +5,7 @@ import config from './config-server'
 // import { sleep } from '@/utils'
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
-const parseCookie = cookies => {
+const objToStr = cookies => {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
         cookie += item + '=' + cookies[item] + '; '
@@ -22,7 +22,7 @@ export const api = cookies => {
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: parseCookie(cookies)
+                cookie: objToStr(cookies)
             },
             timeout: config.timeout
         }),

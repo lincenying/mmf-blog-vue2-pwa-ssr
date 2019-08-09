@@ -6103,6 +6103,11 @@ mongodb@3.2.7:
     mongodb-core "3.2.7"
     safe-buffer "^5.1.2"
 
+mongoose-autopopulate@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npm.taobao.org/mongoose-autopopulate/download/mongoose-autopopulate-0.9.1.tgz#ee497b50a40e065fb54f4be81eef3004d33c17bb"
+  integrity sha1-7kl7UKQOBl+1T0voHu8wBNM8F7s=
+
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"

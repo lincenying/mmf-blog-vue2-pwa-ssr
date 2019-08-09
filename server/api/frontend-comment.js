@@ -17,9 +17,6 @@ exports.insert = (req, res) => {
     const creat_date = moment().format('YYYY-MM-DD HH:mm:ss')
     const timestamp = moment().format('X')
     const userid = req.cookies.userid || req.headers.userid
-    const useremail = req.cookies.useremail || req.headers.useremail
-    let username = req.cookies.username || req.headers.username
-    username = decodeURI(username)
     if (!id) {
         res.json({ code: -200, message: '参数错误' })
         return
@@ -31,8 +28,6 @@ exports.insert = (req, res) => {
         article_id: id,
         avatar,
         userid,
-        username,
-        email: useremail,
         content,
         creat_date,
         is_delete: 0,
