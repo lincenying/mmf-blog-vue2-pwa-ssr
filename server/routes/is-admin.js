@@ -5,7 +5,6 @@ module.exports = async (req, res, next) => {
     if (b_user) {
         const check = await checkJWT(b_user, b_userid, b_username, 'admin')
         if (check) {
-            req.decoded = check
             next()
         } else {
             res.cookie('b_user', '', { maxAge: 0 })
