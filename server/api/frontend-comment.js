@@ -13,7 +13,6 @@ const Article = mongoose.model('Article')
  */
 exports.insert = (req, res) => {
     const { id, content } = req.body
-    const avatar = req.body.avatar || ''
     const creat_date = moment().format('YYYY-MM-DD HH:mm:ss')
     const timestamp = moment().format('X')
     const userid = req.cookies.userid || req.headers.userid
@@ -26,7 +25,6 @@ exports.insert = (req, res) => {
     }
     const data = {
         article_id: id,
-        avatar,
         userid,
         content,
         creat_date,

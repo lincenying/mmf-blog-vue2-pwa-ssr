@@ -90,6 +90,7 @@ module.exports = {
             msTileImage: 'static/img/icons/msapplication-icon-144x144.png'
         },
         workboxOptions: {
+            skipWaiting: true,
             importWorkboxFrom: 'disabled',
             importScripts: 'https://cdn.jsdelivr.net/npm/workbox-cdn@3.6.3/workbox/workbox-sw.js',
             exclude: [/\.jpg$/, /\.png$/, /\.html/]
