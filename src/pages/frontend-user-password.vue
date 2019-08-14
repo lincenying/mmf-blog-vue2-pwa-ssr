@@ -46,7 +46,6 @@ export default {
             }
         }
     },
-    mounted() {},
     methods: {
         async modify() {
             if (!this.form.password || !this.form.old_password || !this.form.re_password) {

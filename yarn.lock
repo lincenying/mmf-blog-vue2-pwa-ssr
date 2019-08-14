@@ -6113,10 +6113,10 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.npm.taobao.org/mongoose-legacy-pluralize/download/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha1-O6n5H6UHtRhtOZ+0CFS/8Y+1Y+Q=
 
-mongoose@^5.6.8:
-  version "5.6.8"
-  resolved "https://registry.npm.taobao.org/mongoose/download/mongoose-5.6.8.tgz#9b6d2575c21402def45f50072a3900c54b697cc8"
-  integrity sha1-m20ldcIUAt70X1AHKjkAxUtpfMg=
+mongoose@^5.6.9:
+  version "5.6.9"
+  resolved "https://registry.npm.taobao.org/mongoose/download/mongoose-5.6.9.tgz#86bdf258c5348a5c4a6acaf944d7baa73e3d1707"
+  integrity sha1-hr3yWMU0ilxKasr5RNe6pz49Fwc=
   dependencies:
     async "2.6.2"
     bson "~1.1.1"
@@ -9354,10 +9354,10 @@ vue-meta@2.2.1:
   dependencies:
     deepmerge "^4.0.0"
 
-vue-router@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.1.1.tgz?cache=0&sync_timestamp=1565102996552&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.1.1.tgz#0893c29548ba2dbe35ed104dcd1aa06743aa0ead"
-  integrity sha1-CJPClUi6Lb417RBNzRqgZ0OqDq0=
+vue-router@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.1.2.tgz#2e0904703545dabdd42b2b7a2e617f02f99a1969"
+  integrity sha1-LgkEcDVF2r3UKyt6LmF/AvmaGWk=
 
 vue-server-renderer@^2.6.0:
   version "2.6.10"

@@ -36,7 +36,9 @@ module.exports = {
             // Path to favicon
             // favicon: './static/img/icons/favicon.ico',
             // Skip some requests from being server-side rendered
-            skipRequests: req => req.originalUrl === '/graphql',
+            skipRequests: req => {
+                return req.originalUrl.indexOf('/css/') > -1 || req.originalUrl.indexOf('/js/') > -1
+            },
             // See https://ssr.vuejs.org/guide/build-config.html#externals-caveats
             nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
             // Function to connect custom middlewares

@@ -2,7 +2,7 @@
     <div id="app" :class="backend ? 'backend' : 'frontend'">
         <Navigation :backend="backend"></Navigation>
         <template v-if="!backend">
-            <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+            <transition :name="appShell.pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
                 <keep-alive :include="cacheFronentComponents"> <router-view :key="key" class="app-view" /> </keep-alive>
             </transition>
             <sign-up :show="global.showRegisterModal"></sign-up>
@@ -12,7 +12,7 @@
         <div v-else class="main wrap clearfix">
             <div class="main-left">
                 <div class="home-feeds cards-wrap">
-                    <transition :name="pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+                    <transition :name="appShell.pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
                         <keep-alive :include="cacheBackendComponents"> <router-view class="app-view" /> </keep-alive>
                     </transition>
                 </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 import Navigation from './components/navigation.vue'
 import signUp from './components/signup.vue'
@@ -49,9 +49,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            global: 'global/getGlobal'
+            global: 'global/get',
+            appShell: 'appShell/get'
         }),
-        ...mapState('appShell', ['pageTransitionName']),
         key() {
             return this.$route.path.replace(/\//g, '_')
         },
