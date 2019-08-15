@@ -1,4 +1,4 @@
-var lruCache = require('lru-cache')
+const lruCache = require('lru-cache')
 
 let api
 const cached = false

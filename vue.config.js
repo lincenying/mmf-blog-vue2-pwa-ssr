@@ -44,7 +44,13 @@ module.exports = {
             // Function to connect custom middlewares
             extendServer: app => {
                 const logger = require('morgan')
-                app.use(logger('":method :url" :status :res[content-length] ":referrer" ":user-agent"'))
+                app.use(
+                    logger('[:remote-addr] ":method :url" :status :res[content-length] ":referrer" ":user-agent" ":date[web]"', {
+                        skip(req) {
+                            return req.url.indexOf('.map') !== -1
+                        }
+                    })
+                )
                 const bodyParser = require('body-parser')
                 app.use(bodyParser.json())
                 app.use(bodyParser.urlencoded({ extended: false }))

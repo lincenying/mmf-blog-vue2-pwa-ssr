@@ -2,7 +2,17 @@ const fs = require('fs')
 const multer = require('multer')
 const moment = require('moment')
 const AipImageClassifyClient = require('baidu-aip-sdk').imageClassify
-const upload = multer({ dest: 'uploads/' }).single('file')
+
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename(req, file, cb) {
+        const ext = file.originalname.split('.').pop()
+        cb(null, 'shihua-' + Date.now() + '.' + ext)
+    }
+})
+const upload = multer({ storage }).single('file')
 const config = require('../config/shihua')
 const checkJWT = require('../utils/check-jwt').checkJWT
 
