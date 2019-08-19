@@ -97,36 +97,11 @@ module.exports = {
             maskIcon: 'static/img/icons/safari-pinned-tab.svg',
             msTileImage: 'static/img/icons/msapplication-icon-144x144.png'
         },
-        workboxPluginMode: 'GenerateSW',
+        workboxPluginMode: 'InjectManifest',
         workboxOptions: {
-            skipWaiting: true,
-            importWorkboxFrom: 'disabled',
-            importScripts: 'https://cdn.jsdelivr.net/npm/workbox-cdn@3.6.3/workbox/workbox-sw.js',
-            exclude: [/\.html/],
-            runtimeCaching: [
-                {
-                    urlPattern: /api/,
-                    handler: 'networkFirst',
-                    options: {
-                        networkTimeoutSeconds: 1,
-                        cacheName: 'api-cache',
-                        cacheableResponse: {
-                            statuses: [0, 200]
-                        }
-                    }
-                },
-                {
-                    urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
-                    handler: 'networkFirst',
-                    options: {
-                        networkTimeoutSeconds: 1,
-                        cacheName: 'cdn-cache',
-                        cacheableResponse: {
-                            statuses: [0, 200]
-                        }
-                    }
-                }
-            ]
+            // swSrc is required in InjectManifest mode.
+            swSrc: 'src/service-worker.js'
+            // ...other Workbox options...
         }
     }
 }
