@@ -85,7 +85,7 @@ module.exports = {
     },
     pwa: {
         name: 'M.M.F小屋',
-        themeColor: '#2874f0',
+        themeColor: '#54d9e0',
         msTileColor: '#000000',
         appleMobileWebAppCapable: 'yes',
         appleMobileWebAppStatusBarStyle: 'black',

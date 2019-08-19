@@ -1,6 +1,7 @@
 {
   "name": "M.M.F小屋",
   "short_name": "M.M.F小屋",
+  "description": "M.M.F小屋",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-48x48.png",
@@ -32,8 +33,12 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/",
-  "background_color": "#000000",
+  "theme_color": "#54d9e0",
+  "start_url": "/?standalone=1",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#2874f0"
+  "orientation": "portrait",
+  "background_color": "#F3F3F3",
+  "related_applications": [],
+  "prefer_related_applications": false
 }
