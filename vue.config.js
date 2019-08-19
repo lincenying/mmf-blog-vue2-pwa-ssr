@@ -97,6 +97,7 @@ module.exports = {
             maskIcon: 'static/img/icons/safari-pinned-tab.svg',
             msTileImage: 'static/img/icons/msapplication-icon-144x144.png'
         },
+        workboxPluginMode: 'InjectManifest',
         workboxOptions: {
             skipWaiting: true,
             importWorkboxFrom: 'disabled',
