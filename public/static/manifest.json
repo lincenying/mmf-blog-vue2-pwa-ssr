@@ -34,7 +34,7 @@
     }
   ],
   "theme_color": "#54d9e0",
-  "start_url": "/?standalone=1",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
