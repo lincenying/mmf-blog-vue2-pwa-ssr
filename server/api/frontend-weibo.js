@@ -123,25 +123,25 @@ exports.video = async (req, res) => {
         const body = await rp(options)
         const $list = []
         body.data.cards.forEach(item => {
-            if (item.card_group) {
+            if (item.card_group && Array.isArray(item.card_group)) {
                 item.card_group.forEach(sub_item => {
                     let video = ''
                     let video_img = ''
-                    if (sub_item.mblog.page_info && sub_item.mblog.page_info.media_info) {
+                    if (sub_item.mblog && sub_item.mblog.page_info && sub_item.mblog.page_info.media_info) {
                         video =
                             sub_item.mblog.page_info.media_info.mp4_720p_mp4 ||
                             sub_item.mblog.page_info.media_info.mp4_hd_url ||
                             sub_item.mblog.page_info.media_info.mp4_sd_url ||
                             sub_item.mblog.page_info.media_info.stream_url
                         video_img = sub_item.mblog.page_info.page_pic.url
+                        $list.push({
+                            itemid: sub_item.mblog.id,
+                            pics: sub_item.mblog.pics,
+                            text: sub_item.mblog.text.replace(/"\/\//g, '"https://'),
+                            video,
+                            video_img
+                        })
                     }
-                    $list.push({
-                        itemid: sub_item.mblog.id,
-                        pics: sub_item.mblog.pics,
-                        text: sub_item.mblog.text.replace(/"\/\//g, '"https://'),
-                        video,
-                        video_img
-                    })
                 })
             }
         })

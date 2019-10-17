@@ -10,7 +10,7 @@ module.exports = {
                 filename: 'service-worker.js',
                 minify: true,
                 dontCacheBustUrlsMatching: /./,
-                staticFileGlobsIgnorePatterns: [/\.html/, /\.map$/, /\.json$/],
+                staticFileGlobsIgnorePatterns: [/\.html$/, /\.map$/, /\.json$/],
                 runtimeCaching: [
                     {
                         urlPattern: /api/,

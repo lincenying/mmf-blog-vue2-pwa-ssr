@@ -9,7 +9,7 @@
             <sign-in :show="global.showLoginModal"></sign-in>
             <back-top></back-top>
         </template>
-        <div v-else class="main wrap clearfix">
+        <div v-else class="main wrap">
             <div class="main-left">
                 <div class="home-feeds cards-wrap">
                     <transition :name="appShell.pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
