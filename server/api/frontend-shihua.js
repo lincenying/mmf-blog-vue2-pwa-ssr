@@ -70,9 +70,15 @@ exports.shihua = async (req, res) => {
                     fs.unlinkSync('./uploads/' + img_id)
                 }
             }
-            return shihuaResult
+            return {
+                success: true,
+                data: shihuaResult
+            }
         } catch (error) {
-            return null
+            return {
+                success: false,
+                message: error.message
+            }
         }
     }
 
@@ -87,18 +93,18 @@ exports.shihua = async (req, res) => {
                 })
             } else {
                 getData().then(data => {
-                    if (data) {
+                    if (data.success) {
                         res.json({
                             code: 200,
                             from: 'api',
                             userid,
-                            ...data
+                            ...data.data
                         })
                     } else {
                         res.json({
                             code: -200,
                             userid,
-                            message: '读取数据失败'
+                            message: data.message || '读取数据失败'
                         })
                     }
                 })
@@ -106,16 +112,16 @@ exports.shihua = async (req, res) => {
         })
     } else {
         getData().then(data => {
-            if (data) {
+            if (data.success) {
                 res.json({
                     code: 200,
                     from: 'api',
-                    ...data
+                    ...data.data
                 })
             } else {
                 res.json({
                     code: -200,
-                    message: '读取数据失败'
+                    message: data.message || '读取数据失败'
                 })
             }
         })

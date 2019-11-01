@@ -106,7 +106,7 @@ router.post('/frontend/user/login', multipartMiddleware, frontendUser.login)
 router.post('/frontend/user/wxLogin', multipartMiddleware, frontendUser.wxLogin)
 router.post('/frontend/user/jscode2session', multipartMiddleware, frontendUser.jscode2session)
 // 前台退出
-router.post('/frontend/user/logout', isUser, frontendUser.logout)
+router.post('/frontend/user/logout', frontendUser.logout)
 // 前台账号读取
 router.get('/frontend/user/account', isUser, frontendUser.getItem)
 // 前台账号修改
@@ -129,6 +129,7 @@ router.get('/frontend/shihua/history/delete', cors, frontendShihua.delHistory)
 router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
 router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
 router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
+router.get('/frontend/weibo/beauty-video', cors, frontendWeiBo.beautyVideo)
 router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
 router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
 
