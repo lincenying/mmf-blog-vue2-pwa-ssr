@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import ls from 'store2'
 import toastr from 'toastr'
+import get from 'lodash.get'
 
 toastr.options.positionClass = 'toast-top-center'
 
@@ -59,4 +60,8 @@ export const showMsg = message => {
         type = message.type
     }
     toastr[type](content)
+}
+
+export const oc = (props, property, def) => {
+    return get(props, property, def)
 }

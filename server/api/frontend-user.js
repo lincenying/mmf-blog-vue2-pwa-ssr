@@ -46,15 +46,22 @@ exports.login = (req, res) => {
             if (result) {
                 username = encodeURI(username)
                 const id = result._id
+                const email = result.email
                 const remember_me = 2592000000
                 const token = jwt.sign({ id, username }, secret, { expiresIn: 60 * 60 * 24 * 30 })
                 res.cookie('user', token, { maxAge: remember_me })
                 res.cookie('userid', id, { maxAge: remember_me })
                 res.cookie('username', username, { maxAge: remember_me })
+                res.cookie('useremail', email, { maxAge: remember_me })
                 json = {
                     code: 200,
                     message: '登录成功',
-                    data: token
+                    data: {
+                        user: token,
+                        userid: id,
+                        username,
+                        email
+                    }
                 }
             } else {
                 json = {
@@ -187,6 +194,7 @@ exports.logout = (req, res) => {
     res.cookie('user', '', { maxAge: -1 })
     res.cookie('userid', '', { maxAge: -1 })
     res.cookie('username', '', { maxAge: -1 })
+    res.cookie('useremail', '', { maxAge: -1 })
     res.json({
         code: 200,
         message: '退出成功',
@@ -318,10 +326,10 @@ exports.modify = (req, res) => {
 exports.account = (req, res) => {
     const { id, email } = req.body
     const user_id = req.cookies.userid || req.headers.userid
-    const username = req.body.username || req.headers.username
     if (user_id === id) {
-        User.updateAsync({ _id: id }, { $set: { email, username } })
+        User.updateOneAsync({ _id: id }, { $set: { email } })
             .then(() => {
+                res.cookie('useremail', email, { maxAge: 2592000000 })
                 res.json({
                     code: 200,
                     message: '更新成功',
@@ -359,7 +367,7 @@ exports.password = (req, res) => {
             is_delete: 0
         }).then(result => {
             if (result) {
-                User.updateAsync({ _id: id }, { $set: { password: md5(md5Pre + password) } })
+                User.updateOneAsync({ _id: id }, { $set: { password: md5(md5Pre + password) } })
                     .then(() => {
                         res.json({
                             code: 200,

@@ -3,6 +3,8 @@ const router = express.Router()
 const multipart = require('connect-multiparty')
 const multipartMiddleware = multipart()
 
+const cors = require('./cors')
+
 const backendArticle = require('../api/backend-article')
 const backendCategory = require('../api/backend-category')
 const backendUser = require('../api/backend-user')
@@ -10,8 +12,12 @@ const frontendArticle = require('../api/frontend-article')
 const frontendComment = require('../api/frontend-comment')
 const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
+const frontendShihua = require('../api/frontend-shihua')
+const frontendWeiBo = require('../api/frontend-weibo')
 const isAdmin = require('./is-admin')
 const isUser = require('./is-user')
+
+router.options('*', cors)
 
 // 添加管理员
 router.get('/backend', (req, res) => {
@@ -100,7 +106,7 @@ router.post('/frontend/user/login', multipartMiddleware, frontendUser.login)
 router.post('/frontend/user/wxLogin', multipartMiddleware, frontendUser.wxLogin)
 router.post('/frontend/user/jscode2session', multipartMiddleware, frontendUser.jscode2session)
 // 前台退出
-router.post('/frontend/user/logout', isUser, frontendUser.logout)
+router.post('/frontend/user/logout', frontendUser.logout)
 // 前台账号读取
 router.get('/frontend/user/account', isUser, frontendUser.getItem)
 // 前台账号修改
@@ -114,6 +120,18 @@ router.get('/frontend/like', isUser, frontendLike.like)
 router.get('/frontend/unlike', isUser, frontendLike.unlike)
 // 重置喜欢
 router.get('/frontend/reset/like', isUser, frontendLike.resetLike)
+// ------ 识花 ------
+router.post('/frontend/shihua/upload', cors, frontendShihua.upload)
+router.get('/frontend/shihua/get', cors, frontendShihua.shihua)
+router.get('/frontend/shihua/history/list', cors, frontendShihua.getHistory)
+router.get('/frontend/shihua/history/delete', cors, frontendShihua.delHistory)
+// ------ 微博 ------
+router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
+router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
+router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
+router.get('/frontend/weibo/beauty-video', cors, frontendWeiBo.beautyVideo)
+router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
+router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
 
 router.get('*', (req, res) => {
     res.json({

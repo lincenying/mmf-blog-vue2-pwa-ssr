@@ -46,6 +46,15 @@ exports.apiId = ''
 exports.secret = ''
 ```
 
+在 server/config 文件夹下 创建 shihua.js 文件
+里面写入: (百度识花用的)
+接口申请地址: http://ai.baidu.com/tech/imagerecognition
+```javascript
+exports.APP_ID = ''
+exports.API_KEY = ''
+exports.SECRET_KEY = ''
+```
+
 ```shell
 # 安装依赖
 $ npm install
@@ -55,13 +64,13 @@ $ yarn
 # 注意: 不要用 cnpm 安装依赖
 
 # 开发模式
-$ npm run dev
+$ yarn ssr:serve
 
 # 生产模式
-$ npm run build
+$ yarn ssr:build
 
-# 启动(需先运行 npm run build )
-$ npm run start
+# 启动(需先运行 yarn ssr:build )
+$ yarn ssr:start
 ```
 
 首页

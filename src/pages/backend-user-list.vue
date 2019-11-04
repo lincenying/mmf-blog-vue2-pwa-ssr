@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="user.hasNext" class="settings-footer clearfix">
+        <div v-if="user.hasNext" class="settings-footer">
             <a @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
         </div>
     </div>
@@ -26,32 +26,31 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
-import checkAdmin from '~mixins/check-admin'
+import checkAdmin from '@/mixins/check-admin'
 
 export default {
     name: 'backend-user-list',
     mixins: [checkAdmin],
+    computed: {
+        ...mapGetters({
+            user: 'backend/user/getUserList'
+        })
+    },
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
             path: route.path
         })
     },
-    computed: {
-        ...mapGetters({
-            user: 'backend/user/getUserList'
-        })
-    },
+    mounted() {},
     methods: {
         loadMore(page = this.user.page + 1) {
             this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
         },
         async recover(id) {
-            const {
-                data: { code, message }
-            } = await this.$store.$api.get('backend/user/recover', { id })
+            const { code, message } = await this.$store.$api.get('backend/user/recover', { id })
             if (code === 200) {
                 showMsg({
                     type: 'success',
@@ -61,9 +60,7 @@ export default {
             }
         },
         async deletes(id) {
-            const {
-                data: { code, message }
-            } = await this.$store.$api.get('backend/user/delete', { id })
+            const { code, message } = await this.$store.$api.get('backend/user/delete', { id })
             if (code === 200) {
                 showMsg({
                     type: 'success',
@@ -73,7 +70,6 @@ export default {
             }
         }
     },
-    mounted() {},
     metaInfo() {
         return {
             title: '用户列表 - M.M.F 小屋',

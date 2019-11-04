@@ -2,7 +2,7 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <a-input title="标题">
-                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title">
+                <input type="text" v-model="form.title" placeholder="标题" class="base-input" name="title" />
                 <span class="input-info error">请输入标题</span>
             </a-input>
             <a-input title="分类" :classes="'select-item-wrap'">
@@ -19,9 +19,9 @@
                 </div>
             </div>
         </div>
-        <div class="settings-footer clearfix">
-            <router-link to="/backend/article/list" class="btn btn-blue">返回</router-link>
+        <div class="settings-footer">
             <a @click="modify" href="javascript:;" class="btn btn-yellow">编辑文章</a>
+            <router-link to="/backend/article/list" class="btn btn-blue">返回</router-link>
         </div>
     </div>
 </template>
@@ -29,21 +29,17 @@
 <script>
 /* global modifyEditor */
 import { mapGetters } from 'vuex'
-import { showMsg } from '~utils'
+import { showMsg } from '@/utils'
 // import api from '~api'
-import checkAdmin from '~mixins/check-admin'
+import checkAdmin from '@/mixins/check-admin'
 import aInput from '../components/_input.vue'
 
 export default {
     name: 'backend-article-modify',
-    mixins: [checkAdmin],
-    async asyncData({ store, route }, config = { limit: 99 }) {
-        config.all = 1
-        await store.dispatch('global/category/getCategoryList', {
-            ...config,
-            path: route.path
-        })
+    components: {
+        aInput
     },
+    mixins: [checkAdmin],
     data() {
         return {
             form: {
@@ -56,34 +52,23 @@ export default {
             }
         }
     },
-    components: {
-        aInput
-    },
     computed: {
         ...mapGetters({
             category: 'global/category/getCategoryList'
         })
     },
-    methods: {
-        async modify() {
-            const content = modifyEditor.getMarkdown()
-            if (!this.form.title || !this.form.category || !content) {
-                showMsg('请将表单填写完整!')
-                return
-            }
-            this.form.content = content
-            const {
-                data: { message, code, data }
-            } = await this.$store.$api.post('backend/article/modify', this.form)
-            if (code === 200) {
-                showMsg({
-                    type: 'success',
-                    content: message
-                })
-                this.$store.commit('backend/article/updateArticleItem', data)
-                this.$router.push('/backend/article/list')
-            }
+    watch: {
+        'form.category'(val) {
+            const obj = this.category.find(item => item._id === val)
+            this.form.category_name = obj.cate_name
         }
+    },
+    async asyncData({ store, route }, config = { limit: 99 }) {
+        config.all = 1
+        await store.dispatch('global/category/getCategoryList', {
+            ...config,
+            path: route.path
+        })
     },
     async mounted() {
         const data = await this.$store.dispatch('backend/article/getArticleItem', { id: this.$route.params.id })
@@ -92,12 +77,12 @@ export default {
         this.form.category = data.category
         this.form.content = data.content
         // eslint-disable-next-line
-        window.modifyEditor = editormd("modify-content", {
+        window.modifyEditor = editormd('modify-content', {
             width: '100%',
             height: 500,
             markdown: data.content,
             placeholder: '请输入内容...',
-            path: '/static/editor.md/lib/',
+            path: 'https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/',
             toolbarIcons() {
                 return [
                     'bold',
@@ -123,10 +108,23 @@ export default {
             saveHTMLToTextarea: true
         })
     },
-    watch: {
-        'form.category'(val) {
-            const obj = this.category.find(item => item._id === val)
-            this.form.category_name = obj.cate_name
+    methods: {
+        async modify() {
+            const content = modifyEditor.getMarkdown()
+            if (!this.form.title || !this.form.category || !content) {
+                showMsg('请将表单填写完整!')
+                return
+            }
+            this.form.content = content
+            const { code, data, message } = await this.$store.$api.post('backend/article/modify', this.form)
+            if (code === 200) {
+                showMsg({
+                    type: 'success',
+                    content: message
+                })
+                this.$store.commit('backend/article/updateArticleItem', data)
+                this.$router.push('/backend/article/list')
+            }
         }
     },
     metaInfo() {

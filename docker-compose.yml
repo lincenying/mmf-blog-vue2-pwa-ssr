@@ -8,7 +8,7 @@ db:
 
 web:
     build: .
-    command: npm run dev
+    command: npm run serve
     environment:
       NODE_ENV: 'docker-development'
     ports:

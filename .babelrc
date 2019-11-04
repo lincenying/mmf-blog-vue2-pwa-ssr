@@ -1,25 +1,13 @@
 {
     "presets": [
-        [
-            "env",
-            {
-                "modules": false
-            }
-        ],
-        "stage-2"
+        ["@babel/preset-env", {
+            "debug": false
+        }]
     ],
     "plugins": [
-        "transform-runtime"
-    ],
-    "env": {
-        "test": {
-            "presets": [
-                "env",
-                "stage-2"
-            ],
-            "plugins": [
-                "istanbul"
-            ]
-        }
-    }
+        "@babel/plugin-transform-runtime",
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        "@babel/plugin-syntax-dynamic-import",
+        ["@babel/plugin-proposal-class-properties", { "loose": false }]
+    ]
 }

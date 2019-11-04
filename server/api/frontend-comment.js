@@ -13,12 +13,9 @@ const Article = mongoose.model('Article')
  */
 exports.insert = (req, res) => {
     const { id, content } = req.body
-    const avatar = req.body.avatar || ''
     const creat_date = moment().format('YYYY-MM-DD HH:mm:ss')
     const timestamp = moment().format('X')
     const userid = req.cookies.userid || req.headers.userid
-    let username = req.cookies.username || req.headers.username
-    username = decodeURI(username)
     if (!id) {
         res.json({ code: -200, message: '参数错误' })
         return
@@ -26,12 +23,9 @@ exports.insert = (req, res) => {
         res.json({ code: -200, message: '请输入评论内容' })
         return
     }
-    var data = {
+    const data = {
         article_id: id,
-        avatar,
         userid,
-        username,
-        email: '',
         content,
         creat_date,
         is_delete: 0,
@@ -39,7 +33,7 @@ exports.insert = (req, res) => {
     }
     Comment.createAsync(data)
         .then(result => {
-            return Article.updateAsync(
+            return Article.updateOneAsync(
                 {
                     _id: id
                 },
@@ -97,7 +91,7 @@ exports.getList = (req, res) => {
                 .skip(skip)
                 .limit(limit)
                 .exec(),
-            Comment.countAsync(data)
+            Comment.countDocumentsAsync(data)
         ])
             .then(result => {
                 const total = result[1]
@@ -130,9 +124,9 @@ exports.getList = (req, res) => {
  */
 exports.deletes = (req, res) => {
     const _id = req.query.id
-    Comment.updateAsync({ _id }, { is_delete: 1 })
+    Comment.updateOneAsync({ _id }, { is_delete: 1 })
         .then(() => {
-            return Article.updateAsync({ _id }, { $inc: { comment_count: -1 } }).then(() => {
+            return Article.updateOneAsync({ _id }, { $inc: { comment_count: -1 } }).then(() => {
                 res.json({
                     code: 200,
                     message: '删除成功',
@@ -157,9 +151,9 @@ exports.deletes = (req, res) => {
  */
 exports.recover = (req, res) => {
     const _id = req.query.id
-    Comment.updateAsync({ _id }, { is_delete: 0 })
+    Comment.updateOneAsync({ _id }, { is_delete: 0 })
         .then(() => {
-            return Article.updateAsync({ _id }, { $inc: { comment_count: 1 } }).then(() => {
+            return Article.updateOneAsync({ _id }, { $inc: { comment_count: 1 } }).then(() => {
                 res.json({
                     code: 200,
                     message: '恢复成功',

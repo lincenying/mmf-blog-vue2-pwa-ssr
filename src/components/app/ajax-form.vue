@@ -1,10 +1,9 @@
 <template>
-    <form :action="action" :method="method" :enctype="enctype" @submit.prevent="handleAjaxFormSubmit">
-        <slot></slot>
-    </form>
+    <form :action="action" :method="method" :enctype="enctype" @submit.prevent="handleAjaxFormSubmit"><slot></slot></form>
 </template>
 <script>
 export default {
+    name: 'ajax-form',
     props: {
         action: {
             type: String,
@@ -81,7 +80,7 @@ export default {
             }
             var handleProgress = evt => {
                 if (evt.lengthComputable) {
-                    evt.percent = evt.loaded / evt.total * 100
+                    evt.percent = (evt.loaded / evt.total) * 100
                     this.progress(evt)
                 }
             }

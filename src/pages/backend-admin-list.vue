@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="admin.hasNext" class="settings-footer clearfix">
+        <div v-if="admin.hasNext" class="settings-footer">
             <a @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
         </div>
     </div>
@@ -27,31 +27,30 @@
 <script>
 // import api from '~api'
 import { mapGetters } from 'vuex'
-import checkAdmin from '~mixins/check-admin'
-import { showMsg } from '~utils'
+import checkAdmin from '@/mixins/check-admin'
+import { showMsg } from '@/utils'
 
 export default {
     name: 'backend-admin-list',
     mixins: [checkAdmin],
+    computed: {
+        ...mapGetters({
+            admin: 'backend/admin/getAdminList'
+        })
+    },
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/admin/getAdminList', {
             ...config,
             path: route.path
         })
     },
-    computed: {
-        ...mapGetters({
-            admin: 'backend/admin/getAdminList'
-        })
-    },
+    mounted() {},
     methods: {
         loadMore(page = this.admin.page + 1) {
             this.$options.asyncData({ store: this.$store }, { page })
         },
         async recover(id) {
-            const {
-                data: { code, message }
-            } = await this.$store.$api.get('backend/admin/recover', { id })
+            const { code, message } = await this.$store.$api.get('backend/admin/recover', { id })
             if (code === 200) {
                 showMsg({
                     type: 'success',
@@ -61,9 +60,7 @@ export default {
             }
         },
         async deletes(id) {
-            const {
-                data: { code, message }
-            } = await this.$store.$api.get('backend/admin/delete', { id })
+            const { code, message } = await this.$store.$api.get('backend/admin/delete', { id })
             if (code === 200) {
                 showMsg({
                     type: 'success',
@@ -73,7 +70,6 @@ export default {
             }
         }
     },
-    mounted() {},
     metaInfo() {
         return {
             title: '管理员列表 - M.M.F 小屋',
