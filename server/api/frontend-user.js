@@ -31,11 +31,7 @@ exports.login = (req, res) => {
     let { username } = req.body
     const { password } = req.body
     if (username === '' || password === '') {
-        json = {
-            code: -200,
-            message: '请输入用户名和密码'
-        }
-        res.json(json)
+        res.json({ code: -200, message: '请输入用户名和密码' })
     }
     User.findOneAsync({
         username,
@@ -72,10 +68,7 @@ exports.login = (req, res) => {
             res.json(json)
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
 
@@ -96,11 +89,7 @@ exports.jscode2session = async (req, res) => {
             grant_type: 'authorization_code'
         }
     })
-    res.json({
-        code: 200,
-        message: '登录成功',
-        data: xhr.data
-    })
+    res.json({ code: 200, message: '登录成功', data: xhr.data })
 }
 /**
  * 微信登录
@@ -114,11 +103,7 @@ exports.wxLogin = (req, res) => {
     let id, token, username
     const { nickName, wxSignature, avatar } = req.body
     if (!nickName || !wxSignature) {
-        json = {
-            code: -200,
-            message: '参数有误, 微信登录失败'
-        }
-        res.json(json)
+        res.json({ code: -200, message: '参数有误, 微信登录失败' })
     } else {
         User.findOneAsync({
             username: nickName,
@@ -167,18 +152,12 @@ exports.wxLogin = (req, res) => {
                             })
                         })
                         .catch(err => {
-                            res.json({
-                                code: -200,
-                                message: err.toString()
-                            })
+                            res.json({ code: -200, message: err.toString() })
                         })
                 }
             })
             .catch(err => {
-                res.json({
-                    code: -200,
-                    message: err.toString()
-                })
+                res.json({ code: -200, message: err.toString() })
             })
     }
 }
@@ -195,11 +174,7 @@ exports.logout = (req, res) => {
     res.cookie('userid', '', { maxAge: -1 })
     res.cookie('username', '', { maxAge: -1 })
     res.cookie('useremail', '', { maxAge: -1 })
-    res.json({
-        code: 200,
-        message: '退出成功',
-        data: ''
-    })
+    res.json({ code: 200, message: '退出成功', data: '' })
 }
 
 /**
@@ -213,28 +188,16 @@ exports.logout = (req, res) => {
 exports.insert = (req, res) => {
     const { email, password, username } = req.body
     if (!username || !password || !email) {
-        res.json({
-            code: -200,
-            message: '请将表单填写完整'
-        })
+        res.json({ code: -200, message: '请将表单填写完整' })
     } else if (strlen(username) < 4) {
-        res.json({
-            code: -200,
-            message: '用户长度至少 2 个中文或 4 个英文'
-        })
+        res.json({ code: -200, message: '用户长度至少 2 个中文或 4 个英文' })
     } else if (strlen(password) < 8) {
-        res.json({
-            code: -200,
-            message: '密码长度至少 8 位'
-        })
+        res.json({ code: -200, message: '密码长度至少 8 位' })
     } else {
         User.findOneAsync({ username })
             .then(result => {
                 if (result) {
-                    res.json({
-                        code: -200,
-                        message: '该用户名已经存在!'
-                    })
+                    res.json({ code: -200, message: '该用户名已经存在!' })
                 } else {
                     return User.createAsync({
                         username,
@@ -246,25 +209,15 @@ exports.insert = (req, res) => {
                         timestamp: moment().format('X')
                     })
                         .then(() => {
-                            res.json({
-                                code: 200,
-                                message: '注册成功!',
-                                data: 'success'
-                            })
+                            res.json({ code: 200, message: '注册成功!', data: 'success' })
                         })
                         .catch(err => {
-                            res.json({
-                                code: -200,
-                                message: err.toString()
-                            })
+                            res.json({ code: -200, message: err.toString() })
                         })
                 }
             })
             .catch(err => {
-                res.json({
-                    code: -200,
-                    message: err.toString()
-                })
+                res.json({ code: -200, message: err.toString() })
             })
     }
 }
@@ -278,23 +231,14 @@ exports.getItem = (req, res) => {
     })
         .then(result => {
             if (result) {
-                json = {
-                    code: 200,
-                    data: result
-                }
+                json = { code: 200, data: result }
             } else {
-                json = {
-                    code: -200,
-                    message: '请先登录, 或者数据错误'
-                }
+                json = { code: -200, message: '请先登录, 或者数据错误' }
             }
             res.json(json)
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
 
@@ -330,23 +274,13 @@ exports.account = (req, res) => {
         User.updateOneAsync({ _id: id }, { $set: { email } })
             .then(() => {
                 res.cookie('useremail', email, { maxAge: 2592000000 })
-                res.json({
-                    code: 200,
-                    message: '更新成功',
-                    data: 'success'
-                })
+                res.json({ code: 200, message: '更新成功', data: 'success' })
             })
             .catch(err => {
-                res.json({
-                    code: -200,
-                    message: err.toString()
-                })
+                res.json({ code: -200, message: err.toString() })
             })
     } else {
-        res.json({
-            code: -200,
-            message: '当前没有权限'
-        })
+        res.json({ code: -200, message: '当前没有权限' })
     }
 }
 
@@ -369,30 +303,17 @@ exports.password = (req, res) => {
             if (result) {
                 User.updateOneAsync({ _id: id }, { $set: { password: md5(md5Pre + password) } })
                     .then(() => {
-                        res.json({
-                            code: 200,
-                            message: '更新成功',
-                            data: 'success'
-                        })
+                        res.json({ code: 200, message: '更新成功', data: 'success' })
                     })
                     .catch(err => {
-                        res.json({
-                            code: -200,
-                            message: err.toString()
-                        })
+                        res.json({ code: -200, message: err.toString() })
                     })
             } else {
-                res.json({
-                    code: -200,
-                    message: '原始密码错误'
-                })
+                res.json({ code: -200, message: '原始密码错误' })
             }
         })
     } else {
-        res.json({
-            code: -200,
-            message: '当前没有权限'
-        })
+        res.json({ code: -200, message: '当前没有权限' })
     }
 }
 
