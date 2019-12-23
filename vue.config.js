@@ -59,23 +59,43 @@ module.exports = {
     },
     pluginOptions: {
         ssr: {
-            // Listening port for `serve` command
+            // ===== Listening port for `serve` command
             port: 8080,
-            // Listening host for `serve` command
+            // ===== Listening host for `serve` command
             host: null,
-            // Entry for each target
+            // ===== 指定公共文件路径以禁用资源预取提示
+            // shouldNotPrefetch: [],
+            // ===== 指定公共文件路径以禁用资源预加载提示
+            // shouldNotPreload: [],
+            // ===== Entry for each target
             entry: target => `./src/entry-${target}`,
-            // Default title
+            // ===== 默认的标题
             defaultTitle: 'M.M.F 小屋',
-            // Path to favicon
+            // ===== icon 路径
             // favicon: './static/img/icons/favicon.ico',
-            // Skip some requests from being server-side rendered
+            // ===== Enable Critical CSS
+            // criticalCSS: true,
+            // ===== 跳过服务器端渲染的一些请求
             skipRequests: req => {
                 return req.originalUrl.indexOf('/css/') > -1 || req.originalUrl.indexOf('/js/') > -1
             },
-            // See https://ssr.vuejs.org/guide/build-config.html#externals-caveats
+            // ===== See https://ssr.vuejs.org/guide/build-config.html#externals-caveats
             nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
-            // Function to connect custom middlewares
+            // ===== 为生产服务器启用节点集群
+            // clustered: false,
+            // ===== 静态文件缓存控制maxAge值
+            // staticCacheTtl: 1000 * 60 * 60 * 24 * 30,
+            // ===== 指令回调
+            directives: {
+                // See 'Directive' chapter
+            },
+            // ===== See https://ssr.vuejs.org/guide/caching.html
+            lruCacheOptions: {},
+            // ===== 应用默认的中间件，如压缩，提供静态文件
+            // applyDefaultServer: true,
+            // ===== 扩展应用程序上下文对象
+            // extendContext: (req, res, process) => ({ appMode: process.env.APP_MODE }),
+            // ===== 连接自定义中间件
             extendServer: app => {
                 const logger = require('morgan')
                 app.use(
@@ -106,15 +126,19 @@ module.exports = {
                 const routes = require('./server/routes/index')
                 app.use('/api', routes)
             },
-            // Paths
+            // ===== 在启动时将URL复制到系统剪贴板
+            // copyUrlOnStart: true,
+            // ==== 在渲染完成后调用
+            // onRender: (res, context) => {
+            //     res.setHeader(`Cache-Control', 'public, max-age=${context.maxAge}`)
+            // },
+            // ==== 发送到错误监控服务
+            // onError: error => {},
+            // ===== Paths
             distPath: path.resolve(__dirname, './dist'),
             error500Html: null,
             templatePath: path.resolve(__dirname, './dist/index.html'),
-            serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js'),
-            // Directives fallback
-            directives: {
-                // See 'Directive' chapter
-            }
+            serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js')
         }
     },
     pwa: {

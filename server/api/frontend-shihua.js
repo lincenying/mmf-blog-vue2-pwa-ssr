@@ -83,7 +83,7 @@ exports.shihua = async (req, res) => {
     }
 
     if (isLogin) {
-        Shihua.findOneAsync({ img_id, user_id: userid }).then(result => {
+        Shihua.findOneAsync({ img_id, user_id: userid }).then(async result => {
             if (result) {
                 res.json({
                     code: 200,
@@ -92,39 +92,25 @@ exports.shihua = async (req, res) => {
                     result: JSON.parse(result.result)
                 })
             } else {
-                getData().then(data => {
-                    if (data.success) {
-                        res.json({
-                            code: 200,
-                            from: 'api',
-                            userid,
-                            ...data.data
-                        })
-                    } else {
-                        res.json({
-                            code: -200,
-                            userid,
-                            message: data.message || '读取数据失败'
-                        })
-                    }
-                })
+                let data = await getData()
+                if (!data.success) data = await getData()
+                if (!data.success) data = await getData()
+                if (data.success) {
+                    res.json({ code: 200, from: 'api', userid, ...data.data })
+                } else {
+                    res.json({ code: -200, userid, message: data.message || '读取数据失败' })
+                }
             }
         })
     } else {
-        getData().then(data => {
-            if (data.success) {
-                res.json({
-                    code: 200,
-                    from: 'api',
-                    ...data.data
-                })
-            } else {
-                res.json({
-                    code: -200,
-                    message: data.message || '读取数据失败'
-                })
-            }
-        })
+        let data = await getData()
+        if (!data.success) data = await getData()
+        if (!data.success) data = await getData()
+        if (data.success) {
+            res.json({ code: 200, from: 'api', ...data.data })
+        } else {
+            res.json({ code: -200, message: data.message || '读取数据失败' })
+        }
     }
 }
 
@@ -175,10 +161,7 @@ exports.getHistory = (req, res) => {
             res.json(json)
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
 
@@ -195,15 +178,9 @@ exports.delHistory = (req, res) => {
 
     Shihua.deleteOne({ img_id, user_id: userid })
         .then(() => {
-            res.json({
-                code: 200,
-                message: '删除成功'
-            })
+            res.json({ code: 200, message: '删除成功' })
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
