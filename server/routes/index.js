@@ -14,6 +14,7 @@ const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
 const frontendShihua = require('../api/frontend-shihua')
 const frontendWeiBo = require('../api/frontend-weibo')
+const frontendMeizitu = require('../api/frontend-meizitu')
 const isAdmin = require('./is-admin')
 const isUser = require('./is-user')
 
@@ -132,6 +133,9 @@ router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
 router.get('/frontend/weibo/beauty-video', cors, frontendWeiBo.beautyVideo)
 router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
 router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
+// ------ 妹子图 ------
+router.get('/frontend/meizitu/lists', cors, frontendMeizitu.lists)
+router.get('/frontend/meizitu/item', cors, frontendMeizitu.item)
 
 router.get('*', (req, res) => {
     res.json({

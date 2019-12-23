@@ -43,18 +43,11 @@ exports.insert = (req, res) => {
                     }
                 }
             ).then(() => {
-                res.json({
-                    code: 200,
-                    data: result,
-                    message: '发布成功'
-                })
+                res.json({ code: 200, data: result, message: '发布成功' })
             })
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
 
@@ -69,10 +62,7 @@ exports.getList = (req, res) => {
     const { all, id } = req.query
     let { limit, page } = req.query
     if (!id) {
-        res.json({
-            code: -200,
-            message: '参数错误'
-        })
+        res.json({ code: -200, message: '参数错误' })
     } else {
         page = parseInt(page, 10)
         limit = parseInt(limit, 10)
@@ -107,10 +97,7 @@ exports.getList = (req, res) => {
                 res.json(json)
             })
             .catch(err => {
-                res.json({
-                    code: -200,
-                    message: err.toString()
-                })
+                res.json({ code: -200, message: err.toString() })
             })
     }
 }
@@ -127,11 +114,7 @@ exports.deletes = (req, res) => {
     Comment.updateOneAsync({ _id }, { is_delete: 1 })
         .then(() => {
             return Article.updateOneAsync({ _id }, { $inc: { comment_count: -1 } }).then(() => {
-                res.json({
-                    code: 200,
-                    message: '删除成功',
-                    data: 'success'
-                })
+                res.json({ code: 200, message: '删除成功', data: 'success' })
             })
         })
         .catch(err => {
@@ -154,17 +137,10 @@ exports.recover = (req, res) => {
     Comment.updateOneAsync({ _id }, { is_delete: 0 })
         .then(() => {
             return Article.updateOneAsync({ _id }, { $inc: { comment_count: 1 } }).then(() => {
-                res.json({
-                    code: 200,
-                    message: '恢复成功',
-                    data: 'success'
-                })
+                res.json({ code: 200, message: '恢复成功', data: 'success' })
             })
         })
         .catch(err => {
-            res.json({
-                code: -200,
-                message: err.toString()
-            })
+            res.json({ code: -200, message: err.toString() })
         })
 }
