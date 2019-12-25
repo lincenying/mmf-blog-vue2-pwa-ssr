@@ -2,6 +2,7 @@ const fs = require('fs')
 const multer = require('multer')
 const moment = require('moment')
 const AipImageClassifyClient = require('baidu-aip-sdk').imageClassify
+const domain = require('../config').domain
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -56,6 +57,7 @@ exports.shihua = async (req, res) => {
                         break
                     }
                 }
+                img = domain + 'uploads/' + img_id
                 if (img && name) {
                     await Shihua.createAsync({
                         user_id: userid,
@@ -67,7 +69,7 @@ exports.shihua = async (req, res) => {
                         is_delete: 0,
                         timestamp: moment().format('X')
                     })
-                    fs.unlinkSync('./uploads/' + img_id)
+                    // fs.unlinkSync('./uploads/' + img_id)
                 }
             }
             return {
@@ -82,36 +84,25 @@ exports.shihua = async (req, res) => {
         }
     }
 
-    if (isLogin) {
-        Shihua.findOneAsync({ img_id, user_id: userid }).then(async result => {
-            if (result) {
-                res.json({
-                    code: 200,
-                    from: 'db',
-                    userid,
-                    result: JSON.parse(result.result)
-                })
-            } else {
-                let data = await getData()
-                if (!data.success) data = await getData()
-                if (!data.success) data = await getData()
-                if (data.success) {
-                    res.json({ code: 200, from: 'api', userid, ...data.data })
-                } else {
-                    res.json({ code: -200, userid, message: data.message || '读取数据失败' })
-                }
-            }
-        })
-    } else {
-        let data = await getData()
-        if (!data.success) data = await getData()
-        if (!data.success) data = await getData()
-        if (data.success) {
-            res.json({ code: 200, from: 'api', ...data.data })
+    Shihua.findOneAsync({ img_id }).then(async result => {
+        if (result) {
+            res.json({
+                code: 200,
+                from: 'db',
+                userid,
+                result: JSON.parse(result.result)
+            })
         } else {
-            res.json({ code: -200, message: data.message || '读取数据失败' })
+            let data = await getData()
+            if (!data.success) data = await getData()
+            if (!data.success) data = await getData()
+            if (data.success) {
+                res.json({ code: 200, from: 'api', userid, ...data.data })
+            } else {
+                res.json({ code: -200, userid, message: data.message || '读取数据失败' })
+            }
         }
-    }
+    })
 }
 
 /**
@@ -178,6 +169,9 @@ exports.delHistory = (req, res) => {
 
     Shihua.deleteOne({ img_id, user_id: userid })
         .then(() => {
+            try {
+                fs.unlinkSync('./uploads/' + img_id)
+            } catch (error) {}
             res.json({ code: 200, message: '删除成功' })
         })
         .catch(err => {
