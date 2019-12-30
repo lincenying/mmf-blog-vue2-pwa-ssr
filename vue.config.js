@@ -48,6 +48,7 @@ module.exports = {
             })
         config.module.rule('eslint').uses.clear()
         config.module.rule('eslint').clear()
+        config.resolve.alias.set('~', path.resolve('src'))
         if (process.env.VUE_CLI_SSR_TARGET === 'client') {
             config.resolve.alias.set('~api', path.resolve('src/api/index-client.js'))
         } else {

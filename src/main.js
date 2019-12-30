@@ -5,12 +5,11 @@
 
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
-
-import { createRouter } from './router'
-import { createStore } from './store'
 import App from './App.vue'
 import * as filters from './filters'
 import titleMixin from './mixins'
+import { createRouter } from './router'
+import { createStore } from './store'
 import { oc } from './utils'
 
 Vue.mixin(titleMixin)

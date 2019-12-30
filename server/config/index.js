@@ -10,3 +10,5 @@ exports.secretServer = secret.secretServer
 exports.secretClient = secret.secretServer
 exports.apiId = mpApp.apiId
 exports.secret = mpApp.secret
+// API域名
+exports.domain = 'https://www.mmxiaowu.com/'
