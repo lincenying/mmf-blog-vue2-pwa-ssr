@@ -3,21 +3,17 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-import './polyfill'
-import './registerServiceWorker'
-
-import Vue from 'vue'
 import FastClick from 'fastclick'
-
+import 'toastr/build/toastr.css'
+import Vue from 'vue'
+import ProgressBar from '~/components/progress-bar.vue'
 import api from '~api'
-import VueBus from './event-bus'
-
-import { createApp } from './main'
-import ProgressBar from '@/components/progress-bar.vue'
-
 import './assets/css/hljs/googlecode.css'
 import './assets/less/style.less'
-import 'toastr/build/toastr.css'
+import VueBus from './event-bus'
+import { createApp } from './main'
+import './polyfill'
+import './registerServiceWorker'
 
 // 全局的进度条，在组件中可通过 $loading 访问
 const loading = (Vue.prototype.$loading = new Vue(ProgressBar).$mount())

@@ -1,5 +1,5 @@
-import { createApp } from './main'
 import { api } from '~api'
+import { createApp } from './main'
 
 export default context => {
     // eslint-disable-next-line
