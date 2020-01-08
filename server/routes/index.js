@@ -8,13 +8,18 @@ const cors = require('./cors')
 const backendArticle = require('../api/backend-article')
 const backendCategory = require('../api/backend-category')
 const backendUser = require('../api/backend-user')
+
 const frontendArticle = require('../api/frontend-article')
 const frontendComment = require('../api/frontend-comment')
 const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
-const frontendShihua = require('../api/frontend-shihua')
-const frontendWeiBo = require('../api/frontend-weibo')
-const frontendMeizitu = require('../api/frontend-meizitu')
+
+const appPublic = require('../api/app-public')
+const appShihua = require('../api/app-shihua')
+const appWeiBo = require('../api/app-weibo')
+const appMeizitu = require('../api/app-meizitu')
+const appQiniu = require('../api/app-qiniu')
+
 const isAdmin = require('./is-admin')
 const isUser = require('./is-user')
 
@@ -121,21 +126,26 @@ router.get('/frontend/like', isUser, frontendLike.like)
 router.get('/frontend/unlike', isUser, frontendLike.unlike)
 // 重置喜欢
 router.get('/frontend/reset/like', isUser, frontendLike.resetLike)
+
+// ================= APP =================
+// ------- 检测版本更新 ------
+router.get('/app/check', cors, appPublic.checkUpdate)
 // ------ 识花 ------
-router.post('/frontend/shihua/upload', cors, frontendShihua.upload)
-router.get('/frontend/shihua/get', cors, frontendShihua.shihua)
-router.get('/frontend/shihua/history/list', cors, isUser, frontendShihua.getHistory)
-router.get('/frontend/shihua/history/delete', cors, isUser, frontendShihua.delHistory)
+router.post('/app/shihua/upload', cors, appShihua.upload)
+router.get('/app/shihua/get', cors, appShihua.shihua)
+router.get('/app/shihua/history/list', cors, isUser, appShihua.getHistory)
+router.get('/app/shihua/history/delete', cors, isUser, appShihua.delHistory)
 // ------ 微博 ------
-router.get('/frontend/weibo/get', cors, frontendWeiBo.get)
-router.get('/frontend/weibo/card', cors, frontendWeiBo.card)
-router.get('/frontend/weibo/video', cors, frontendWeiBo.video)
-router.get('/frontend/weibo/beauty-video', cors, frontendWeiBo.beautyVideo)
-router.get('/frontend/weibo/detail', cors, frontendWeiBo.detail)
-router.get('/frontend/weibo/check', cors, frontendWeiBo.checkUpdate)
+router.get('/app/weibo/get', cors, appWeiBo.get)
+router.get('/app/weibo/card', cors, appWeiBo.card)
+router.get('/app/weibo/video', cors, appWeiBo.video)
+router.get('/app/weibo/beauty-video', cors, appWeiBo.beautyVideo)
+router.get('/app/weibo/detail', cors, appWeiBo.detail)
 // ------ 妹子图 ------
-router.get('/frontend/meizitu/lists', cors, frontendMeizitu.lists)
-router.get('/frontend/meizitu/item', cors, frontendMeizitu.item)
+router.get('/app/meizitu/lists', cors, appMeizitu.lists)
+router.get('/app/meizitu/item', cors, appMeizitu.item)
+// ------ 七牛 token -----
+router.get('/app/qiniu/token', cors, appQiniu.token)
 
 router.get('*', (req, res) => {
     res.json({

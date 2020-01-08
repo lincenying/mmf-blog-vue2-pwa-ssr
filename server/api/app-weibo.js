@@ -1,4 +1,3 @@
-const fs = require('fs')
 const rp = require('request-promise')
 
 exports.get = async (req, res) => {
@@ -25,18 +24,24 @@ exports.get = async (req, res) => {
             data: body.data.cards.map(item => {
                 let video = ''
                 let video_img = ''
-                if (item.mblog.page_info && item.mblog.page_info.media_info) {
-                    video =
-                        item.mblog.page_info.media_info.mp4_720p_mp4 ||
-                        item.mblog.page_info.media_info.mp4_hd_url ||
-                        item.mblog.page_info.media_info.mp4_sd_url ||
-                        item.mblog.page_info.media_info.stream_url
-                    video_img = item.mblog.page_info.page_pic.url
+                let pics = ''
+                let text = ''
+                if (item.mblog) {
+                    if (item.mblog.page_info && item.mblog.page_info.media_info) {
+                        video =
+                            item.mblog.page_info.media_info.mp4_720p_mp4 ||
+                            item.mblog.page_info.media_info.mp4_hd_url ||
+                            item.mblog.page_info.media_info.mp4_sd_url ||
+                            item.mblog.page_info.media_info.stream_url
+                        video_img = item.mblog.page_info.page_pic.url
+                    }
+                    pics = item.mblog.pics
+                    text = item.mblog.text.replace(/"\/\//g, '"https://')
                 }
                 return {
                     itemid: item.itemid,
-                    pics: item.mblog.pics,
-                    text: item.mblog.text.replace(/"\/\//g, '"https://'),
+                    pics,
+                    text,
                     video,
                     video_img
                 }
@@ -255,10 +260,4 @@ exports.detail = async (req, res) => {
     } catch (error) {
         res.json({ code: 300, ok: 2, msg: error.toString() })
     }
-}
-
-exports.checkUpdate = (req, res) => {
-    const jsonTxt = fs.readFileSync('./server/config/app.json', 'utf-8')
-    const json = JSON.parse(jsonTxt)
-    res.json({ code: 200, data: json })
 }
