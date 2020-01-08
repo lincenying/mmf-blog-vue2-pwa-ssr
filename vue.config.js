@@ -1,9 +1,19 @@
+/* eslint-disable no-inline-comments */
 const path = require('path')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
 module.exports = {
     configureWebpack: {
         devtool: 'source-map',
+        performance: {
+            hints: 'warning', // 枚举
+            maxAssetSize: 30000000, // 整数类型（以字节为单位）
+            maxEntrypointSize: 50000000, // 整数类型（以字节为单位）
+            assetFilter(assetFilename) {
+                // 提供资源文件名的断言函数
+                return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
+            }
+        },
         plugins: [
             new SWPrecachePlugin({
                 cacheId: 'mmf-blog-vue2-pwa-ssr',

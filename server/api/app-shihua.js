@@ -1,8 +1,10 @@
 const fs = require('fs')
 const multer = require('multer')
 const moment = require('moment')
+const base64Img = require('base64-img')
 const AipImageClassifyClient = require('baidu-aip-sdk').imageClassify
 const domain = require('../config').domain
+const cdnDomain = require('../config').cdnDomain
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -32,8 +34,23 @@ exports.upload = async (req, res) => {
         }
     })
 }
+
+const getBase64 = (img_id, cdn) => {
+    if (cdn === 'qiniu') {
+        return new Promise(resolve => {
+            const url = cdnDomain + 'app/' + img_id
+            base64Img.requestBase64(url, function(err, res, body) {
+                if (body) body = body.split(',')[1]
+                resolve(body)
+            })
+        })
+    }
+    return fs.readFileSync('./uploads/' + img_id).toString('base64')
+}
+
 exports.shihua = async (req, res) => {
     const img_id = req.query.id
+    const cdn = req.query.cdn
     const token = req.cookies.user || req.headers.user
     const userid = req.cookies.userid || req.headers.userid
     const username = req.cookies.username || req.headers.username
@@ -41,44 +58,57 @@ exports.shihua = async (req, res) => {
     const getData = async () => {
         const client = new AipImageClassifyClient(config.APP_ID, config.API_KEY, config.SECRET_KEY)
         try {
-            const image = fs.readFileSync('./uploads/' + img_id).toString('base64')
+            const image = await getBase64(img_id, cdn)
             const options = {}
             options['baike_num'] = '5'
             // 带参数调用植物识别
             const shihuaResult = await client.plantDetect(image, options)
-            if (isLogin) {
-                const length = shihuaResult.result.length
-                let img, name
-                for (let i = 0; i < length; i++) {
-                    const item = shihuaResult.result[i]
-                    if (item.baike_info && item.baike_info.image_url) {
-                        name = item.name
-                        img = item.baike_info.image_url
-                        break
+            if (shihuaResult.result) {
+                if (isLogin) {
+                    const length = shihuaResult.result.length
+                    let img, name
+                    for (let i = 0; i < length; i++) {
+                        const item = shihuaResult.result[i]
+                        // eslint-disable-next-line max-depth
+                        if (item.baike_info && item.baike_info.image_url) {
+                            name = item.name
+                            img = item.baike_info.image_url
+                            break
+                        }
+                    }
+                    if (cdn === 'qiniu') {
+                        img = cdnDomain + 'app/' + img_id
+                    } else {
+                        img = domain + 'uploads/' + img_id
+                    }
+                    if (img && name) {
+                        await Shihua.createAsync({
+                            user_id: userid,
+                            img_id,
+                            name,
+                            img,
+                            result: JSON.stringify(shihuaResult.result),
+                            creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                            is_delete: 0,
+                            timestamp: moment().format('X')
+                        })
+                        // fs.unlinkSync('./uploads/' + img_id)
                     }
                 }
-                img = domain + 'uploads/' + img_id
-                if (img && name) {
-                    await Shihua.createAsync({
-                        user_id: userid,
-                        img_id,
-                        name,
-                        img,
-                        result: JSON.stringify(shihuaResult.result),
-                        creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-                        is_delete: 0,
-                        timestamp: moment().format('X')
-                    })
-                    // fs.unlinkSync('./uploads/' + img_id)
+                return {
+                    success: true,
+                    data: shihuaResult
                 }
             }
             return {
-                success: true,
-                data: shihuaResult
+                success: false,
+                err: 'shitu',
+                message: shihuaResult.error_msg
             }
         } catch (error) {
             return {
                 success: false,
+                err: 'unknow',
                 message: error.message
             }
         }
@@ -94,8 +124,8 @@ exports.shihua = async (req, res) => {
             })
         } else {
             let data = await getData()
-            if (!data.success) data = await getData()
-            if (!data.success) data = await getData()
+            if (!data.success && data.err === 'unknow') data = await getData()
+            if (!data.success && data.err === 'unknow') data = await getData()
             if (data.success) {
                 res.json({ code: 200, from: 'api', userid, ...data.data })
             } else {
