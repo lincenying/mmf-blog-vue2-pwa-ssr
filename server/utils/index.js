@@ -39,3 +39,12 @@ exports.secret = ''`
         fs.writeFileSync('./server/config/mpapp.js', secret)
     }
 }
+
+exports.creatQiNiu = () => {
+    if (!fsExistsSync('./server/config/qiniu.js')) {
+        const secret = `exports.accessKey = ''
+exports.secretKey = ''
+exports.bucket = ''`
+        fs.writeFileSync('./server/config/qiniu.js', secret)
+    }
+}

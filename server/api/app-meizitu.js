@@ -53,6 +53,7 @@ exports.lists = async (req, res) => {
             data: body
         })
     } catch (error) {
+        lruCache.set('cookies', '')
         res.json({ code: 300, ok: 2, msg: error.toString() })
     }
 }
@@ -90,6 +91,7 @@ exports.item = async (req, res) => {
                 res.json({ code: 300, ok: 2, msg: '读取图片失败' })
             }
         } catch (error) {
+            lruCache.set('cookies', '')
             res.json({ code: 300, ok: 2, msg: error.toString() })
         }
     }
