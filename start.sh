@@ -1,2 +1,2 @@
 #!/bin/bash
-npm run ssr:start
+npm ssr:start
