@@ -4,11 +4,11 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-import Vue from 'vue'
-import Router from 'vue-router'
-import Meta from 'vue-meta'
 import cookies from 'js-cookie'
-import { inBrowser } from '@/utils'
+import Vue from 'vue'
+import Meta from 'vue-meta'
+import Router from 'vue-router'
+import { inBrowser } from '~/utils'
 
 // 定义切割点，异步加载路由组件
 const index = () => import(/* webpackChunkName: "frontend-topics" */ './pages/frontend-index.vue')
@@ -190,7 +190,7 @@ export function createRouter() {
                 name: 'article_comment',
                 path: '/backend/article/comment/:id',
                 component: articleComment,
-                meta: { index: 1 },
+                meta: { notKeepAlive: true, index: 2 },
                 beforeEnter: guardRouteBackend
             },
 

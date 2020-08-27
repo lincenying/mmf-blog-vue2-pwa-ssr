@@ -44,7 +44,7 @@ export default {
         return {
             // 需要缓存的路由组件 name
             cacheFronentComponents: 'frontend-index,frontend-about',
-            cacheBackendComponents: 'backend-admin-list, backend-article-comment, backend-article-list, backend-user-list'
+            cacheBackendComponents: 'backend-admin-list,backend-article-list,backend-user-list'
         }
     },
     computed: {
