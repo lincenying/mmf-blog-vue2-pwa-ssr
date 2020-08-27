@@ -6,3 +6,10 @@ const meizituCache = new lruCache({
 })
 
 exports.meizituCache = meizituCache
+
+const douyinCache = new lruCache({
+    max: 1000,
+    maxAge: 1000 * 60 * 60 * 1
+})
+
+exports.douyinCache = douyinCache

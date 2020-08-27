@@ -40,6 +40,15 @@ exports.secret = ''`
     }
 }
 
+exports.creatShiHua = () => {
+    if (!fsExistsSync('./server/config/shihua.js')) {
+        const secret = `exports.APP_ID = ''
+exports.API_KEY = ''
+exports.SECRET_KEY = ''`
+        fs.writeFileSync('./server/config/shihua.js', secret)
+    }
+}
+
 exports.creatQiNiu = () => {
     if (!fsExistsSync('./server/config/qiniu.js')) {
         const secret = `exports.accessKey = ''
