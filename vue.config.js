@@ -147,7 +147,7 @@ module.exports = {
             // ===== Paths
             distPath: path.resolve(__dirname, './dist'),
             error500Html: null,
-            templatePath: path.resolve(__dirname, './dist/index.html'),
+            templatePath: path.resolve(__dirname, './dist/index.ssr.html'),
             serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js')
         }
     },
