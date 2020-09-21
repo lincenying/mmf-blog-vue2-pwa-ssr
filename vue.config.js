@@ -49,6 +49,11 @@ module.exports = {
         ]
     },
     chainWebpack: config => {
+        const htmlSsrPlugin = config.plugins.get('html-ssr')
+        if (htmlSsrPlugin) {
+            htmlSsrPlugin.store.get('args')[0].chunks = []
+        }
+
         config.module
             .rule('vue')
             .use('vue-loader')
