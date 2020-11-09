@@ -23,9 +23,18 @@ a {
 }
 
 .wrap {
-    width: 1000px;
+    width: 1600px;
     margin: 0 auto;
     position: relative;
+    @media (min-width: 1440px) and (max-width: 1920px) {
+        width: 1400px;
+    }
+    @media (min-width: 1280px) and (max-width: 1439px) {
+        width: 1200px;
+    }
+    @media (min-width: 1001px) and (max-width: 1279px) {
+        width: 1000px;
+    }
     @media (max-width: 1000px) {
         width: auto;
         padding-left: 40px;
@@ -53,7 +62,7 @@ a {
         flex-wrap: wrap;
     }
     .main-left {
-        flex: none;
+        flex: 1 0 auto;
         width: 660px;
         .backend & {
             flex: 1 1 auto;
