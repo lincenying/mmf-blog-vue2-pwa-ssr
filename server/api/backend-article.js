@@ -17,6 +17,7 @@ const marked = md => {
         toc: ''
     }
     const html = markdownIt({
+        breaks: true,
         html: true,
         linkify: true,
         typographer: true,
