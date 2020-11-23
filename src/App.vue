@@ -67,6 +67,7 @@ export default {
             this.$store.dispatch('appShell/setPageSwitching', true)
         },
         handleAfterEnter() {
+            console.log(11111)
             this.$store.dispatch('appShell/setPageSwitching', false)
         },
         handleClickHeaderBack() {
