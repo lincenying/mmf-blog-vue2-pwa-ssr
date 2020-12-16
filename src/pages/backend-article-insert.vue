@@ -15,7 +15,7 @@
             </a-input>
             <div class="settings-section">
                 <div id="post-content" class="settings-item-content">
-                    <mavon-editor v-if="renderMD" ref="md" v-model="form.content" @imgAdd="imgAdd" :subfield="false" />
+                    <mavon-editor v-if="renderMD" ref="md" v-model="form.content" @imgAdd="imgAdd" :subfield="false" :externalLink="externalLink" />
                 </div>
             </div>
         </div>
@@ -51,6 +51,9 @@ export default {
                 category: '',
                 content: '',
                 html: ''
+            },
+            externalLink: {
+                markdown_css: false
             }
         }
     },
