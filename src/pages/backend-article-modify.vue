@@ -29,6 +29,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { showMsg } from '@/utils'
+import { uploadApi } from '@/api/upload-api'
 // import api from '~api'
 import checkAdmin from '@/mixins/check-admin'
 import aInput from '../components/_input.vue'
@@ -87,9 +88,9 @@ export default {
             // 第一步.将图片上传到服务器.
             const formdata = new FormData()
             formdata.append('file', $file)
-            const { data } = await this.$store.$api.file('http://php.mmxiaowu.com/ajax.php?action=upload', formdata)
+            const { data } = await this.$store.$api.file(uploadApi + '/ajax.php?action=upload', formdata)
             if (data && data.filepath) {
-                this.$refs.md.$img2Url(pos, 'http://php.mmxiaowu.com/' + data.filepath)
+                this.$refs.md.$img2Url(pos, uploadApi + '/' + data.filepath)
             }
         },
         async modify() {
