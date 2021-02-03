@@ -64,9 +64,6 @@ export default {
             var handleError = err => {
                 this.error(err)
             }
-            if (!this.method) {
-                this.method = 'post'
-            }
             // eslint-disable-next-line
             var xhr = new XMLHttpRequest()
             var handleFinish = () => {
