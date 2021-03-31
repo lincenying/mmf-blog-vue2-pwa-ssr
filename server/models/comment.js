@@ -1,6 +1,7 @@
+const mongooseAutopopulate = require('mongoose-autopopulate')
+
 const mongoose = require('../mongoose')
 const Schema = mongoose.Schema
-const mongooseAutopopulate = require('mongoose-autopopulate')
 
 const CommentSchema = new Schema({
     article_id: String,

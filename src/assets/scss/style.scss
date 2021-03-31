@@ -329,6 +329,8 @@ a {
                 h4,
                 h5,
                 h6 {
+                    margin-top: -60px;
+                    padding-top: 66px;
                     & > a[id] {
                         margin-top: -60px;
                         padding-top: 60px;

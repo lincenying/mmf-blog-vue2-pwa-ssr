@@ -9,7 +9,6 @@ import mavonEditor from 'mavon-editor'
 import api from '~api'
 import VueBus from './event-bus'
 import { createApp } from './main'
-import './polyfill'
 import './registerServiceWorker'
 
 import ProgressBar from '~/components/progress-bar.vue'
