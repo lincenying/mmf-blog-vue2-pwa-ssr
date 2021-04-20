@@ -44,6 +44,17 @@ module.exports = {
                                 statuses: [0, 200]
                             }
                         }
+                    },
+                    {
+                        urlPattern: /^https:\/\/fdn\.geekzu\.org/,
+                        handler: 'NetworkFirst',
+                        options: {
+                            networkTimeoutSeconds: 1,
+                            cacheName: 'avatar-cache',
+                            cacheableResponse: {
+                                statuses: [0, 200]
+                            }
+                        }
                     }
                 ]
             })
