@@ -1,6 +1,7 @@
 /* eslint-disable no-inline-comments */
 const path = require('path')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = {
     configureWebpack: {
@@ -43,12 +44,28 @@ module.exports = {
                                 statuses: [0, 200]
                             }
                         }
+                    },
+                    {
+                        urlPattern: /^https:\/\/fdn\.geekzu\.org/,
+                        handler: 'NetworkFirst',
+                        options: {
+                            networkTimeoutSeconds: 1,
+                            cacheName: 'avatar-cache',
+                            cacheableResponse: {
+                                statuses: [0, 200]
+                            }
+                        }
                     }
                 ]
             })
         ]
     },
     chainWebpack: config => {
+        const htmlSsrPlugin = config.plugins.get('html-ssr')
+        if (htmlSsrPlugin) {
+            htmlSsrPlugin.store.get('args')[0].chunks = []
+        }
+
         config.module
             .rule('vue')
             .use('vue-loader')
@@ -116,9 +133,11 @@ module.exports = {
                         }
                     })
                 )
-                const bodyParser = require('body-parser')
-                app.use(bodyParser.json())
-                app.use(bodyParser.urlencoded({ extended: false }))
+                const express = require('express')
+                // parse application/json
+                app.use(express.json())
+                // parse application/x-www-form-urlencoded
+                app.use(express.urlencoded({ extended: true }))
                 const cookieParser = require('cookie-parser')
                 app.use(cookieParser())
 
@@ -126,15 +145,17 @@ module.exports = {
                 app.engine('.html', require('ejs').__express)
                 app.set('view engine', 'ejs')
 
-                // 引入 mongoose 相关模型
-                require('./server/models/admin')
-                require('./server/models/article')
-                require('./server/models/category')
-                require('./server/models/comment')
-                require('./server/models/user')
-                // 引入 api 路由
-                const routes = require('./server/routes/index')
-                app.use('/api', routes)
+                // 反向代理 => 4000端口
+                app.use(
+                    '/api',
+                    createProxyMiddleware({
+                        target: 'http://localhost:4000',
+                        changeOrigin: true,
+                        pathRewrite: {
+                            '^/api': '/api'
+                        }
+                    })
+                )
             },
             // ===== 在启动时将URL复制到系统剪贴板
             // copyUrlOnStart: true,
@@ -147,7 +168,7 @@ module.exports = {
             // ===== Paths
             distPath: path.resolve(__dirname, './dist'),
             error500Html: null,
-            templatePath: path.resolve(__dirname, './dist/index.html'),
+            templatePath: path.resolve(__dirname, './dist/index.ssr.html'),
             serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js')
         }
     },
@@ -158,6 +179,9 @@ module.exports = {
         appleMobileWebAppCapable: 'yes',
         appleMobileWebAppStatusBarStyle: 'black',
         manifestPath: 'static/manifest.json',
+        manifestOptions: {
+            start_url: '/'
+        },
         iconPaths: {
             favicon32: 'static/img/icons/favicon-32x32.png',
             favicon16: 'static/img/icons/favicon-16x16.png',
