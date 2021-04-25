@@ -90,7 +90,7 @@ module.exports = {
     pluginOptions: {
         ssr: {
             // ===== Listening port for `serve` command
-            port: 18080,
+            port: 8080,
             // ===== Listening host for `serve` command
             host: null,
             // ===== 指定公共文件路径以禁用资源预取提示
