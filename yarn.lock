@@ -3067,10 +3067,10 @@ core-js-compat@^3.6.5, core-js-compat@^3.8.1, core-js-compat@^3.9.0:
     browserslist "^4.16.3"
     semver "7.0.0"
 
-core-js@3.10.1:
-  version "3.10.1"
-  resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.10.1.tgz?cache=0&sync_timestamp=1617822369900&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.10.1.tgz#e683963978b6806dcc6c0a4a8bd4ab0bdaf3f21a"
-  integrity sha1-5oOWOXi2gG3MbApKi9SrC9rz8ho=
+core-js@3.11.0:
+  version "3.11.0"
+  resolved "https://registry.nlark.com/core-js/download/core-js-3.11.0.tgz#05dac6aa70c0a4ad842261f8957b961d36eb8926"
+  integrity sha1-BdrGqnDApK2EImH4lXuWHTbriSY=
 
 core-js@^2.4.0:
   version "2.6.12"
@@ -4103,10 +4103,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npm.taobao.org/eslint-visitor-keys/download/eslint-visitor-keys-2.0.0.tgz?cache=0&sync_timestamp=1597435068105&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-visitor-keys%2Fdownload%2Feslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha1-If3I+82ceVzAMh8FY3AglXUVEag=
 
-eslint@^7.24.0:
-  version "7.24.0"
-  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.24.0.tgz#2e44fa62d93892bfdb100521f17345ba54b8513a"
-  integrity sha1-LkT6Ytk4kr/bEAUh8XNFulS4UTo=
+eslint@^7.25.0:
+  version "7.25.0"
+  resolved "https://registry.nlark.com/eslint/download/eslint-7.25.0.tgz#1309e4404d94e676e3e831b3a3ad2b050031eb67"
+  integrity sha1-EwnkQE2U5nbj6DGzo60rBQAx62c=
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -5286,10 +5286,10 @@ http-proxy-middleware@0.19.1:
     lodash "^4.17.11"
     micromatch "^3.1.10"
 
-http-proxy-middleware@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-1.2.0.tgz#87776ea3d4d8dda3dc2594a076787bbc6fe4d995"
-  integrity sha1-h3duo9TY3aPcJZSgdnh7vG/k2ZU=
+http-proxy-middleware@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-1.2.1.tgz#cd557a809f56eb98ccb2fdb45593625770ea9c78"
+  integrity sha1-zVV6gJ9W65jMsv20VZNiV3DqnHg=
   dependencies:
     "@types/http-proxy" "^1.17.5"
     http-proxy "^1.18.1"

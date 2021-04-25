@@ -33,6 +33,8 @@ const adminModify = () => import(/* webpackChunkName: "backend-admin" */ './page
 const userList = () => import(/* webpackChunkName: "backend-user" */ './pages/backend-user-list.vue')
 const userModify = () => import(/* webpackChunkName: "backend-user" */ './pages/backend-user-modify.vue')
 
+const notFound = () => import(/* webpackChunkName: "not-found" */ './pages/404.vue')
+
 Vue.use(Router)
 Vue.use(Meta)
 
@@ -229,6 +231,11 @@ export function createRouter() {
                 component: userModify,
                 meta: { index: 1 },
                 beforeEnter: guardRouteBackend
+            },
+            {
+                name: 'not_found',
+                path: '*',
+                component: notFound
             }
         ]
     })

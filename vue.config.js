@@ -1,8 +1,9 @@
 /* eslint-disable no-inline-comments */
 const path = require('path')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
-const proxy = require('express-http-proxy')
-const queryString = require('query-string')
+const { createProxyMiddleware } = require('http-proxy-middleware')
+// const proxy = require('express-http-proxy')
+// const queryString = require('query-string')
 
 module.exports = {
     configureWebpack: {
@@ -89,7 +90,7 @@ module.exports = {
     pluginOptions: {
         ssr: {
             // ===== Listening port for `serve` command
-            port: 8080,
+            port: 18080,
             // ===== Listening host for `serve` command
             host: null,
             // ===== 指定公共文件路径以禁用资源预取提示
@@ -128,19 +129,13 @@ module.exports = {
             extendServer: app => {
                 const logger = require('morgan')
                 app.use(
-                    logger('[:remote-addr] ":method :url" :status :res[content-length] ":referrer" ":user-agent" ":date[web]"', {
+                    logger('[:remote-addr] ":method :url" :status :res[content-length] ":referrer" ":date[web]"', {
                         skip(req) {
                             return req.url.indexOf('.map') !== -1
                         }
                     })
                 )
                 const express = require('express')
-                // parse application/json
-                app.use(express.json())
-                // parse application/x-www-form-urlencoded
-                app.use(express.urlencoded({ extended: true }))
-                const cookieParser = require('cookie-parser')
-                app.use(cookieParser())
 
                 app.set('views', path.join(__dirname, 'dist'))
                 app.engine('.html', require('ejs').__express)
@@ -149,20 +144,37 @@ module.exports = {
                 // 反向代理 => 4000端口
                 app.use(
                     '/api',
-                    proxy('http://localhost:4000', {
-                        preserveHostHdr: true,
-                        reqAsBuffer: true,
-                        proxyReqBodyDecorator(bodyContent) {
-                            return queryString.stringify(bodyContent)
-                        },
-                        //转发之前触发该方法
-                        proxyReqPathResolver(req) {
-                            //这个代理会把匹配到的url（下面的 ‘/api’等）去掉，转发过去直接404，这里手动加回来，
-                            req.url = req.baseUrl + req.url
-                            return require('url').parse(req.url).path
+                    createProxyMiddleware({
+                        target: 'http://localhost:4000',
+                        changeOrigin: true,
+                        pathRewrite: {
+                            '^/api': '/api'
                         }
                     })
                 )
+                // app.use(
+                //     '/api',
+                //     proxy('http://localhost:4000', {
+                //         preserveHostHdr: true,
+                //         reqAsBuffer: true,
+                //         proxyReqBodyDecorator(bodyContent) {
+                //             return queryString.stringify(bodyContent)
+                //         },
+                //         //转发之前触发该方法
+                //         proxyReqPathResolver(req) {
+                //             //这个代理会把匹配到的url（下面的 ‘/api’等）去掉，转发过去直接404，这里手动加回来，
+                //             req.url = req.baseUrl + req.url
+                //             return req.originalUrl
+                //         }
+                //     })
+                // )
+
+                // parse application/json
+                app.use(express.json())
+                // parse application/x-www-form-urlencoded
+                app.use(express.urlencoded({ extended: true }))
+                const cookieParser = require('cookie-parser')
+                app.use(cookieParser())
             },
             // ===== 在启动时将URL复制到系统剪贴板
             // copyUrlOnStart: true,
