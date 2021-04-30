@@ -5,6 +5,10 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 // const proxy = require('express-http-proxy')
 // const queryString = require('query-string')
 
+const port = process.env.NODE_ENV === 'development' ? 18080 : 8080
+
+console.log(port)
+
 module.exports = {
     configureWebpack: {
         devtool: 'source-map',
@@ -90,7 +94,7 @@ module.exports = {
     pluginOptions: {
         ssr: {
             // ===== Listening port for `serve` command
-            port: 8080,
+            port,
             // ===== Listening host for `serve` command
             host: null,
             // ===== 指定公共文件路径以禁用资源预取提示
