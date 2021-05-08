@@ -22,7 +22,7 @@
             </div>
         </div>
         <div v-if="topics.hasNext" class="settings-footer">
-            <a v-if="!loading" @click="loadMore" class="admin-load-more" href="javascript:;">加载更多</a>
+            <a v-if="!loading" @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
             <a v-else class="admin-load-more" href="javascript:;">加载中...</a>
         </div>
     </div>

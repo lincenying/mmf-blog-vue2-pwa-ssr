@@ -14,7 +14,7 @@
                 <template v-else-if="topics.data.length > 0">
                     <topics-item v-for="item in topics.data" :item="item" :key="item._id"></topics-item>
                     <div class="load-more-wrap">
-                        <a v-if="topics.hasNext" @click="loadMore" href="javascript:;" class="load-more" :class="loading ? 'loading' : ''"
+                        <a v-if="topics.hasNext" @click="loadMore()" href="javascript:;" class="load-more" :class="loading ? 'loading' : ''"
                             >{{ loading ? '加载中' : '更多' }} <i class="icon icon-circle-loading"></i>
                         </a>
                     </div>

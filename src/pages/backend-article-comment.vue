@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div v-if="comments.hasNext" class="load-more-wrap">
-                <a v-if="!loading" @click="loadMore" href="javascript:;" class="comments-load-more">加载更多</a>
+                <a v-if="!loading" @click="loadMore()" href="javascript:;" class="comments-load-more">加载更多</a>
                 <a v-else href="javascript:;" class="comments-load-more">加载中...</a>
             </div>
         </div>
