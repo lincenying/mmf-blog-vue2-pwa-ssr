@@ -2,8 +2,6 @@
 const path = require('path')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const { createProxyMiddleware } = require('http-proxy-middleware')
-// const proxy = require('express-http-proxy')
-// const queryString = require('query-string')
 
 const port = process.env.NODE_ENV === 'development' ? 18080 : 8080
 
@@ -156,22 +154,6 @@ module.exports = {
                         }
                     })
                 )
-                // app.use(
-                //     '/api',
-                //     proxy('http://localhost:4000', {
-                //         preserveHostHdr: true,
-                //         reqAsBuffer: true,
-                //         proxyReqBodyDecorator(bodyContent) {
-                //             return queryString.stringify(bodyContent)
-                //         },
-                //         //转发之前触发该方法
-                //         proxyReqPathResolver(req) {
-                //             //这个代理会把匹配到的url（下面的 ‘/api’等）去掉，转发过去直接404，这里手动加回来，
-                //             req.url = req.baseUrl + req.url
-                //             return req.originalUrl
-                //         }
-                //     })
-                // )
 
                 // parse application/json
                 app.use(express.json())
