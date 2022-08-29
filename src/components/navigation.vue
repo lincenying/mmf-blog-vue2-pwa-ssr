@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    name: 'navigation',
+    name: 'comp-navigation',
     props: ['backend'],
     data() {
         return {}
