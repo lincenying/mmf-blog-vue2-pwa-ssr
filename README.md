@@ -1,6 +1,6 @@
 # mmf-blog vuejs 2.0 v2         [中文说明](https://github.com/lincenying/mmf-blog-vue2-pwa-ssr/blob/main/README_CN.md)
 
-demo: [http://www.mmxiaowu.com](http://www.mmxiaowu.com)
+demo: [http://vue2.mmxiaowu.com](http://vue2.mmxiaowu.com)
 
 The main technical stack: vue 2, vue-router 3, vuex 3, vue-clio, eslint, pwa, ssr
 
