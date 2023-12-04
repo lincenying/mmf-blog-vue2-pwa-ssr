@@ -1,5 +1,5 @@
-import { api } from '~api'
 import { createApp } from './main'
+import { api } from '~api'
 
 export default context => {
     // eslint-disable-next-line
@@ -14,13 +14,13 @@ export default context => {
             reject({ url: fullPath })
         }
 
-        if (url !== '/backend/' && url.indexOf('/backend/') > -1) {
+        if (url !== '/backend/' && url.includes('/backend/')) {
             if (!context.req.cookies.b_user) {
                 context.req.res.redirect('/backend')
                 return
             }
         }
-        if (url !== '/user/' && url.indexOf('/user/') > -1) {
+        if (url !== '/user/' && url.includes('/user/')) {
             if (!context.req.cookies.b_user) {
                 context.req.res.redirect('/')
                 return

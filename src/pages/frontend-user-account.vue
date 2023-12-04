@@ -4,38 +4,38 @@
             <div class="home-feeds cards-wrap">
                 <div class="settings-main card">
                     <div class="settings-main-content">
-                        <a-input title="昵称">
+                        <AInput title="昵称">
                             <input type="text" :value="username" placeholder="昵称" class="base-input" name="username" readonly />
                             <span class="input-info error">请输入昵称</span>
-                        </a-input>
-                        <a-input title="邮箱">
-                            <input type="text" v-model="form.email" placeholder="邮箱" class="base-input" name="email" />
+                        </AInput>
+                        <AInput title="邮箱">
+                            <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email" />
                             <span class="input-info error">请输入邮箱</span>
-                        </a-input>
+                        </AInput>
                     </div>
                     <div class="settings-footer">
-                        <a @click="handleSubmit" href="javascript:;" class="btn btn-yellow">保存设置</a>
+                        <a href="javascript:;" class="btn btn-yellow" @click="handleSubmit">保存设置</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="main-right"><account></account></div>
+        <div class="main-right"><Account></Account></div>
     </div>
 </template>
 
 <script>
 // import api from '~api'
+import account from '../components/aside-account.vue'
+import aInput from '../components/_input.vue'
 import { showMsg } from '@/utils'
 import metaMixin from '@/mixins'
 import checkUser from '@/mixins/check-user'
-import account from '../components/aside-account.vue'
-import aInput from '../components/_input.vue'
 
 export default {
-    name: 'frontend-user-account',
+    name: 'FrontendUserAccount',
     components: {
-        account,
-        aInput
+        Account: account,
+        AInput: aInput
     },
     mixins: [metaMixin, checkUser],
     data() {
@@ -59,7 +59,8 @@ export default {
             }
         },
         async handleSubmit() {
-            if (this.loading) return
+            if (this.loading)
+                return
             const reg = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_-]+)(\.[a-zA-Z0-9_-]+)$/i
             if (!this.form.email) {
                 showMsg('请填写邮箱地址!')

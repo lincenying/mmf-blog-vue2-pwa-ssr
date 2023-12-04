@@ -10,7 +10,7 @@
                 <div class="list-title">{{ item.cate_name }}</div>
                 <div class="list-time">{{ item.cate_order }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/category/modify/' + item._id" class="badge badge-success">编辑</router-link>
+                    <router-link :to="`/backend/category/modify/${item._id}`" class="badge badge-success">编辑</router-link>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@ import { mapGetters } from 'vuex'
 import checkAdmin from '@/mixins/check-admin'
 
 export default {
-    name: 'backend-category-list',
+    name: 'BackendCategoryList',
     mixins: [checkAdmin],
     async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1

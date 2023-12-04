@@ -12,14 +12,14 @@
                 <div class="list-email">{{ item.email }}</div>
                 <div class="list-date">{{ item.update_date | timeYmd }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/admin/modify/' + item._id" class="badge badge-success">编辑</router-link>
-                    <a v-if="item.is_delete" @click="handleRecover(item._id)" href="javascript:;">恢复</a>
-                    <a v-else @click="handleDelete(item._id)" href="javascript:;">删除</a>
+                    <router-link :to="`/backend/admin/modify/${item._id}`" class="badge badge-success">编辑</router-link>
+                    <a v-if="item.is_delete" href="javascript:;" @click="handleRecover(item._id)">恢复</a>
+                    <a v-else href="javascript:;" @click="handleDelete(item._id)">删除</a>
                 </div>
             </div>
         </div>
         <div v-if="admin.hasNext" class="settings-footer">
-            <a v-if="!loading" @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
+            <a v-if="!loading" class="admin-load-more" href="javascript:;" @click="loadMore()">加载更多</a>
             <a v-else class="admin-load-more" href="javascript:;">加载中...</a>
         </div>
     </div>
@@ -32,7 +32,7 @@ import checkAdmin from '@/mixins/check-admin'
 import { showMsg } from '@/utils'
 
 export default {
-    name: 'backend-admin-list',
+    name: 'BackendAdminList',
     mixins: [checkAdmin],
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/admin/getAdminList', {

@@ -7,8 +7,9 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
-    name: 'topics-item-none'
+    name: 'TopicsItemNone'
 }
 </script>

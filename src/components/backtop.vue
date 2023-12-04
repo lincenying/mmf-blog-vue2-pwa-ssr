@@ -1,24 +1,30 @@
 <template>
-    <div v-show="scrollTop > 500" class="back-top"><a @click="handleBackTop" href="javascript:;"></a></div>
+    <div v-show="scrollTopGt" class="back-top"><a href="javascript:;" @click="handleBackTop"></a></div>
 </template>
 
 <script>
 export default {
-    name: 'back-top',
+    name: 'BackTop',
     data() {
         return {
             scrollTop: 0
         }
     },
+    computed: {
+        scrollTopGt() {
+            return this.scrollTop > 500
+        }
+    },
     mounted() {
         window.addEventListener('scroll', this.scrolling)
     },
-    beforeDestroy() {
+    beforeUnmount() {
         window.removeEventListener('scroll', this.scrolling)
     },
     methods: {
         scrolling() {
-            if (window.scrollTime) window.clearTimeout(window.scrollTime)
+            if (window.scrollTime)
+                window.clearTimeout(window.scrollTime)
             window.scrollTime = window.setTimeout(() => {
                 this.scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
             }, 100)

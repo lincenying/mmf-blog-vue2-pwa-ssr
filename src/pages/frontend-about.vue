@@ -50,18 +50,19 @@
                 </div>
             </div>
         </div>
-        <div class="main-right"><trending :trending="trending"></trending></div>
+        <div class="main-right"><Trending :trending="trending"></Trending></div>
     </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
-import metaMixin from '@/mixins'
 import trending from '../components/aside-trending.vue'
+import metaMixin from '@/mixins'
 
 export default {
-    name: 'frontend-about',
+    name: 'FrontendAbout',
     components: {
-        trending
+        Trending: trending
     },
     mixins: [metaMixin],
     async asyncData({ store }) {

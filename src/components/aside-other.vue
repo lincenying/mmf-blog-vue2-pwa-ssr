@@ -10,9 +10,10 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
-    name: 'aside-other',
+    name: 'AsideOther',
     serverCacheKey: () => {
         return `aside::other`
     }

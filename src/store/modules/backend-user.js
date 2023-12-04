@@ -1,20 +1,23 @@
-const state = () => ({
-    lists: {
-        hasNext: false,
-        hasPrev: false,
-        path: '',
-        page: 1,
-        data: []
-    },
-    item: {
-        data: {},
-        path: ''
+function state () {
+    return {
+        lists: {
+            hasNext: false,
+            hasPrev: false,
+            path: '',
+            page: 1,
+            data: []
+        },
+        item: {
+            data: {},
+            path: ''
+        }
     }
-})
+}
 
 const actions = {
-    async ['getUserList']({ commit, state, rootState: { $api } }, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+    async 'getUserList'({ commit, state, rootState: { $api } }, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1)
+            return
         const { code, data } = await $api.get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
@@ -23,7 +26,7 @@ const actions = {
             })
         }
     },
-    async ['getUserItem']({ commit, rootState: { $api } }, config) {
+    async 'getUserItem'({ commit, rootState: { $api } }, config) {
         const { code, data } = await $api.get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
@@ -35,7 +38,7 @@ const actions = {
 }
 
 const mutations = {
-    ['receiveUserList'](state, { list, path, hasNext, hasPrev, page }) {
+    'receiveUserList'(state, { list, path, hasNext, hasPrev, page }) {
         if (page === 1) {
             list = [].concat(list)
         } else {
@@ -50,31 +53,33 @@ const mutations = {
             path
         }
     },
-    ['receiveUserItem'](state, payload) {
+    'receiveUserItem'(state, payload) {
         state.item = payload
     },
-    ['updateUserItem'](state, payload) {
+    'updateUserItem'(state, payload) {
         state.item.data = payload
         const index = state.lists.data.findIndex(ii => ii._id === payload._id)
         if (index > -1) {
             state.lists.data.splice(index, 1, payload)
         }
     },
-    ['deleteUser'](state, id) {
+    'deleteUser'(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
-        if (obj) obj.is_delete = 1
+        if (obj)
+            obj.is_delete = 1
     },
-    ['recoverUser'](state, id) {
+    'recoverUser'(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
-        if (obj) obj.is_delete = 0
+        if (obj)
+            obj.is_delete = 0
     }
 }
 
 const getters = {
-    ['getUserList'](state) {
+    'getUserList'(state) {
         return state.lists
     },
-    ['getUserItem'](state) {
+    'getUserItem'(state) {
         return state.item
     }
 }

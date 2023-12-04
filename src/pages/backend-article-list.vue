@@ -12,17 +12,15 @@
                 <div class="list-category">{{ item.category_name }}</div>
                 <div class="list-date">{{ item.update_date | timeAgo }}</div>
                 <div class="list-action">
-                    <router-link :to="'/backend/article/modify/' + item._id" class="badge badge-success">编辑</router-link>
-                    <a v-if="item.is_delete" @click="handleRecover(item._id)" href="javascript:;">恢复</a>
-                    <a v-else @click="handleDelete(item._id)" href="javascript:;">删除</a>
-                    <router-link v-if="item.comment_count > 0" :to="'/backend/article/comment/' + item._id" class="badge badge-success"
-                        >评论</router-link
-                    >
+                    <router-link :to="`/backend/article/modify/${item._id}`" class="badge badge-success">编辑</router-link>
+                    <a v-if="item.is_delete" href="javascript:;" @click="handleRecover(item._id)">恢复</a>
+                    <a v-else href="javascript:;" @click="handleDelete(item._id)">删除</a>
+                    <router-link v-if="item.comment_count > 0" :to="`/backend/article/comment/${item._id}`" class="badge badge-success">评论</router-link>
                 </div>
             </div>
         </div>
         <div v-if="topics.hasNext" class="settings-footer">
-            <a v-if="!loading" @click="loadMore()" class="admin-load-more" href="javascript:;">加载更多</a>
+            <a v-if="!loading" class="admin-load-more" href="javascript:;" @click="loadMore()">加载更多</a>
             <a v-else class="admin-load-more" href="javascript:;">加载中...</a>
         </div>
     </div>
@@ -31,11 +29,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 import checkAdmin from '@/mixins/check-admin'
 
 export default {
-    name: 'backend-article-list',
+    name: 'BackendArticleList',
     mixins: [checkAdmin],
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {

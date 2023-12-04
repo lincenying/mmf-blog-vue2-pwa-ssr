@@ -3,10 +3,12 @@
  * @author lincenying(lincenying@qq.com)
  */
 
-const install = Vue => {
+function install (Vue) {
     const bus = new Vue({
-        data: {
-            default: {}
+        data() {
+            return {
+                default: {}
+            }
         }
     })
 

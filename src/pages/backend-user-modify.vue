@@ -1,21 +1,21 @@
 <template>
     <div class="settings-main card">
         <div class="settings-main-content">
-            <a-input title="昵称">
-                <input type="text" v-model="form.username" placeholder="昵称" class="base-input" name="username" />
+            <AInput title="昵称">
+                <input v-model="form.username" type="text" placeholder="昵称" class="base-input" name="username" />
                 <span class="input-info error">请输入昵称</span>
-            </a-input>
-            <a-input title="邮箱">
-                <input type="text" v-model="form.email" placeholder="邮箱" class="base-input" name="email" />
+            </AInput>
+            <AInput title="邮箱">
+                <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email" />
                 <span class="input-info error">请输入邮箱</span>
-            </a-input>
-            <a-input title="密码">
-                <input type="password" v-model="form.password" placeholder="密码" class="base-input" name="password" />
+            </AInput>
+            <AInput title="密码">
+                <input v-model="form.password" type="password" placeholder="密码" class="base-input" name="password" />
                 <span class="input-info error">请输入密码</span>
-            </a-input>
+            </AInput>
         </div>
         <div class="settings-footer">
-            <a @click="handleModify" href="javascript:;" class="btn btn-yellow">编辑用户</a>
+            <a href="javascript:;" class="btn btn-yellow" @click="handleModify">编辑用户</a>
             <router-link to="/backend/user/list" class="btn btn-blue">返回</router-link>
         </div>
     </div>
@@ -24,14 +24,15 @@
 <script>
 import { mapGetters } from 'vuex'
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 import checkAdmin from '@/mixins/check-admin'
 import aInput from '@/components/_input.vue'
 
 export default {
-    name: 'backend-user-modify',
+    name: 'BackendUserModify',
     components: {
-        aInput
+        AInput: aInput
     },
     mixins: [checkAdmin],
     async asyncData({ store, route }) {
@@ -68,7 +69,8 @@ export default {
     },
     methods: {
         async handleModify() {
-            if (this.loading) return
+            if (this.loading)
+                return
             if (!this.form.username || !this.form.email) {
                 showMsg('请将表单填写完整!')
                 return

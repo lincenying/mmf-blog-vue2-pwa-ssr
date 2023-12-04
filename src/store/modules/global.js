@@ -1,26 +1,28 @@
-const state = () => ({
-    loading: false,
-    cookies: {},
-    showLoginModal: false,
-    showRegisterModal: false
-})
+function state () {
+    return {
+        loading: false,
+        cookies: {},
+        showLoginModal: false,
+        showRegisterModal: false
+    }
+}
 
 const actions = {}
 
 const mutations = {
-    ['showLoginModal'](state, payload) {
+    'showLoginModal'(state, payload) {
         state.showLoginModal = payload
     },
-    ['showRegisterModal'](state, payload) {
+    'showRegisterModal'(state, payload) {
         state.showRegisterModal = payload
     },
-    ['setCookies'](state, cookies) {
+    'setCookies'(state, cookies) {
         state.cookies = cookies
     }
 }
 
 const getters = {
-    ['get'](state) {
+    'get'(state) {
         return state
     }
 }

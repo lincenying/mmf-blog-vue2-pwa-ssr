@@ -1,4 +1,4 @@
-const lruCache = require('lru-cache')
+const { LRUCache } = require('lru-cache')
 
 let api
 const cached = false
@@ -11,7 +11,7 @@ if (process.__API__) {
         timeout: 30000,
         cached:
             cached &&
-            new lruCache({
+            new LRUCache({
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             }),

@@ -1,16 +1,15 @@
-// @ts-ignore
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"],
-            "~/*": ["src/*"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["src/*"]
         },
-        "target": "ES6",
-        "module": "commonjs",
-        "allowSyntheticDefaultImports": true
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"],
-    "files": ["main.ts"]
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "files": ["main.ts"]
 }

@@ -4,9 +4,9 @@
             <div class="comment-post-wrap">
                 <img :src="userEmail | avatar" alt="" class="avatar-img" />
                 <div class="comment-post-input-wrap base-textarea-wrap">
-                    <textarea v-model="form.content" id="content" class="textarea-input base-input" cols="30" rows="4"></textarea>
+                    <textarea id="content" v-model="form.content" class="textarea-input base-input" cols="30" rows="4"></textarea>
                 </div>
-                <div class="comment-post-actions"><a @click="handlePostComment" href="javascript:;" class="btn btn-blue">发表评论</a></div>
+                <div class="comment-post-actions"><a href="javascript:;" class="btn btn-blue" @click="handlePostComment">发表评论</a></div>
             </div>
             <div class="comment-items-wrap">
                 <div v-for="item in comments.data" :key="item._id" class="comment-item">
@@ -20,13 +20,13 @@
                         <div class="comment-content" v-text="item.content"></div>
                         <div class="comment-footer">
                             <span class="comment-time" v-text="item.creat_date"></span>
-                            <a @click="handleReply(item.userid.username)" href="javascript:;" class="comment-action-item comment-reply">回复</a>
+                            <a href="javascript:;" class="comment-action-item comment-reply" @click="handleReply(item.userid.username)">回复</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div v-if="comments.hasNext" class="load-more-wrap">
-                <a v-if="!loading" @click="loadcomment" href="javascript:;" class="comments-load-more">加载更多</a>
+                <a v-if="!loading" href="javascript:;" class="comments-load-more" @click="loadcomment">加载更多</a>
                 <a v-else href="javascript:;" class="comments-load-more">加载中...</a>
             </div>
         </div>
@@ -35,10 +35,11 @@
 
 <script>
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 
 export default {
-    name: 'frontend-comment',
+    name: 'FrontendComment',
     props: ['comments'],
     data() {
         return {
@@ -69,7 +70,8 @@ export default {
             this.loading = false
         },
         async handlePostComment() {
-            if (this.postLoading) return
+            if (this.postLoading)
+                return
             if (!this.user) {
                 this.$store.commit('global/showLoginModal', true)
                 return showMsg('请先登录!')
@@ -87,7 +89,7 @@ export default {
             }
         },
         handleReply(username) {
-            this.form.content = '回复 @' + username + ': '
+            this.form.content = `回复 @${  username  }: `
             document.querySelector('#content').focus()
         }
     }

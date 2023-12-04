@@ -1,29 +1,30 @@
 <template>
     <div class="settings-main card">
         <div class="settings-main-content">
-            <a-input title="账号">
-                <input type="text" v-model="form.username" placeholder="请输入管理员账号" class="base-input" name="username" />
+            <AInput title="账号">
+                <input v-model="form.username" type="text" placeholder="请输入管理员账号" class="base-input" name="username" />
                 <span class="input-info error">请输入昵称</span>
-            </a-input>
-            <a-input title="密码">
-                <input type="password" v-model="form.password" placeholder="请输入管理员密码" class="base-input" name="password" />
+            </AInput>
+            <AInput title="密码">
+                <input v-model="form.password" type="password" placeholder="请输入管理员密码" class="base-input" name="password" />
                 <span class="input-info error">请输入密码</span>
-            </a-input>
+            </AInput>
         </div>
-        <div class="settings-footer"><a @click="handleLogin" href="javascript:;" class="btn btn-yellow">登录</a></div>
+        <div class="settings-footer"><a href="javascript:;" class="btn btn-yellow" @click="handleLogin">登录</a></div>
     </div>
 </template>
 
 <script>
 import cookies from 'js-cookie'
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 import aInput from '@/components/_input.vue'
 
 export default {
-    name: 'backend-login',
+    name: 'BackendLogin',
     components: {
-        aInput
+        AInput: aInput
     },
     beforeRouteEnter(to, from, next) {
         if (cookies.get('b_user')) {
@@ -42,7 +43,8 @@ export default {
     },
     methods: {
         async handleLogin() {
-            if (this.loading) return
+            if (this.loading)
+                return
             if (!this.form.username || !this.form.password) {
                 showMsg('请输入用户名和密码!')
                 return

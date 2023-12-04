@@ -1,20 +1,23 @@
-const state = () => ({
-    lists: {
-        hasNext: false,
-        hasPrev: false,
-        path: '',
-        page: 1,
-        data: []
-    },
-    item: {
-        data: {},
-        path: ''
+function state () {
+    return {
+        lists: {
+            hasNext: false,
+            hasPrev: false,
+            path: '',
+            page: 1,
+            data: []
+        },
+        item: {
+            data: {},
+            path: ''
+        }
     }
-})
+}
 
 const actions = {
-    async ['getAdminList']({ commit, state, rootState: { $api } }, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+    async 'getAdminList'({ commit, state, rootState: { $api } }, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1)
+            return
         const { code, data } = await $api.get('backend/admin/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveAdminList', {
@@ -24,7 +27,7 @@ const actions = {
             })
         }
     },
-    async ['getAdminItem']({ commit, rootState: { $api } }, config) {
+    async 'getAdminItem'({ commit, rootState: { $api } }, config) {
         const { code, data } = await $api.get('backend/admin/item', config)
         if (data && code === 200) {
             commit('receiveAdminItem', {
@@ -36,7 +39,7 @@ const actions = {
 }
 
 const mutations = {
-    ['receiveAdminList'](state, { list, path, hasNext, hasPrev, page }) {
+    'receiveAdminList'(state, { list, path, hasNext, hasPrev, page }) {
         if (page === 1) {
             list = [].concat(list)
         } else {
@@ -51,31 +54,33 @@ const mutations = {
             path
         }
     },
-    ['receiveAdminItem'](state, payload) {
+    'receiveAdminItem'(state, payload) {
         state.item = payload
     },
-    ['updateAdminItem'](state, payload) {
+    'updateAdminItem'(state, payload) {
         state.item.data = payload
         const index = state.lists.data.findIndex(ii => ii._id === payload._id)
         if (index > -1) {
             state.lists.data.splice(index, 1, payload)
         }
     },
-    ['deleteAdmin'](state, id) {
+    'deleteAdmin'(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
-        if (obj) obj.is_delete = 1
+        if (obj)
+            obj.is_delete = 1
     },
-    ['recoverAdmin'](state, id) {
+    'recoverAdmin'(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
-        if (obj) obj.is_delete = 0
+        if (obj)
+            obj.is_delete = 0
     }
 }
 
 const getters = {
-    ['getAdminList'](state) {
+    'getAdminList'(state) {
         return state.lists
     },
-    ['getAdminItem'](state) {
+    'getAdminItem'(state) {
         return state.item
     }
 }

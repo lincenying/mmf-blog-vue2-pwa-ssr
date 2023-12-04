@@ -7,7 +7,7 @@ toastr.options.positionClass = 'toast-top-center'
 
 export const inBrowser = typeof window !== 'undefined'
 
-export const ua = () => {
+export function ua () {
     const userAgentInfo = inBrowser ? navigator.userAgent : ''
     const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPod']
     let flag = 'PC'
@@ -20,10 +20,11 @@ export const ua = () => {
     return flag
 }
 
-export const ssp = path => {
-    if (!inBrowser) return
-    const clientHeight = document.documentElement.clientHeight,
-        scrollTop = ls.get(path)
+export function ssp (path) {
+    if (!inBrowser)
+        return
+    const clientHeight = document.documentElement.clientHeight
+    const scrollTop = ls.get(path)
     if (scrollTop) {
         Vue.nextTick().then(() => {
             if (document.body.clientHeight >= scrollTop + clientHeight) {
@@ -34,23 +35,24 @@ export const ssp = path => {
     }
 }
 
-export const strlen = str => {
+export function strlen (str) {
     let charCode = -1
     const len = str.length
     let realLength = 0
     for (let i = 0; i < len; i++) {
         charCode = str.charCodeAt(i)
-        if (charCode >= 0 && charCode <= 128) realLength += 1
+        if (charCode >= 0 && charCode <= 128)
+            realLength += 1
         else realLength += 2
     }
     return realLength
 }
 
-export const sleep = ms => {
+export function sleep (ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export const showMsg = message => {
+export function showMsg (message) {
     let content, type
     if (typeof message === 'string') {
         content = message
@@ -62,6 +64,6 @@ export const showMsg = message => {
     toastr[type](content)
 }
 
-export const oc = (props, property, def) => {
+export function oc (props, property, def) {
     return get(props, property, def)
 }

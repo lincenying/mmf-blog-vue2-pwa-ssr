@@ -6,9 +6,9 @@
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import mavonEditor from 'mavon-editor'
-import api from '~api'
 import VueBus from './event-bus'
 import { createApp } from './main'
+import api from '~api'
 import './registerServiceWorker'
 
 import ProgressBar from '~/components/progress-bar.vue'

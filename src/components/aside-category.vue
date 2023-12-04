@@ -12,9 +12,10 @@
         </template>
     </div>
 </template>
+
 <script>
 export default {
-    name: 'aside-category',
+    name: 'AsideCategory',
     props: ['category'],
     serverCacheKey: () => {
         return `aside::category`

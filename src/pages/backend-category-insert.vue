@@ -1,29 +1,30 @@
 <template>
     <div class="settings-main card">
         <div class="settings-main-content">
-            <a-input title="分类名称">
-                <input type="text" v-model="form.cate_name" placeholder="分类名称" class="base-input" name="cate_name" />
+            <AInput title="分类名称">
+                <input v-model="form.cate_name" type="text" placeholder="分类名称" class="base-input" name="cate_name" />
                 <span class="input-info error">请输入分类名称</span>
-            </a-input>
-            <a-input title="分类排序">
-                <input type="text" v-model="form.cate_order" placeholder="分类排序" class="base-input" name="cate_order" />
+            </AInput>
+            <AInput title="分类排序">
+                <input v-model="form.cate_order" type="text" placeholder="分类排序" class="base-input" name="cate_order" />
                 <span class="input-info error">请输入分类排序</span>
-            </a-input>
+            </AInput>
         </div>
-        <div class="settings-footer"><a @click="handleInsert" href="javascript:;" class="btn btn-yellow">添加分类</a></div>
+        <div class="settings-footer"><a href="javascript:;" class="btn btn-yellow" @click="handleInsert">添加分类</a></div>
     </div>
 </template>
 
 <script>
+import aInput from '../components/_input.vue'
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 import checkAdmin from '@/mixins/check-admin'
-import aInput from '../components/_input.vue'
 
 export default {
-    name: 'backend-category-insert',
+    name: 'BackendCategoryInsert',
     components: {
-        aInput
+        AInput: aInput
     },
     mixins: [checkAdmin],
     data() {
@@ -37,7 +38,8 @@ export default {
     },
     methods: {
         async handleInsert() {
-            if (this.loading) return
+            if (this.loading)
+                return
             if (!this.form.cate_name || !this.form.cate_order) {
                 showMsg('请将表单填写完整!')
                 return

@@ -4,17 +4,17 @@
     <div
         class="progress"
         :style="{
-            width: percent + '%',
-            height: height,
+            'width': `${percent}%`,
+            'height': height,
             'background-color': canSuccess ? color : failedColor,
-            opacity: show ? 1 : 0
+            'opacity': show ? 1 : 0,
         }"
     ></div>
 </template>
 
 <script>
 export default {
-    name: 'progress-bar',
+    name: 'ProgressBar',
     data() {
         return {
             percent: 0,

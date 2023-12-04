@@ -1,4 +1,4 @@
-/* eslint-disable valid-jsdoc */
+
 /**
  * @file app shell store
  * @author lincenying(lincenying@qq.com)
@@ -77,19 +77,19 @@ export function createAppShellState() {
     }
 
     const mutations = {
-        ['setPageSwitching'](state, isPageSwitching) {
+        'setPageSwitching'(state, isPageSwitching) {
             state.isPageSwitching = isPageSwitching
         },
-        ['setPageTransitionName'](state, { pageTransitionName }) {
+        'setPageTransitionName'(state, { pageTransitionName }) {
             state.pageTransitionName = pageTransitionName
         },
-        ['saveScrollTop'](state, { path, scrollTop }) {
+        'saveScrollTop'(state, { path, scrollTop }) {
             state.historyPageScrollTop[path] = scrollTop
         }
     }
 
     const getters = {
-        ['get'](state) {
+        'get'(state) {
             return state
         }
     }

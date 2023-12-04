@@ -4,21 +4,21 @@
             <div class="home-feeds cards-wrap">
                 <div class="settings-main card">
                     <div class="settings-main-content">
-                        <a-input title="当前密码">
-                            <input type="password" v-model="form.old_password" placeholder="当前密码" class="base-input" name="old_password" />
-                        </a-input>
-                        <a-input title="新的密码">
-                            <input type="password" v-model="form.password" placeholder="新的密码" class="base-input" name="password" />
-                        </a-input>
-                        <a-input title="确认密码">
-                            <input type="password" v-model="form.re_password" placeholder="确认密码" class="base-input" name="re_password" />
-                        </a-input>
+                        <AInput title="当前密码">
+                            <input v-model="form.old_password" type="password" placeholder="当前密码" class="base-input" name="old_password" />
+                        </AInput>
+                        <AInput title="新的密码">
+                            <input v-model="form.password" type="password" placeholder="新的密码" class="base-input" name="password" />
+                        </AInput>
+                        <AInput title="确认密码">
+                            <input v-model="form.re_password" type="password" placeholder="确认密码" class="base-input" name="re_password" />
+                        </AInput>
                     </div>
-                    <div class="settings-footer"><a @click="handleModify" href="javascript:;" class="btn btn-yellow">保存设置</a></div>
+                    <div class="settings-footer"><a href="javascript:;" class="btn btn-yellow" @click="handleModify">保存设置</a></div>
                 </div>
             </div>
         </div>
-        <div class="main-right"><account></account></div>
+        <div class="main-right"><Account></Account></div>
     </div>
 </template>
 
@@ -31,10 +31,10 @@ import account from '@/components/aside-account.vue'
 import aInput from '@/components/_input.vue'
 
 export default {
-    name: 'frontend-user-password',
+    name: 'FrontendUserPassword',
     components: {
-        aInput,
-        account
+        AInput: aInput,
+        Account: account
     },
     mixins: [metaMixin, checkUser],
     data() {
@@ -49,7 +49,8 @@ export default {
     },
     methods: {
         async handleModify() {
-            if (this.loading) return
+            if (this.loading)
+                return
             if (!this.form.password || !this.form.old_password || !this.form.re_password) {
                 showMsg('请将表单填写完整!')
                 return

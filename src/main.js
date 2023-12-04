@@ -23,7 +23,6 @@ Object.keys(filters).forEach(key => {
 Vue.prototype.$oc = oc
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
 export function createApp() {
     const router = createRouter()
     const store = createStore()

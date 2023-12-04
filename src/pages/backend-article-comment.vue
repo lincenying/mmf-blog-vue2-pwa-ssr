@@ -13,16 +13,16 @@
                         <div class="comment-content">{{ item.content }}</div>
                         <div class="comment-footer">
                             <span class="comment-time">{{ item.timestamp | timeAgo }}</span>
-                            <a v-if="item.is_delete" @click="handleRecover(item._id)" href="javascript:;" class="comment-action-item comment-reply"
-                                >恢复</a
+                            <a v-if="item.is_delete" href="javascript:;" class="comment-action-item comment-reply" @click="handleRecover(item._id)"
+                            >恢复</a
                             >
-                            <a v-else @click="handleDelete(item._id)" href="javascript:;" class="comment-action-item comment-reply">删除</a>
+                            <a v-else href="javascript:;" class="comment-action-item comment-reply" @click="handleDelete(item._id)">删除</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div v-if="comments.hasNext" class="load-more-wrap">
-                <a v-if="!loading" @click="loadMore()" href="javascript:;" class="comments-load-more">加载更多</a>
+                <a v-if="!loading" href="javascript:;" class="comments-load-more" @click="loadMore()">加载更多</a>
                 <a v-else href="javascript:;" class="comments-load-more">加载中...</a>
             </div>
         </div>
@@ -32,11 +32,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { showMsg } from '@/utils'
+
 // import api from '~api'
 import checkAdmin from '@/mixins/check-admin'
 
 export default {
-    name: 'backend-article-comment',
+    name: 'BackendArticleComment',
     mixins: [checkAdmin],
     async asyncData({ store, route }, config = { page: 1 }) {
         config.all = 1

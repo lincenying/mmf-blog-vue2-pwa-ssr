@@ -1,13 +1,13 @@
 <template>
     <div class="card card-me">
         <router-link to="/user/account" active-class="active" class="side-entry"
-            ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>帐号</router-link
+        ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>帐号</router-link
         >
         <router-link to="/user/password" active-class="active" class="side-entry"
-            ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>密码</router-link
+        ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>密码</router-link
         >
-        <a @click="handleLogout" href="javascript:;" class="side-entry"
-            ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>退出</a
+        <a href="javascript:;" class="side-entry" @click="handleLogout"
+        ><i class="icon icon-arrow-right"></i><i class="icon icon-articles"></i>退出</a
         >
     </div>
 </template>
@@ -16,7 +16,7 @@
 // import api from '~api'
 
 export default {
-    name: 'aside-account',
+    name: 'AsideAccount',
     serverCacheKey: () => {
         return `aside::account`
     },
@@ -27,7 +27,8 @@ export default {
     },
     methods: {
         async handleLogout() {
-            if (this.loading) return
+            if (this.loading)
+                return
             this.loading = true
             await this.$store.$api.post('frontend/user/logout', {})
             this.loading = false

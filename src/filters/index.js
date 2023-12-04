@@ -31,10 +31,10 @@ export function timeYmd(timestamp) {
         timestamp = time
     }
     const tmp = new Date(timestamp * 1000)
-    var year = tmp.getFullYear()
-    var month = tmp.getMonth() + 1
-    var date = tmp.getDate()
-    return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date)
+    const year = tmp.getFullYear()
+    const month = tmp.getMonth() + 1
+    const date = tmp.getDate()
+    return `${year  }-${  month < 10 ? `0${  month}` : month  }-${  date < 10 ? `0${  date}` : date}`
 }
 
 export function avatar(email, width) {

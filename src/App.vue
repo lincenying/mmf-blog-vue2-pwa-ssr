@@ -2,22 +2,22 @@
     <div id="app" :class="backend ? 'backend' : 'frontend'">
         <Navigation :backend="backend"></Navigation>
         <template v-if="!backend">
-            <transition :name="appShell.pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+            <transition :name="appShell.pageTransitionName" mode="out-in" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
                 <keep-alive :include="cacheFronentComponents"> <router-view :key="key" class="app-view" /> </keep-alive>
             </transition>
-            <sign-up :show="global.showRegisterModal"></sign-up>
-            <sign-in :show="global.showLoginModal"></sign-in>
-            <back-top></back-top>
+            <SignUp :show="global.showRegisterModal"></SignUp>
+            <SignIn :show="global.showLoginModal"></SignIn>
+            <BackTop></BackTop>
         </template>
         <div v-else class="main wrap">
             <div class="main-left">
                 <div class="home-feeds cards-wrap">
-                    <transition :name="appShell.pageTransitionName" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter" mode="out-in">
+                    <transition :name="appShell.pageTransitionName" mode="out-in" @before-enter="handleBeforeEnter" @after-enter="handleAfterEnter">
                         <keep-alive :include="cacheBackendComponents"> <router-view class="app-view" /> </keep-alive>
                     </transition>
                 </div>
             </div>
-            <backend-menu v-if="!isLogin"></backend-menu>
+            <BackendMenu v-if="!isLogin"></BackendMenu>
         </div>
     </div>
 </template>
@@ -32,13 +32,13 @@ import backTop from './components/backtop.vue'
 import backendMenu from './components/backend-menu.vue'
 
 export default {
-    name: 'app',
+    name: 'App',
     components: {
         Navigation,
-        signUp,
-        signIn,
-        backTop,
-        backendMenu
+        SignUp: signUp,
+        SignIn: signIn,
+        BackTop: backTop,
+        BackendMenu: backendMenu
     },
     data() {
         return {
@@ -56,7 +56,7 @@ export default {
             return this.$route.path.replace(/\//g, '_')
         },
         backend() {
-            return this.$route.path.indexOf('backend') >= 0
+            return this.$route.path.includes('backend')
         },
         isLogin() {
             return ['/backend', '/backend/'].includes(this.$route.path)

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
@@ -30,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
 
             const dom = document.createElement('div')
 
-            /* eslint-disable max-len */
+
             dom.innerHTML = `
                     <div class="app-refresh" id="app-refresh">
                         <div class="app-refresh-wrap" onclick="location.reload()">
@@ -39,10 +37,9 @@ if (process.env.NODE_ENV === 'production') {
                         </div>
                     </div>
                 `
-            /* eslint-enable max-len */
 
             document.body.appendChild(dom)
-            setTimeout(function () {
+            setTimeout(() => {
                 document.getElementById('app-refresh').className += ' app-refresh-show'
             }, 16)
         },

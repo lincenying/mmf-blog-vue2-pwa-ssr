@@ -64,7 +64,7 @@ export default {
         window.addEventListener('scroll', this.handleScroll, false)
         window.addEventListener('resize', this.handleScroll, false)
     },
-    beforeDestroy() {
+    beforeUnmount() {
         window.removeEventListener('scroll', this.handleScroll, false)
         window.removeEventListener('resize', this.handleScroll, false)
     },
@@ -83,11 +83,11 @@ export default {
                     left: `${elOffset.left}px`,
                     width: `${this.$el.offsetWidth}px`
                 }
-                this.$emit('on-change', true)
+                this.$emit('onChange', true)
             } else if (elOffset.top - this.offsetTop > scrollTop && this.offsetType === 'top' && affix) {
                 this.affix = false
                 this.styles = null
-                this.$emit('on-change', false)
+                this.$emit('onChange', false)
             }
             // Fixed Bottom
             if (elOffset.top + this.offsetBottom + elHeight > scrollTop + windowHeight && this.offsetType === 'bottom' && !affix) {
@@ -97,11 +97,11 @@ export default {
                     left: `${elOffset.left}px`,
                     width: `${this.$el.offsetWidth}px`
                 }
-                this.$emit('on-change', true)
+                this.$emit('onChange', true)
             } else if (elOffset.top + this.offsetBottom + elHeight < scrollTop + windowHeight && this.offsetType === 'bottom' && affix) {
                 this.affix = false
                 this.styles = null
-                this.$emit('on-change', false)
+                this.$emit('onChange', false)
             }
         }
     }

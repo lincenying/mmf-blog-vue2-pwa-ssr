@@ -1,21 +1,24 @@
-const state = () => ({
-    lists: {
-        data: [],
-        hasNext: 0,
-        page: 1,
-        path: ''
-    },
-    item: {
-        data: {},
-        path: '',
-        isLoad: false
-    },
-    trending: []
-})
+function state () {
+    return {
+        lists: {
+            data: [],
+            hasNext: 0,
+            page: 1,
+            path: ''
+        },
+        item: {
+            data: {},
+            path: '',
+            isLoad: false
+        },
+        trending: []
+    }
+}
 
 const actions = {
-    async ['getArticleList']({ commit, state, rootState: { $api } }, config) {
-        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
+    async 'getArticleList'({ commit, state, rootState: { $api } }, config) {
+        if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1)
+            return
         const { code, data } = await $api.get('frontend/article/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveArticleList', {
@@ -24,8 +27,9 @@ const actions = {
             })
         }
     },
-    async ['getArticleItem']({ commit, state, rootState: { $api } }, config) {
-        if (config.path === state.item.path) return
+    async 'getArticleItem'({ commit, state, rootState: { $api } }, config) {
+        if (config.path === state.item.path)
+            return
         const { code, data } = await $api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             commit('receiveArticleItem', {
@@ -34,8 +38,9 @@ const actions = {
             })
         }
     },
-    async ['getTrending']({ commit, state, rootState: { $api } }) {
-        if (state.trending.length) return
+    async 'getTrending'({ commit, state, rootState: { $api } }) {
+        if (state.trending.length)
+            return
         const { code, data } = await $api.get('frontend/trending', { cache: true })
         if (data && code === 200) {
             commit('receiveTrending', data)
@@ -44,7 +49,7 @@ const actions = {
 }
 
 const mutations = {
-    ['receiveArticleList'](state, { list, hasNext, hasPrev, page, path }) {
+    'receiveArticleList'(state, { list, hasNext, hasPrev, page, path }) {
         if (page === 1) {
             list = [].concat(list)
         } else {
@@ -58,25 +63,27 @@ const mutations = {
             path
         }
     },
-    ['receiveArticleItem'](state, { data, path }) {
+    'receiveArticleItem'(state, { data, path }) {
         state.item = {
             data,
             path,
             isLoad: true
         }
     },
-    ['receiveTrending'](state, data) {
+    'receiveTrending'(state, data) {
         state.trending = data.list
     },
-    ['modifyLikeStatus'](state, { id, status }) {
+    'modifyLikeStatus'(state, { id, status }) {
         if (state.item.data._id === id) {
-            if (status) state.item.data.like++
+            if (status)
+                state.item.data.like++
             else state.item.data.like--
             state.item.data.like_status = status
         }
         const obj = state.lists.data.find(item => item._id === id)
         if (obj) {
-            if (status) obj.like++
+            if (status)
+                obj.like++
             else obj.like--
             obj.like_status = status
         }
@@ -84,13 +91,13 @@ const mutations = {
 }
 
 const getters = {
-    ['getArticleList'](state) {
+    'getArticleList'(state) {
         return state.lists
     },
-    ['getArticleItem'](state) {
+    'getArticleItem'(state) {
         return state.item
     },
-    ['getTrending'](state) {
+    'getTrending'(state) {
         return state.trending
     }
 }

@@ -2,20 +2,21 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
+
 // import { sleep } from '@/utils'
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
-const objToStr = cookies => {
+function objToStr (cookies) {
     let cookie = ''
     Object.keys(cookies).forEach(item => {
-        cookie += item + '=' + cookies[item] + '; '
+        cookie += `${item}=${cookies[item]}; `
     })
     return cookie
 }
 
 export default {}
 
-export const api = cookies => {
+export function api (cookies) {
     return {
         cookies,
         api: axios.create({
@@ -45,7 +46,8 @@ export const api = cookies => {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 }
             })
-            if (config.cached && data.cache) config.cached.set(key, res_1)
+            if (config.cached && data.cache)
+                config.cached.set(key, res_1)
             return res_1 && res_1.data
         },
         async get(url, params) {
@@ -61,7 +63,8 @@ export const api = cookies => {
                 url,
                 params
             }).then(res => {
-                if (config.cached && params.cache) config.cached.set(key, res)
+                if (config.cached && params.cache)
+                    config.cached.set(key, res)
                 return res && res.data
             })
         }
