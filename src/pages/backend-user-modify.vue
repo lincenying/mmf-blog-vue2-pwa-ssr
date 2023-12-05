@@ -2,15 +2,15 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <AInput title="昵称">
-                <input v-model="form.username" type="text" placeholder="昵称" class="base-input" name="username" />
+                <input v-model="form.username" type="text" placeholder="昵称" class="base-input" name="username">
                 <span class="input-info error">请输入昵称</span>
             </AInput>
             <AInput title="邮箱">
-                <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email" />
+                <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email">
                 <span class="input-info error">请输入邮箱</span>
             </AInput>
             <AInput title="密码">
-                <input v-model="form.password" type="password" placeholder="密码" class="base-input" name="password" />
+                <input v-model="form.password" type="password" placeholder="密码" class="base-input" name="password">
                 <span class="input-info error">请输入密码</span>
             </AInput>
         </div>
@@ -32,13 +32,13 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'BackendUserModify',
     components: {
-        AInput: aInput
+        AInput: aInput,
     },
     mixins: [checkAdmin],
     async asyncData({ store, route }) {
         await store.dispatch('backend/user/getUserItem', {
             id: route.params.id,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
@@ -48,20 +48,20 @@ export default {
                 id: this.$route.params.id,
                 username: '',
                 email: '',
-                password: ''
-            }
+                password: '',
+            },
         }
     },
     computed: {
         ...mapGetters({
-            item: 'backend/user/getUserItem'
-        })
+            item: 'backend/user/getUserItem',
+        }),
     },
     watch: {
         item(val) {
             this.form.username = val.data.username
             this.form.email = val.data.email
-        }
+        },
     },
     mounted() {
         this.form.username = this.item.data.username
@@ -83,13 +83,13 @@ export default {
                 this.$store.commit('backend/user/updateUserItem', data)
                 this.$router.push('/backend/user/list')
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '用户编辑 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

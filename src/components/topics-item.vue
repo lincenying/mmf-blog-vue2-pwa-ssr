@@ -20,13 +20,13 @@ import actions from './item-actions.vue'
 export default {
     name: 'TopicsItem',
     components: {
-        Actions: actions
+        Actions: actions,
     },
     props: ['item'],
     data() {
         return {
-            showMore: false
+            showMore: false,
         }
-    }
+    },
 }
 </script>

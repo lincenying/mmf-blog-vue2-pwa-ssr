@@ -64,8 +64,8 @@ Vue.use(Meta)
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
  *
- * @param {Object} to 目标 route
- * @param {Object} from 源 route
+ * @param {object} to 目标 route
+ * @param {object} from 源 route
  * @return {boolean} 是否表示返回
  */
 /*
@@ -102,25 +102,23 @@ const isForward = (to, from) => {
 }
 */
 
-function guardRoute (to, from, next) {
+function guardRoute(to, from, next) {
     const token = cookies.get('user')
-    if (inBrowser && !token) {
+    if (inBrowser && !token)
         next('/')
-    } else {
+    else
         next()
-    }
 }
 
-function guardRouteBackend (to, from, next) {
+function guardRouteBackend(to, from, next) {
     const token = cookies.get('b_user')
-    if (inBrowser && !token) {
+    if (inBrowser && !token)
         next('/backend')
-    } else {
+    else
         next()
-    }
 }
 
-function scrollBehavior () {
+function scrollBehavior() {
     const position = {}
     // if (to.hash) {
     //     position.selector = to.hash
@@ -156,14 +154,14 @@ export function createRouter() {
                 path: '/backend/admin/list',
                 component: adminList,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'admin_modify',
                 path: '/backend/admin/modify/:id',
                 component: adminModify,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
 
             {
@@ -171,28 +169,28 @@ export function createRouter() {
                 path: '/backend/article/list',
                 component: articleList,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'article_insert',
                 path: '/backend/article/insert',
                 component: articleInsert,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'article_modify',
                 path: '/backend/article/modify/:id',
                 component: articleModify,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'article_comment',
                 path: '/backend/article/comment/:id',
                 component: articleComment,
                 meta: { notKeepAlive: true, index: 2 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
 
             {
@@ -200,21 +198,21 @@ export function createRouter() {
                 path: '/backend/category/list',
                 component: categoryList,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'category_insert',
                 path: '/backend/category/insert',
                 component: categoryInsert,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'category_modify',
                 path: '/backend/category/modify/:id',
                 component: categoryModify,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
 
             {
@@ -222,21 +220,21 @@ export function createRouter() {
                 path: '/backend/user/list',
                 component: userList,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'user_modify',
                 path: '/backend/user/modify/:id',
                 component: userModify,
                 meta: { index: 1 },
-                beforeEnter: guardRouteBackend
+                beforeEnter: guardRouteBackend,
             },
             {
                 name: 'not_found',
                 path: '*',
-                component: notFound
-            }
-        ]
+                component: notFound,
+            },
+        ],
     })
 
     /**
@@ -265,13 +263,13 @@ export function createRouter() {
                 // =================== //
                 // 根据路由中的 meta.index 来判断切换动画
                 let pageTransitionName
-                if (!from.meta.index || to.meta.index === from.meta.index) {
+                if (!from.meta.index || to.meta.index === from.meta.index)
                     pageTransitionName = 'fade'
-                } else if (to.meta.index > from.meta.index) {
+                else if (to.meta.index > from.meta.index)
                     pageTransitionName = slideLeft
-                } else {
+                else
                     pageTransitionName = slideRight
-                }
+
                 router.app.$store.commit(`appShell/setPageTransitionName`, { pageTransitionName })
             }
         }

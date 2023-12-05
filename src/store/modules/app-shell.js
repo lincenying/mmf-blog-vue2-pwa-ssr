@@ -1,4 +1,3 @@
-
 /**
  * @file app shell store
  * @author lincenying(lincenying@qq.com)
@@ -30,9 +29,9 @@ export function createAppShellState() {
         /**
          * 上个页面 scroll 的信息
          *
-         * @type {Object}
+         * @type {object}
          */
-        historyPageScrollTop: {}
+        historyPageScrollTop: {},
     }
 
     const actions = {
@@ -66,32 +65,28 @@ export function createAppShellState() {
 
         /**
          * 保存页面 scroll 高度
-         *
-         * @param {[type]} options.commit [description]
-         * @param {string} options.path path
-         * @param {number} options.scrollTop scrollTop
          */
         saveScrollTop({ commit }, { path, scrollTop }) {
             commit('saveScrollTop', { path, scrollTop })
-        }
+        },
     }
 
     const mutations = {
-        'setPageSwitching'(state, isPageSwitching) {
+        setPageSwitching(state, isPageSwitching) {
             state.isPageSwitching = isPageSwitching
         },
-        'setPageTransitionName'(state, { pageTransitionName }) {
+        setPageTransitionName(state, { pageTransitionName }) {
             state.pageTransitionName = pageTransitionName
         },
-        'saveScrollTop'(state, { path, scrollTop }) {
+        saveScrollTop(state, { path, scrollTop }) {
             state.historyPageScrollTop[path] = scrollTop
-        }
+        },
     }
 
     const getters = {
-        'get'(state) {
+        get(state) {
             return state
-        }
+        },
     }
 
     return {
@@ -99,6 +94,6 @@ export function createAppShellState() {
         actions,
         mutations,
         state,
-        getters
+        getters,
     }
 }

@@ -2,11 +2,11 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <AInput title="分类名称">
-                <input v-model="form.cate_name" type="text" placeholder="分类名称" class="base-input" name="cate_name" />
+                <input v-model="form.cate_name" type="text" placeholder="分类名称" class="base-input" name="cate_name">
                 <span class="input-info error">请输入分类名称</span>
             </AInput>
             <AInput title="分类排序">
-                <input v-model="form.cate_order" type="text" placeholder="分类排序" class="base-input" name="cate_order" />
+                <input v-model="form.cate_order" type="text" placeholder="分类排序" class="base-input" name="cate_order">
                 <span class="input-info error">请输入分类排序</span>
             </AInput>
         </div>
@@ -27,13 +27,13 @@ import checkAdmin from '@/mixins/check-admin'
 export default {
     name: 'BackendCategoryModify',
     components: {
-        AInput: aInput
+        AInput: aInput,
     },
     mixins: [checkAdmin],
     async asyncData({ store, route }) {
         await store.dispatch('global/category/getCategoryItem', {
             path: route.path,
-            id: route.params.id
+            id: route.params.id,
         })
     },
     data() {
@@ -42,20 +42,20 @@ export default {
             form: {
                 id: this.$route.params.id,
                 cate_name: '',
-                cate_order: ''
-            }
+                cate_order: '',
+            },
         }
     },
     computed: {
         ...mapGetters({
-            item: 'global/category/getCategoryItem'
-        })
+            item: 'global/category/getCategoryItem',
+        }),
     },
     watch: {
         item(val) {
             this.form.cate_name = val.data.cate_name
             this.form.cate_order = val.data.cate_order
-        }
+        },
     },
     mounted() {
         this.form.cate_name = this.item.data.cate_name
@@ -77,13 +77,13 @@ export default {
                 this.$store.commit('global/category/updateCategoryItem', data)
                 this.$router.push('/backend/category/list')
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '编辑分类 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

@@ -7,13 +7,13 @@ export default {
     name: 'BackTop',
     data() {
         return {
-            scrollTop: 0
+            scrollTop: 0,
         }
     },
     computed: {
         scrollTopGt() {
             return this.scrollTop > 500
-        }
+        },
     },
     mounted() {
         window.addEventListener('scroll', this.scrolling)
@@ -40,7 +40,7 @@ export default {
                 window.scrollTo(0, top)
                 // document.body.scrollTop = top
             }, 20)
-        }
-    }
+        },
+    },
 }
 </script>

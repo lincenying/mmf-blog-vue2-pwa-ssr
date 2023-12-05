@@ -23,7 +23,7 @@ export default {
             duration: 3000,
             height: '2px',
             color: '#ffca2b',
-            failedColor: '#ff0000'
+            failedColor: '#ff0000',
         }
     },
     methods: {
@@ -37,9 +37,8 @@ export default {
             this._cut = 10000 / Math.floor(this.duration)
             this._timer = setInterval(() => {
                 this.increase(this._cut * Math.random())
-                if (this.percent > 95) {
+                if (this.percent > 95)
                     this.finish()
-                }
             }, 100)
             return this
         },
@@ -85,8 +84,8 @@ export default {
         fail() {
             this.canSuccess = false
             return this
-        }
-    }
+        },
+    },
 }
 </script>
 

@@ -7,11 +7,11 @@
             <div class="modal-content">
                 <div class="signup-form">
                     <div class="input-wrap">
-                        <input v-model="form.username" type="text" placeholder="昵称" class="base-input" />
+                        <input v-model="form.username" type="text" placeholder="昵称" class="base-input">
                         <p class="error-info input-info hidden">长度至少 6 位</p>
                     </div>
                     <div class="input-wrap">
-                        <input v-model="form.password" type="password" placeholder="密码" class="base-input" />
+                        <input v-model="form.password" type="password" placeholder="密码" class="base-input">
                         <p class="error-info input-info hidden">长度至少 6 位</p>
                     </div>
                     <a href="javascript:;" class="btn signup-btn btn-yellow" @click="handleLogin">确认登录</a>
@@ -35,8 +35,8 @@ export default {
             loading: false,
             form: {
                 username: '',
-                password: ''
-            }
+                password: '',
+            },
         }
     },
     methods: {
@@ -61,7 +61,7 @@ export default {
                 showMsg({ type: 'success', content: message })
                 window.location.reload()
             }
-        }
-    }
+        },
+    },
 }
 </script>

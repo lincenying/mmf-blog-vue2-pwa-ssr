@@ -14,8 +14,7 @@
                 <template v-else-if="topics.data.length > 0">
                     <TopicsItem v-for="item in topics.data" :key="item._id" :item="item"></TopicsItem>
                     <div class="load-more-wrap">
-                        <a v-if="topics.hasNext" href="javascript:;" class="load-more" :class="loading ? 'loading' : ''" @click="loadMore()"
-                        >{{ loading ? '加载中' : '更多' }} <i class="icon icon-circle-loading"></i>
+                        <a v-if="topics.hasNext" href="javascript:;" class="load-more" :class="loading ? 'loading' : ''" @click="loadMore()">{{ loading ? '加载中' : '更多' }} <i class="icon icon-circle-loading"></i>
                         </a>
                     </div>
                 </template>
@@ -49,31 +48,31 @@ export default {
         TopicsItemNone: topicsItemNone,
         Category: category,
         Trending: trending,
-        Other: other
+        Other: other,
     },
     mixins: [metaMixin],
     async asyncData({ store, route }, config = { page: 1 }) {
         const {
             params: { id, key, by },
-            path
+            path,
         } = route
         await Promise.all([
             store.dispatch('global/category/getCategoryList'),
             store.dispatch('frontend/article/getTrending'),
-            store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path, key, by })
+            store.dispatch('frontend/article/getArticleList', { ...config, limit: 10, id, path, key, by }),
         ])
     },
     data() {
         return {
-            loading: false
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
             topics: 'frontend/article/getArticleList',
             category: 'global/category/getCategoryList',
-            trending: 'frontend/article/getTrending'
-        })
+            trending: 'frontend/article/getTrending',
+        }),
     },
     activated() {
         this.loadMore(1)
@@ -87,25 +86,26 @@ export default {
             await this.$options.asyncData({ store: this.$store, route: this.$route }, { page })
             this.loading = false
             this.$loading.finish()
-        }
+        },
     },
     metaInfo() {
         let title = 'M.M.F 小屋'
         const { id, key, by } = this.$route.params
         if (id) {
             const obj = this.category.find(item => item._id === id)
-            if (obj) {
-                title = `${obj.cate_name  } - ${  title}`
-            }
-        } else if (key) {
-            title = `搜索: ${  key  } - ${  title}`
-        } else if (by) {
-            title = `热门 - ${  title}`
+            if (obj)
+                title = `${obj.cate_name} - ${title}`
+        }
+        else if (key) {
+            title = `搜索: ${key} - ${title}`
+        }
+        else if (by) {
+            title = `热门 - ${title}`
         }
         return {
             title,
-            meta: [{ vmid: 'description', name: 'description', content: title }]
+            meta: [{ vmid: 'description', name: 'description', content: title }],
         }
-    }
+    },
 }
 </script>

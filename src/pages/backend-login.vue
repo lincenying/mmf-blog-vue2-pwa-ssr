@@ -2,11 +2,11 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <AInput title="账号">
-                <input v-model="form.username" type="text" placeholder="请输入管理员账号" class="base-input" name="username" />
+                <input v-model="form.username" type="text" placeholder="请输入管理员账号" class="base-input" name="username">
                 <span class="input-info error">请输入昵称</span>
             </AInput>
             <AInput title="密码">
-                <input v-model="form.password" type="password" placeholder="请输入管理员密码" class="base-input" name="password" />
+                <input v-model="form.password" type="password" placeholder="请输入管理员密码" class="base-input" name="password">
                 <span class="input-info error">请输入密码</span>
             </AInput>
         </div>
@@ -24,12 +24,12 @@ import aInput from '@/components/_input.vue'
 export default {
     name: 'BackendLogin',
     components: {
-        AInput: aInput
+        AInput: aInput,
     },
     beforeRouteEnter(to, from, next) {
-        if (cookies.get('b_user')) {
+        if (cookies.get('b_user'))
             window.location.href = '/backend/article/list'
-        }
+
         next()
     },
     data() {
@@ -37,8 +37,8 @@ export default {
             loading: false,
             form: {
                 username: '',
-                password: ''
-            }
+                password: '',
+            },
         }
     },
     methods: {
@@ -52,16 +52,15 @@ export default {
             this.loading = true
             const { code, data } = await this.$store.$api.post('backend/admin/login', this.form)
             this.loading = false
-            if (data && code === 200) {
+            if (data && code === 200)
                 window.location.href = '/backend/article/list'
-            }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '管理员登录 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

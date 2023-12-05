@@ -16,7 +16,7 @@ import App from './App.vue'
 
 Vue.mixin(titleMixin)
 
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
     Vue.filter(key, filters[key])
 })
 
@@ -30,7 +30,7 @@ export function createApp() {
     const app = new Vue({
         router,
         store,
-        ...App
+        ...App,
     })
     return { app, router, store }
 }

@@ -28,6 +28,6 @@ export default {
     props: ['trending'],
     serverCacheKey: () => {
         return `aside::trending`
-    }
+    },
 }
 </script>

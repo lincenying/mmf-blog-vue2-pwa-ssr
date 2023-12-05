@@ -1,8 +1,0 @@
-{
-  "extends": ["lcy-vue", "plugin:jsonc/recommended-with-jsonc"],
-  "rules": {
-    "no-irregular-whitespace": 0,
-    "prettier/prettier": 0,
-    "vue/no-deprecated-filter": 0
-  }
-}

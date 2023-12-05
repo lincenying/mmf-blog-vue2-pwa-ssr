@@ -4,7 +4,7 @@
             <div class="comment-items-wrap">
                 <div v-for="item in comments.data" :key="item._id" class="comment-item">
                     <a href="javascript:;" class="comment-author-avatar-link">
-                        <img :src="item.email | avatar" alt="" class="avatar-img" />
+                        <img :src="item.email | avatar" alt="" class="avatar-img">
                     </a>
                     <div class="comment-content-wrap">
                         <span class="comment-author-wrap">
@@ -13,9 +13,7 @@
                         <div class="comment-content">{{ item.content }}</div>
                         <div class="comment-footer">
                             <span class="comment-time">{{ item.timestamp | timeAgo }}</span>
-                            <a v-if="item.is_delete" href="javascript:;" class="comment-action-item comment-reply" @click="handleRecover(item._id)"
-                            >恢复</a
-                            >
+                            <a v-if="item.is_delete" href="javascript:;" class="comment-action-item comment-reply" @click="handleRecover(item._id)">恢复</a>
                             <a v-else href="javascript:;" class="comment-action-item comment-reply" @click="handleDelete(item._id)">删除</a>
                         </div>
                     </div>
@@ -44,18 +42,18 @@ export default {
         config.id = route.params.id
         await store.dispatch('global/comment/getCommentList', {
             ...config,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
         return {
-            loading: false
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
-            comments: 'global/comment/getCommentList'
-        })
+            comments: 'global/comment/getCommentList',
+        }),
     },
     mounted() {},
     methods: {
@@ -77,13 +75,13 @@ export default {
                 showMsg({ type: 'success', content: message })
                 this.$store.commit('global/comment/deleteComment', id)
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '评论列表 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

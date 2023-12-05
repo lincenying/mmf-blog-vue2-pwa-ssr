@@ -5,13 +5,13 @@
                 <div class="settings-main card">
                     <div class="settings-main-content">
                         <AInput title="当前密码">
-                            <input v-model="form.old_password" type="password" placeholder="当前密码" class="base-input" name="old_password" />
+                            <input v-model="form.old_password" type="password" placeholder="当前密码" class="base-input" name="old_password">
                         </AInput>
                         <AInput title="新的密码">
-                            <input v-model="form.password" type="password" placeholder="新的密码" class="base-input" name="password" />
+                            <input v-model="form.password" type="password" placeholder="新的密码" class="base-input" name="password">
                         </AInput>
                         <AInput title="确认密码">
-                            <input v-model="form.re_password" type="password" placeholder="确认密码" class="base-input" name="re_password" />
+                            <input v-model="form.re_password" type="password" placeholder="确认密码" class="base-input" name="re_password">
                         </AInput>
                     </div>
                     <div class="settings-footer"><a href="javascript:;" class="btn btn-yellow" @click="handleModify">保存设置</a></div>
@@ -34,7 +34,7 @@ export default {
     name: 'FrontendUserPassword',
     components: {
         AInput: aInput,
-        Account: account
+        Account: account,
     },
     mixins: [metaMixin, checkUser],
     data() {
@@ -43,8 +43,8 @@ export default {
             form: {
                 old_password: '',
                 password: '',
-                re_password: ''
-            }
+                re_password: '',
+            },
         }
     },
     methods: {
@@ -54,7 +54,8 @@ export default {
             if (!this.form.password || !this.form.old_password || !this.form.re_password) {
                 showMsg('请将表单填写完整!')
                 return
-            } else if (this.form.password !== this.form.re_password) {
+            }
+            else if (this.form.password !== this.form.re_password) {
                 showMsg('两次密码输入不一致!')
                 return
             }
@@ -67,13 +68,13 @@ export default {
                 this.form.password = ''
                 this.form.re_password = ''
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '密码 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

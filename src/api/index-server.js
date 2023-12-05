@@ -6,9 +6,9 @@ import config from './config-server'
 // import { sleep } from '@/utils'
 // const SSR = global.__VUE_SSR_CONTEXT__
 // const SSRCookies = SSR.cookies || {}
-function objToStr (cookies) {
+function objToStr(cookies) {
     let cookie = ''
-    Object.keys(cookies).forEach(item => {
+    Object.keys(cookies).forEach((item) => {
         cookie += `${item}=${cookies[item]}; `
     })
     return cookie
@@ -16,16 +16,16 @@ function objToStr (cookies) {
 
 export default {}
 
-export function api (cookies) {
+export function api(cookies) {
     return {
         cookies,
         api: axios.create({
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: objToStr(cookies)
+                'cookie': objToStr(cookies),
             },
-            timeout: config.timeout
+            timeout: config.timeout,
         }),
         getCookes() {
             return this.cookies
@@ -43,8 +43,8 @@ export function api (cookies) {
                 url,
                 data: qs.stringify(data),
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                }
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                },
             })
             if (config.cached && data.cache)
                 config.cached.set(key, res_1)
@@ -61,12 +61,12 @@ export function api (cookies) {
             return this.api({
                 method: 'get',
                 url,
-                params
-            }).then(res => {
+                params,
+            }).then((res) => {
                 if (config.cached && params.cache)
                     config.cached.set(key, res)
                 return res && res.data
             })
-        }
+        },
     }
 }

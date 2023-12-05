@@ -2,7 +2,7 @@
     <div class="settings-main card">
         <div class="settings-main-content">
             <AInput title="标题">
-                <input v-model="form.title" type="text" placeholder="标题" class="base-input" name="title" />
+                <input v-model="form.title" type="text" placeholder="标题" class="base-input" name="title">
                 <span class="input-info error">请输入标题</span>
             </AInput>
             <AInput title="分类" classes="select-item-wrap">
@@ -35,14 +35,14 @@ import checkAdmin from '@/mixins/check-admin'
 export default {
     name: 'BackendArticleInsert',
     components: {
-        AInput: aInput
+        AInput: aInput,
     },
     mixins: [checkAdmin],
     async asyncData({ store, route }, config = { limit: 99 }) {
         config.all = 1
         await store.dispatch('global/category/getCategoryList', {
             ...config,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
@@ -53,7 +53,7 @@ export default {
                 title: '',
                 category: '',
                 content: '',
-                html: ''
+                html: '',
             },
             externalLink: {
                 markdown_css: false,
@@ -63,7 +63,7 @@ export default {
                 },
                 hljs_css(css) {
                     // 这是你的代码高亮配色文件路径
-                    return `https://cdn.jsdelivr.net/npm/highlightjs/styles/${  css  }.min.css`
+                    return `https://cdn.jsdelivr.net/npm/highlightjs/styles/${css}.min.css`
                 },
                 hljs_lang() {
                     // 这是你的代码高亮语言解析路径
@@ -76,14 +76,14 @@ export default {
                 katex_js() {
                     // 这是你的katex.js路径
                     return 'https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js'
-                }
-            }
+                },
+            },
         }
     },
     computed: {
         ...mapGetters({
-            category: 'global/category/getCategoryList'
-        })
+            category: 'global/category/getCategoryList',
+        }),
     },
     async mounted() {
         this.renderMD = true
@@ -93,10 +93,9 @@ export default {
             // 第一步.将图片上传到服务器.
             const formdata = new FormData()
             formdata.append('file', $file)
-            const { data } = await this.$store.$api.file(`${uploadApi  }/ajax.php?action=upload`, formdata)
-            if (data && data.filepath) {
-                this.$refs.md.$img2Url(pos, `${uploadApi  }/${  data.filepath}`)
-            }
+            const { data } = await this.$store.$api.file(`${uploadApi}/ajax.php?action=upload`, formdata)
+            if (data && data.filepath)
+                this.$refs.md.$img2Url(pos, `${uploadApi}/${data.filepath}`)
         },
         async handleInsert() {
             if (this.loading)
@@ -114,13 +113,13 @@ export default {
                 this.$store.commit('backend/article/insertArticleItem', data)
                 this.$router.push('/backend/article/list')
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '发布文章 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

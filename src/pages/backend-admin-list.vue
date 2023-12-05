@@ -37,18 +37,18 @@ export default {
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/admin/getAdminList', {
             ...config,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
         return {
-            loading: false
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
-            admin: 'backend/admin/getAdminList'
-        })
+            admin: 'backend/admin/getAdminList',
+        }),
     },
     mounted() {},
     methods: {
@@ -70,13 +70,13 @@ export default {
                 showMsg({ type: 'success', content: message })
                 this.$store.commit('backend/admin/deleteAdmin', id)
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '管理员列表 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

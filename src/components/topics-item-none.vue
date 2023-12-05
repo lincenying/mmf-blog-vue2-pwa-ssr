@@ -10,6 +10,6 @@
 
 <script>
 export default {
-    name: 'TopicsItemNone'
+    name: 'TopicsItemNone',
 }
 </script>

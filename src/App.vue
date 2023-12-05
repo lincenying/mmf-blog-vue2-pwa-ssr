@@ -38,19 +38,19 @@ export default {
         SignUp: signUp,
         SignIn: signIn,
         BackTop: backTop,
-        BackendMenu: backendMenu
+        BackendMenu: backendMenu,
     },
     data() {
         return {
             // 需要缓存的路由组件 name
             cacheFronentComponents: 'frontend-index,frontend-about',
-            cacheBackendComponents: 'backend-admin-list,backend-article-list,backend-user-list'
+            cacheBackendComponents: 'backend-admin-list,backend-article-list,backend-user-list',
         }
     },
     computed: {
         ...mapGetters({
             global: 'global/get',
-            appShell: 'appShell/get'
+            appShell: 'appShell/get',
         }),
         key() {
             return this.$route.path.replace(/\//g, '_')
@@ -60,7 +60,7 @@ export default {
         },
         isLogin() {
             return ['/backend', '/backend/'].includes(this.$route.path)
-        }
+        },
     },
     methods: {
         handleBeforeEnter() {
@@ -71,7 +71,7 @@ export default {
         },
         handleClickHeaderBack() {
             this.$router.go(-1)
-        }
-    }
+        },
+    },
 }
 </script>

@@ -5,11 +5,11 @@
                 <div class="settings-main card">
                     <div class="settings-main-content">
                         <AInput title="昵称">
-                            <input type="text" :value="username" placeholder="昵称" class="base-input" name="username" readonly />
+                            <input type="text" :value="username" placeholder="昵称" class="base-input" name="username" readonly>
                             <span class="input-info error">请输入昵称</span>
                         </AInput>
                         <AInput title="邮箱">
-                            <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email" />
+                            <input v-model="form.email" type="text" placeholder="邮箱" class="base-input" name="email">
                             <span class="input-info error">请输入邮箱</span>
                         </AInput>
                     </div>
@@ -35,7 +35,7 @@ export default {
     name: 'FrontendUserAccount',
     components: {
         Account: account,
-        AInput: aInput
+        AInput: aInput,
     },
     mixins: [metaMixin, checkUser],
     data() {
@@ -43,8 +43,8 @@ export default {
             loading: false,
             username: '',
             form: {
-                email: ''
-            }
+                email: '',
+            },
         }
     },
     mounted() {
@@ -65,7 +65,8 @@ export default {
             if (!this.form.email) {
                 showMsg('请填写邮箱地址!')
                 return
-            } else if (!reg.test(this.form.email)) {
+            }
+            else if (!reg.test(this.form.email)) {
                 showMsg('邮箱格式错误!')
                 return
             }
@@ -73,23 +74,23 @@ export default {
             const { code, message } = await this.$store.$api.post('frontend/user/account', {
                 ...this.form,
                 username: this.username,
-                id: this.$oc(this.$store.state, 'global.cookies.userid')
+                id: this.$oc(this.$store.state, 'global.cookies.userid'),
             })
             this.loading = false
             if (code === 200) {
                 this.$store.commit('global/setCookies', {
                     ...this.$oc(this.$store.state, 'global.cookies'),
-                    useremail: this.form.email
+                    useremail: this.form.email,
                 })
                 showMsg({ type: 'success', content: message })
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '帐号 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

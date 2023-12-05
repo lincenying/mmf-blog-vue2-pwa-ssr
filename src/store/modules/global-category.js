@@ -1,54 +1,52 @@
 const state = {
     lists: [],
-    item: {}
+    item: {},
 }
 
 const actions = {
-    async 'getCategoryList'({ commit, state, rootState: { $api } }, config) {
+    async getCategoryList({ commit, state, rootState: { $api } }, config) {
         if (state.lists.length)
             return
         const { code, data } = await $api.get('backend/category/list', { ...config, cache: true })
-        if (data && code === 200) {
+        if (data && code === 200)
             commit('receiveCategoryList', data.list)
-        }
     },
-    async 'getCategoryItem'({ commit, rootState: { $api } }, config) {
+    async getCategoryItem({ commit, rootState: { $api } }, config) {
         const { code, data } = await $api.get('backend/category/item', config)
         if (data && code === 200) {
             commit('receiveCategoryItem', {
                 data,
-                ...config
+                ...config,
             })
         }
-    }
+    },
 }
 
 const mutations = {
-    'receiveCategoryList'(state, payload) {
+    receiveCategoryList(state, payload) {
         state.lists = payload
     },
-    'receiveCategoryItem'(state, payload) {
+    receiveCategoryItem(state, payload) {
         state.item = payload
     },
-    'insertCategoryItem'(state, payload) {
+    insertCategoryItem(state, payload) {
         state.lists = [payload].concat(state.lists)
     },
-    'updateCategoryItem'(state, payload) {
+    updateCategoryItem(state, payload) {
         state.item = payload
         const index = state.lists.findIndex(ii => ii._id === payload._id)
-        if (index > -1) {
+        if (index > -1)
             state.lists.splice(index, 1, payload)
-        }
-    }
+    },
 }
 
 const getters = {
-    'getCategoryList'(state) {
+    getCategoryList(state) {
         return state.lists
     },
-    'getCategoryItem'(state) {
+    getCategoryItem(state) {
         return state.item
-    }
+    },
 }
 
 export default {
@@ -56,5 +54,5 @@ export default {
     state,
     actions,
     mutations,
-    getters
+    getters,
 }

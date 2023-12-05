@@ -1,8 +1,10 @@
+import process from 'node:process'
+
 import { createApp } from './main'
 import { api } from '~api'
 
-export default context => {
-    // eslint-disable-next-line
+export default (context) => {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
         // const nowTime = Date.now()
         const { app, router, store } = await createApp()
@@ -10,9 +12,9 @@ export default context => {
         const url = context.url
         const fullPath = router.resolve(url).route.fullPath
 
-        if (fullPath !== url) {
+        if (fullPath !== url)
+            // eslint-disable-next-line prefer-promise-reject-errors
             reject({ url: fullPath })
-        }
 
         if (url !== '/backend/' && url.includes('/backend/')) {
             if (!context.req.cookies.b_user) {
@@ -34,9 +36,9 @@ export default context => {
             const matchedComponents = router.getMatchedComponents()
 
             // no matched routes
-            if (!matchedComponents.length) {
+            if (!matchedComponents.length)
+                // eslint-disable-next-line prefer-promise-reject-errors
                 reject({ code: 404 })
-            }
 
             store.$api = store.state.$api = api(context.req.cookies)
             store.commit('global/setCookies', context.req.cookies)
@@ -47,15 +49,15 @@ export default context => {
             Promise.all(
                 matchedComponents.map(
                     ({ asyncData }) =>
-                        asyncData &&
-                        asyncData({
+                        asyncData
+                        && asyncData({
                             store,
                             route: router.currentRoute,
                             cookies: context.req.cookies,
                             isServer: true,
-                            isClient: false
-                        })
-                )
+                            isClient: false,
+                        }),
+                ),
             )
                 .then(() => {
                     // console.log(`data pre-fetch: ${Date.now() - nowTime}ms`)

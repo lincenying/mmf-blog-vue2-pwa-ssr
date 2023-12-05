@@ -1,87 +1,86 @@
-function state () {
+function state() {
     return {
         lists: {
             hasNext: false,
             hasPrev: false,
             path: '',
             page: 1,
-            data: []
+            data: [],
         },
         item: {
             data: {},
-            path: ''
-        }
+            path: '',
+        },
     }
 }
 
 const actions = {
-    async 'getUserList'({ commit, state, rootState: { $api } }, config) {
+    async getUserList({ commit, state, rootState: { $api } }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1)
             return
         const { code, data } = await $api.get('backend/user/list', { ...config, cache: true })
         if (data && code === 200) {
             commit('receiveUserList', {
                 ...data,
-                ...config
+                ...config,
             })
         }
     },
-    async 'getUserItem'({ commit, rootState: { $api } }, config) {
+    async getUserItem({ commit, rootState: { $api } }, config) {
         const { code, data } = await $api.get('backend/user/item', config)
         if (data && code === 200) {
             commit('receiveUserItem', {
                 data,
-                ...config
+                ...config,
             })
         }
-    }
+    },
 }
 
 const mutations = {
-    'receiveUserList'(state, { list, path, hasNext, hasPrev, page }) {
-        if (page === 1) {
+    receiveUserList(state, { list, path, hasNext, hasPrev, page }) {
+        if (page === 1)
             list = [].concat(list)
-        } else {
+        else
             list = state.lists.data.concat(list)
-        }
+
         page++
         state.lists = {
             data: list,
             hasNext,
             hasPrev,
             page,
-            path
+            path,
         }
     },
-    'receiveUserItem'(state, payload) {
+    receiveUserItem(state, payload) {
         state.item = payload
     },
-    'updateUserItem'(state, payload) {
+    updateUserItem(state, payload) {
         state.item.data = payload
         const index = state.lists.data.findIndex(ii => ii._id === payload._id)
-        if (index > -1) {
+        if (index > -1)
             state.lists.data.splice(index, 1, payload)
-        }
     },
-    'deleteUser'(state, id) {
+    deleteUser(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
         if (obj)
             obj.is_delete = 1
     },
-    'recoverUser'(state, id) {
+    recoverUser(state, id) {
         const obj = state.lists.data.find(ii => ii._id === id)
         if (obj)
             obj.is_delete = 0
-    }
+    },
 }
 
 const getters = {
-    'getUserList'(state) {
+    getUserList(state) {
         return state.lists
     },
-    'getUserItem'(state) {
+    getUserItem(state) {
         return state.item
-    }
+    },
 }
 
 export default {
@@ -89,5 +88,5 @@ export default {
     state,
     actions,
     mutations,
-    getters
+    getters,
 }

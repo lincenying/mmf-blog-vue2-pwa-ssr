@@ -2,7 +2,7 @@
     <div class="card">
         <div class="comments">
             <div class="comment-post-wrap">
-                <img :src="userEmail | avatar" alt="" class="avatar-img" />
+                <img :src="userEmail | avatar" alt="" class="avatar-img">
                 <div class="comment-post-input-wrap base-textarea-wrap">
                     <textarea id="content" v-model="form.content" class="textarea-input base-input" cols="30" rows="4"></textarea>
                 </div>
@@ -11,7 +11,7 @@
             <div class="comment-items-wrap">
                 <div v-for="item in comments.data" :key="item._id" class="comment-item">
                     <a href="javascript:;" class="comment-author-avatar-link">
-                        <img :src="item.userid.email | avatar" alt="" class="avatar-img" />
+                        <img :src="item.userid.email | avatar" alt="" class="avatar-img">
                     </a>
                     <div class="comment-content-wrap">
                         <span class="comment-author-wrap">
@@ -47,8 +47,8 @@ export default {
             postLoading: false,
             form: {
                 id: this.$route.params.id,
-                content: ''
-            }
+                content: '',
+            },
         }
     },
     computed: {
@@ -57,7 +57,7 @@ export default {
         },
         userEmail() {
             return this.$oc(this.$store.state, 'global.cookies.useremail')
-        }
+        },
     },
     methods: {
         async loadcomment() {
@@ -65,7 +65,7 @@ export default {
             await this.$store.dispatch(`global/comment/getCommentList`, {
                 id: this.$route.params.id,
                 page: this.comments.page + 1,
-                limit: 10
+                limit: 10,
             })
             this.loading = false
         },
@@ -76,9 +76,9 @@ export default {
                 this.$store.commit('global/showLoginModal', true)
                 return showMsg('请先登录!')
             }
-            if (this.form.content === '') {
+            if (this.form.content === '')
                 return showMsg('请输入评论内容!')
-            }
+
             this.postLoading = true
             const { code, data } = await this.$store.$api.post('frontend/comment/insert', this.form)
             this.postLoading = false
@@ -89,9 +89,9 @@ export default {
             }
         },
         handleReply(username) {
-            this.form.content = `回复 @${  username  }: `
+            this.form.content = `回复 @${username}: `
             document.querySelector('#content').focus()
-        }
-    }
+        },
+    },
 }
 </script>

@@ -39,18 +39,18 @@ export default {
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/article/getArticleList', {
             ...config,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
         return {
-            loading: false
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
-            topics: 'backend/article/getArticleList'
-        })
+            topics: 'backend/article/getArticleList',
+        }),
     },
     mounted() {},
     methods: {
@@ -72,13 +72,13 @@ export default {
                 showMsg({ type: 'success', content: message })
                 this.$store.commit('backend/article/deleteArticle', id)
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '文章列表 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

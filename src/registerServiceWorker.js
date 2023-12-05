@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
@@ -21,13 +22,11 @@ if (process.env.NODE_ENV === 'production') {
             for (let i = 0, len = metas.length; i < len; i++) {
                 const meta = metas[i]
 
-                if (meta.name === 'theme-color') {
+                if (meta.name === 'theme-color')
                     meta.content = '#000'
-                }
             }
 
             const dom = document.createElement('div')
-
 
             dom.innerHTML = `
                     <div class="app-refresh" id="app-refresh">
@@ -48,6 +47,6 @@ if (process.env.NODE_ENV === 'production') {
         },
         error(error) {
             console.error('Error during service worker registration:', error)
-        }
+        },
     })
 }

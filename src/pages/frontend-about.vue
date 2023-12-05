@@ -62,7 +62,7 @@ import metaMixin from '@/mixins'
 export default {
     name: 'FrontendAbout',
     components: {
-        Trending: trending
+        Trending: trending,
     },
     mixins: [metaMixin],
     async asyncData({ store }) {
@@ -70,15 +70,15 @@ export default {
     },
     computed: {
         ...mapGetters({
-            trending: 'frontend/article/getTrending'
-        })
+            trending: 'frontend/article/getTrending',
+        }),
     },
     mounted() {},
     metaInfo() {
         return {
             title: '关于 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

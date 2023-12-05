@@ -38,18 +38,18 @@ export default {
     async asyncData({ store, route }, config = { page: 1 }) {
         await store.dispatch('backend/user/getUserList', {
             ...config,
-            path: route.path
+            path: route.path,
         })
     },
     data() {
         return {
-            loading: false
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
-            user: 'backend/user/getUserList'
-        })
+            user: 'backend/user/getUserList',
+        }),
     },
     mounted() {},
     methods: {
@@ -71,13 +71,13 @@ export default {
                 showMsg({ type: 'success', content: message })
                 this.$store.commit('backend/user/deleteUser', id)
             }
-        }
+        },
     },
     metaInfo() {
         return {
             title: '用户列表 - M.M.F 小屋',
-            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }]
+            meta: [{ vmid: 'description', name: 'description', content: 'M.M.F 小屋' }],
         }
-    }
+    },
 }
 </script>

@@ -22,7 +22,9 @@
                         <router-link
                             :to="`/category/${article.data.category}`"
                             class="topic-link-item"
-                        >{{ article.data.category_name }}</router-link>
+                        >
+                            {{ article.data.category_name }}
+                        </router-link>
                         <h2 class="question-title">
                             <router-link :to="`/article/${article.data._id}`" class="question-title-link">{{ article.data.title }}</router-link>
                         </h2>
@@ -64,7 +66,7 @@ export default {
         Comment: comment,
         Category: category,
         Trending: trending,
-        Other: other
+        Other: other,
     },
     mixins: [metaMixin],
     beforeRouteUpdate(to, from, next) {
@@ -75,13 +77,13 @@ export default {
     async asyncData({ store, route }) {
         const {
             path,
-            params: { id }
+            params: { id },
         } = route
         await Promise.all([
             store.dispatch('global/category/getCategoryList'),
             store.dispatch('frontend/article/getTrending'),
             store.dispatch(`global/comment/getCommentList`, { id, path, page: 1, limit: 10 }),
-            store.dispatch(`frontend/article/getArticleItem`, { id, path })
+            store.dispatch(`frontend/article/getArticleItem`, { id, path }),
         ])
     },
     computed: {
@@ -89,8 +91,8 @@ export default {
             article: 'frontend/article/getArticleItem',
             comments: 'global/comment/getCommentList',
             category: 'global/category/getCategoryList',
-            trending: 'frontend/article/getTrending'
-        })
+            trending: 'frontend/article/getTrending',
+        }),
     },
     mounted() {
         // this.$options.asyncData({store: this.$store})
@@ -100,14 +102,14 @@ export default {
             if (!content)
                 return ''
             return content.replace(/<a(.*?)href="http/g, '<a$1target="_blank" href="http')
-        }
+        },
     },
     metaInfo() {
-        const title = this.article.data.title ? `${this.article.data.title  } - M.M.F 小屋` : 'M.M.F 小屋'
+        const title = this.article.data.title ? `${this.article.data.title} - M.M.F 小屋` : 'M.M.F 小屋'
         return {
             title,
-            meta: [{ vmid: 'description', name: 'description', content: title }]
+            meta: [{ vmid: 'description', name: 'description', content: title }],
         }
-    }
+    },
 }
 </script>

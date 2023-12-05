@@ -4,40 +4,40 @@ import config from './config-client'
 import { showMsg } from '@/utils'
 
 axios.interceptors.request.use(
-    config => {
+    (config) => {
         return config
     },
-    error => {
+    (error) => {
         return Promise.reject(error)
-    }
+    },
 )
 
 axios.interceptors.response.use(
     response => response,
-    error => Promise.resolve(error.response)
+    error => Promise.resolve(error.response),
 )
 
 function checkStatus(response) {
-    if (response && (response.status === 200 || response.status === 304)) {
+    if (response && (response.status === 200 || response.status === 304))
         return response
-    }
+
     return {
         data: {
             code: -404,
             message: response.statusText,
-            data: ''
-        }
+            data: '',
+        },
     }
 }
 
 function checkCode(res) {
-    if (res.data.code === -500) {
+    if (res.data.code === -500)
         window.location.href = '/backend'
-    } else if (res.data.code === -400) {
+    else if (res.data.code === -400)
         window.location.href = '/'
-    } else if (res.data.code !== 200) {
+    else if (res.data.code !== 200)
         showMsg(res.data.message)
-    }
+
     return res && res.data
 }
 
@@ -48,8 +48,8 @@ export default {
             url,
             data,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+                'X-Requested-With': 'XMLHttpRequest',
+            },
         })
             .then(checkStatus)
             .then(checkCode)
@@ -62,8 +62,8 @@ export default {
             timeout: config.timeout,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
         })
             .then(checkStatus)
             .then(checkCode)
@@ -75,10 +75,10 @@ export default {
             params,
             timeout: config.timeout,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+                'X-Requested-With': 'XMLHttpRequest',
+            },
         })
             .then(checkStatus)
             .then(checkCode)
-    }
+    },
 }

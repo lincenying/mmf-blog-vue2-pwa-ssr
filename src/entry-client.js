@@ -63,7 +63,7 @@ Vue.mixin({
 
     // 页面渲染后, 跳转到记录的滚动条位置
     beforeRouteEnter(to, from, next) {
-        next(vm => {
+        next((vm) => {
             // 通过 `vm` 访问组件实例
             vm.$nextTick().then(() => {
                 const scrollTop = vm.$store.state.appShell.historyPageScrollTop[to.fullPath] || 0
@@ -77,10 +77,10 @@ Vue.mixin({
     beforeRouteLeave(to, from, next) {
         this.$store.dispatch('appShell/saveScrollTop', {
             path: from.fullPath,
-            scrollTop: Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+            scrollTop: Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop),
         })
         next()
-    }
+    },
 })
 
 // 此时异步组件已经加载完成
@@ -94,13 +94,12 @@ router.beforeResolve((to, from, next) => {
     let diffed = false
     const activated = matched.filter((c, i) => diffed || (diffed = prevMatched[i] !== c))
 
-    if (!activated.length) {
+    if (!activated.length)
         return next()
-    }
 
     loading.start()
     Promise.all(
-        activated.map(c => {
+        activated.map((c) => {
             /**
              * 两种情况下执行asyncData:
              * 1. 非keep-alive组件每次都需要执行
@@ -112,13 +111,14 @@ router.beforeResolve((to, from, next) => {
                         store,
                         route: to,
                         isServer: false,
-                        isClient: true
+                        isClient: true,
                     })
                     .then(() => {
                         c.asyncDataFetched = true
                     })
             }
-        })
+            return undefined
+        }),
     )
         .then(() => {
             loading.finish()

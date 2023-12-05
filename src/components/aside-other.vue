@@ -16,6 +16,6 @@ export default {
     name: 'AsideOther',
     serverCacheKey: () => {
         return `aside::other`
-    }
+    },
 }
 </script>
