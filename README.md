@@ -1,6 +1,7 @@
-vue2版本不再更新, 请异步vue3版本:
+# vue2版本不再更新, 请移步vue3版本:
 
 [https://github.com/lincenying/mmf-blog-vite-vue3-ssr](https://github.com/lincenying/mmf-blog-vite-vue3-ssr)
+
 
 ---
 
