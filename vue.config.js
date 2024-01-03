@@ -1,5 +1,5 @@
-/* eslint-disable no-inline-comments */
-const path = require('path')
+const path = require('node:path')
+const process = require('node:process')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
@@ -17,7 +17,7 @@ module.exports = {
             assetFilter(assetFilename) {
                 // 提供资源文件名的断言函数
                 return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
-            }
+            },
         },
         plugins: [
             new SWPrecachePlugin({
@@ -34,9 +34,9 @@ module.exports = {
                             networkTimeoutSeconds: 1,
                             cacheName: 'api-cache',
                             cacheableResponse: {
-                                statuses: [0, 200]
-                            }
-                        }
+                                statuses: [0, 200],
+                            },
+                        },
                     },
                     {
                         urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
@@ -45,9 +45,9 @@ module.exports = {
                             networkTimeoutSeconds: 1,
                             cacheName: 'cdn-cache',
                             cacheableResponse: {
-                                statuses: [0, 200]
-                            }
-                        }
+                                statuses: [0, 200],
+                            },
+                        },
                     },
                     {
                         urlPattern: /^https:\/\/fdn\.geekzu\.org/,
@@ -56,38 +56,37 @@ module.exports = {
                             networkTimeoutSeconds: 1,
                             cacheName: 'avatar-cache',
                             cacheableResponse: {
-                                statuses: [0, 200]
-                            }
-                        }
-                    }
-                ]
-            })
-        ]
+                                statuses: [0, 200],
+                            },
+                        },
+                    },
+                ],
+            }),
+        ],
     },
-    chainWebpack: config => {
+    chainWebpack: (config) => {
         const htmlSsrPlugin = config.plugins.get('html-ssr')
-        if (htmlSsrPlugin) {
+        if (htmlSsrPlugin)
             htmlSsrPlugin.store.get('args')[0].chunks = []
-        }
 
         config.module
             .rule('vue')
             .use('vue-loader')
-            .tap(options => {
+            .tap((options) => {
                 options.compilerOptions.preserveWhitespace = true
                 return options
             })
         config.module.rule('eslint').uses.clear()
         config.module.rule('eslint').clear()
         config.resolve.alias.set('~', path.resolve('src'))
-        if (process.env.VUE_CLI_SSR_TARGET === 'client') {
+        if (process.env.VUE_CLI_SSR_TARGET === 'client')
             config.resolve.alias.set('~api', path.resolve('src/api/index-client.js'))
-        } else {
+
+        else
             config.resolve.alias.set('~api', path.resolve('src/api/index-server.js'))
-        }
     },
     css: {
-        loaderOptions: {}
+        loaderOptions: {},
     },
     pluginOptions: {
         ssr: {
@@ -108,8 +107,8 @@ module.exports = {
             // ===== Enable Critical CSS
             // criticalCSS: true,
             // ===== 跳过服务器端渲染的一些请求
-            skipRequests: req => {
-                return req.originalUrl.indexOf('/css/') > -1 || req.originalUrl.indexOf('/js/') > -1
+            skipRequests: (req) => {
+                return req.originalUrl.includes('/css/') || req.originalUrl.includes('/js/')
             },
             // ===== See https://ssr.vuejs.org/guide/build-config.html#externals-caveats
             nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
@@ -128,14 +127,14 @@ module.exports = {
             // ===== 扩展应用程序上下文对象
             // extendContext: (req, res, process) => ({ appMode: process.env.APP_MODE }),
             // ===== 连接自定义中间件
-            extendServer: app => {
+            extendServer: (app) => {
                 const logger = require('morgan')
                 app.use(
                     logger('[:remote-addr] ":method :url" :status :res[content-length] ":referrer" ":date[web]"', {
                         skip(req) {
-                            return req.url.indexOf('.map') !== -1
-                        }
-                    })
+                            return req.url.includes('.map')
+                        },
+                    }),
                 )
                 const express = require('express')
 
@@ -150,9 +149,9 @@ module.exports = {
                         target: 'http://localhost:4000',
                         changeOrigin: true,
                         pathRewrite: {
-                            '^/api': '/api'
-                        }
-                    })
+                            '^/api': '/api',
+                        },
+                    }),
                 )
 
                 // parse application/json
@@ -174,8 +173,8 @@ module.exports = {
             distPath: path.resolve(__dirname, './dist'),
             error500Html: null,
             templatePath: path.resolve(__dirname, './dist/index.ssr.html'),
-            serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js')
-        }
+            serviceWorkerPath: path.resolve(__dirname, './dist/service-worker.js'),
+        },
     },
     pwa: {
         name: 'M.M.F小屋',
@@ -185,14 +184,14 @@ module.exports = {
         appleMobileWebAppStatusBarStyle: 'black',
         manifestPath: 'static/manifest.json',
         manifestOptions: {
-            start_url: '/'
+            start_url: '/',
         },
         iconPaths: {
             favicon32: 'static/img/icons/favicon-32x32.png',
             favicon16: 'static/img/icons/favicon-16x16.png',
             appleTouchIcon: 'static/img/icons/apple-touch-icon-152x152.png',
             maskIcon: 'static/img/icons/safari-pinned-tab.svg',
-            msTileImage: 'static/img/icons/msapplication-icon-144x144.png'
-        }
-    }
+            msTileImage: 'static/img/icons/msapplication-icon-144x144.png',
+        },
+    },
 }
